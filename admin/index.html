@@ -1,0 +1,43 @@
+<!-- admin/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админка — Виктория</title>
+  <script src="https://unpkg.com/@sveltia/cms@latest/dist/sveltia-cms.js"></script>
+</head>
+<body>
+  <script>
+    SveltiaCMS.init({
+      backend: {
+        name: 'github',
+        repo: 'agbox77/viktoria',
+        branch: 'main',
+        base_url: 'https://ваш-worker.workers.dev',  // замените после настройки
+        auth_endpoint: 'auth/github'
+      },
+      media_folder: 'static/images',
+      public_folder: '/static/images',
+      collections: [
+        {
+          name: 'circles',
+          label: 'Кружки',
+          label_singular: 'Кружок',
+          folder: '_data/circles',
+          create: true,
+          slug: '{{slug}}',
+          fields: [
+            { label: 'Название', name: 'title', widget: 'string' },
+            { label: 'Категория', name: 'category', widget: 'string' },
+            { label: 'Возраст', name: 'age', widget: 'string' },
+            { label: 'Адрес', name: 'address', widget: 'string' },
+            { label: 'Педагог', name: 'teacher', widget: 'string' },
+            { label: 'Ссылка на запись', name: 'link', widget: 'string' }
+          ]
+        }
+      ]
+    });
+  </script>
+</body>
+</html>
