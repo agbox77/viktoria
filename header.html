@@ -7,15 +7,15 @@
     </div>
   </a>
 
-  <!-- НАВИГАЦИЯ -->
-  <nav style="display:flex; align-items:center; gap:24px;">
+  <!-- НАВИГАЦИЯ (десктоп) -->
+  <nav class="topbar-nav">
     <a href="/viktoria/index.html" class="nav-link">Кружки</a>
     <a href="/viktoria/events.html" class="nav-link">Мастер-классы</a>
     <a href="/viktoria/prazdnik.html" class="nav-link">🎉 Праздники</a>
   </nav>
 
-  <!-- СОЦИАЛЬНЫЕ СЕТИ -->
-  <div class="social-links">
+  <!-- СОЦИАЛЬНЫЕ СЕТИ (десктоп) -->
+  <div class="social-links topbar-social">
     <a class="social-icon" href="https://t.me/dyutsvictory" target="_blank" rel="noopener" title="Telegram">
       <img src="/viktoria/static/icons/icon-telegram.png" alt="Telegram">
     </a>
@@ -26,4 +26,61 @@
       <img src="/viktoria/static/icons/icon-max.png" alt="Max">
     </a>
   </div>
+
+  <!-- БУРГЕР (мобильный) -->
+  <button class="burger" id="burgerBtn" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
+<!-- МОБИЛЬНОЕ МЕНЮ -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/viktoria/index.html" class="mobile-nav-link">Кружки</a>
+  <a href="/viktoria/events.html" class="mobile-nav-link">Мастер-классы</a>
+  <a href="/viktoria/prazdnik.html" class="mobile-nav-link">🎉 Праздники</a>
+  <div class="mobile-socials">
+    <a href="https://t.me/dyutsvictory" target="_blank" rel="noopener">
+      <img src="/viktoria/static/icons/icon-telegram.png" alt="Telegram">
+    </a>
+    <a href="https://vk.com/dyutsvictory" target="_blank" rel="noopener">
+      <img src="/viktoria/static/icons/icon-vk.png" alt="ВКонтакте">
+    </a>
+    <a href="https://max.ru/id7724732065_gos" target="_blank" rel="noopener">
+      <img src="/viktoria/static/icons/icon-max.png" alt="Max">
+    </a>
+  </div>
+</div>
+
+<style>
+  .topbar-nav { display:flex; align-items:center; gap:24px; }
+  .topbar-social { display:flex; }
+  .burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; }
+  .burger span { display:block; width:22px; height:2px; background:var(--text); border-radius:2px; transition:all 0.25s; }
+
+  .mobile-menu { display:none; position:fixed; top:72px; left:0; right:0; background:#fff; border-bottom:1px solid var(--border); box-shadow:0 8px 24px rgba(60,40,10,0.1); z-index:99; padding:16px 24px 20px; flex-direction:column; gap:4px; }
+  .mobile-menu.open { display:flex; }
+  .mobile-nav-link { text-decoration:none; font-size:15px; font-weight:600; color:var(--text); padding:12px 0; border-bottom:1px solid var(--border); transition:color 0.15s; }
+  .mobile-nav-link:last-of-type { border-bottom:none; }
+  .mobile-nav-link:hover { color:var(--accent); }
+  .mobile-socials { display:flex; gap:16px; padding-top:16px; }
+  .mobile-socials img { width:32px; height:32px; opacity:0.8; }
+  .mobile-socials a:hover img { opacity:1; }
+
+  @media (max-width:768px) {
+    .topbar-nav { display:none; }
+    .topbar-social { display:none; }
+    .burger { display:flex; }
+  }
+</style>
+
+<script>
+  document.getElementById('burgerBtn').addEventListener('click', function() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+  // Подсвечиваем активную ссылку
+  document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+    if (window.location.pathname.endsWith(link.getAttribute('href').split('/').pop())) {
+      link.style.color = 'var(--accent)';
+    }
+  });
+</script>
