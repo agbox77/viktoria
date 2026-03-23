@@ -22,3 +22,22 @@ collections:
       - { name: address, label: Адрес, widget: string }
       - { name: teacher, label: Педагог, widget: string }
       - { name: link, label: Ссылка на запись, widget: string }
+
+  - name: events
+    label: Мастер-классы
+    label_singular: Мастер-класс
+    folder: _events
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Название, widget: string }
+      - { name: category, label: Категория, widget: string, default: "Мастер-класс" }
+      - { name: date, label: Дата и время, widget: datetime, date_format: DD.MM.YYYY, time_format: HH:mm, format: DD.MM.YYYY HH:mm }
+      - { name: price, label: Стоимость, widget: string, default: "Бесплатно" }
+      - { name: age, label: Возраст, widget: string }
+      - { name: address, label: Адрес, widget: string }
+      - { name: teacher, label: Педагог, widget: string }
+      - { name: post_link, label: Ссылка на пост (VK/Telegram), widget: string, required: false }
+      - { name: description, label: Описание, widget: text, required: false }
+      - { name: image, label: Изображение, widget: image, required: false, media_folder: "static/images/events", public_folder: "/static/images/events" }
+      - { name: status, label: Статус, widget: select, options: ["active", "completed", "cancelled"], default: "active" }
