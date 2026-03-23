@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Игры — Детско-юношеский центр «Виктория»</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/viktoria/css/style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      padding: 64px 24px 56px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(232,146,26,0.14) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 50% at 10% 90%, rgba(90,171,122,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 90% 80%, rgba(155,121,168,0.08) 0%, transparent 60%);
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); background: rgba(232,146,26,0.1); border: 1px solid rgba(232,146,26,0.2);
+      border-radius: 100px; padding: 6px 16px; margin-bottom: 24px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 6vw, 68px);
+      font-weight: 900; line-height: 1; letter-spacing: -0.02em;
+      margin-bottom: 18px; color: var(--text);
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub {
+      font-size: 16px; color: var(--muted); max-width: 480px;
+      margin: 0 auto; line-height: 1.7;
+    }
+
+    /* GAMES GRID */
+    .games-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 100px;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    /* GAME CARD */
+    .game-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .game-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(60,40,10,0.12);
+      border-color: rgba(232,146,26,0.3);
+    }
+
+    /* CARD PREVIEW — игровой превью */
+    .card-preview {
+      position: relative;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Картинг */
+    .preview-karting {
+      background: linear-gradient(160deg, #1a3a6b 0%, #0d2550 60%, #1a4a2b 100%);
+    }
+    .preview-karting .track-svg {
+      position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.25;
+    }
+    .preview-karting .car-emoji {
+      font-size: 56px;
+      position: relative; z-index: 2;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
+      animation: carBounce 1.8s ease-in-out infinite;
+    }
+    @keyframes carBounce {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-8px) rotate(3deg); }
+    }
+    .preview-karting .speed-lines {
+      position: absolute; inset: 0; z-index: 1;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent 0px, transparent 18px,
+        rgba(255,255,255,0.04) 18px, rgba(255,255,255,0.04) 20px
+      );
+    }
+
+    /* Заглушка — скоро */
+    .preview-coming {
+      background: linear-gradient(160deg, #f3f0eb 0%, #ede8e0 100%);
+    }
+    .preview-coming .coming-icon {
+      font-size: 52px;
+      opacity: 0.35;
+    }
+    .coming-badge {
+      position: absolute;
+      top: 14px; right: 14px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--surface2); color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 6px; padding: 4px 10px;
+    }
+
+    /* CARD BODY */
+    .card-body {
+      padding: 22px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); background: rgba(232,146,26,0.1);
+      border: 1px solid rgba(232,146,26,0.2);
+      border-radius: 5px; padding: 3px 8px;
+    }
+    .card-tag.green {
+      color: var(--green2); background: rgba(61,138,92,0.08);
+      border-color: rgba(61,138,92,0.2);
+    }
+    .card-tag.lilac {
+      color: var(--lilac2); background: rgba(122,88,137,0.08);
+      border-color: rgba(122,88,137,0.2);
+    }
+    .card-difficulty {
+      margin-left: auto;
+      font-size: 11px; font-weight: 600; color: var(--muted);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .diff-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--border);
+    }
+    .diff-dot.filled { background: var(--accent); }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 700;
+      color: var(--text); line-height: 1.2;
+    }
+    .card-desc {
+      font-size: 13px; color: var(--muted); line-height: 1.6;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-stats {
+      display: flex; gap: 16px;
+    }
+    .card-stat {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 600; color: var(--muted);
+    }
+
+    .card-play-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 10px;
+      padding: 10px 18px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .card-play-btn:hover { background: var(--accent2); transform: scale(1.04); }
+
+    .card-play-btn.disabled {
+      background: var(--surface2);
+      color: var(--muted);
+      cursor: not-allowed;
+      border: 1px solid var(--border);
+    }
+    .card-play-btn.disabled:hover { transform: none; background: var(--surface2); }
+
+    /* FOOTER */
+    .footer {
+      background: #fff; border-top: 1px solid var(--border);
+      padding: 28px 32px; display: flex;
+      align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-left { display: flex; align-items: center; gap: 12px; }
+    .footer-left img { height: 36px; opacity: 0.7; }
+    .footer-org { font-size: 12px; font-weight: 600; color: var(--muted); line-height: 1.4; }
+    .footer-copy { font-size: 11px; color: var(--muted); opacity: 0.6; }
+
+    @media (max-width: 768px) {
+      .games-grid { grid-template-columns: 1fr; }
+      .hero { padding: 40px 16px 36px; }
+      .games-wrap { padding: 32px 16px 80px; }
+      .footer { padding: 20px 16px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<script src="/viktoria/header.js"></script>
+
+<div class="hero">
+  <div class="hero-eyebrow">
+    🎮 Игровая зона
+  </div>
+  <h1 class="hero-title">Играй и<br><span>побеждай!</span></h1>
+  <p class="hero-sub">Мини-игры по активностям нашего центра. Попробуй себя в картинге, творчестве и не только — прямо в браузере!</p>
+</div>
+
+<div class="games-wrap">
+  <div class="games-grid">
+
+    <!-- КАРТИНГ -->
+    <a class="game-card" href="/viktoria/karting.html">
+      <div class="card-preview preview-karting">
+        <div class="speed-lines"></div>
+        <svg class="track-svg" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="200" cy="100" rx="160" ry="70" stroke="white" stroke-width="18" stroke-dasharray="8 6" fill="none"/>
+          <ellipse cx="200" cy="100" rx="110" ry="35" stroke="white" stroke-width="6" fill="none" opacity="0.5"/>
+        </svg>
+        <span class="car-emoji">🏎️</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta-row">
+          <span class="card-tag">Скорость</span>
+          <span class="card-tag green">Реакция</span>
+          <div class="card-difficulty">
+            <div class="diff-dot filled"></div>
+            <div class="diff-dot filled"></div>
+            <div class="diff-dot"></div>
+            <span>Средне</span>
+          </div>
+        </div>
+        <div class="card-title">Картинг</div>
+        <div class="card-desc">Проедь круг по треку за минимальное время. Управляй стрелками или касаниями — не врежься!</div>
+        <div class="card-footer">
+          <div class="card-stats">
+            <div class="card-stat">🏁 1 круг</div>
+            <div class="card-stat">⏱️ ~2 мин</div>
+          </div>
+          <span class="card-play-btn">
+            ▶ Играть
+          </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- СКОРО 1 -->
+    <div class="game-card" style="cursor:default;">
+      <div class="card-preview preview-coming">
+        <span class="coming-icon">🎨</span>
+        <span class="coming-badge">Скоро</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta-row">
+          <span class="card-tag lilac">Творчество</span>
+          <div class="card-difficulty">
+            <div class="diff-dot filled"></div>
+            <div class="diff-dot"></div>
+            <div class="diff-dot"></div>
+            <span>Легко</span>
+          </div>
+        </div>
+        <div class="card-title">Художник</div>
+        <div class="card-desc">Создай свой шедевр в мини-редакторе и поделись с друзьями. Скоро появится!</div>
+        <div class="card-footer">
+          <div class="card-stats">
+            <div class="card-stat">🎨 Рисование</div>
+          </div>
+          <span class="card-play-btn disabled">
+            🔒 Скоро
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- СКОРО 2 -->
+    <div class="game-card" style="cursor:default;">
+      <div class="card-preview preview-coming">
+        <span class="coming-icon">🧩</span>
+        <span class="coming-badge">Скоро</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta-row">
+          <span class="card-tag green">Логика</span>
+          <div class="card-difficulty">
+            <div class="diff-dot filled"></div>
+            <div class="diff-dot filled"></div>
+            <div class="diff-dot filled"></div>
+            <span>Сложно</span>
+          </div>
+        </div>
+        <div class="card-title">Головоломка</div>
+        <div class="card-desc">Собери паззл на время и проверь скорость мышления. Готовится к запуску!</div>
+        <div class="card-footer">
+          <div class="card-stats">
+            <div class="card-stat">🧩 Паззл</div>
+          </div>
+          <span class="card-play-btn disabled">
+            🔒 Скоро
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-left">
+    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
+    <div class="footer-org">
+      ГБОУ ДО ДЮЦ «Виктория»<br>
+      <span style="font-weight:400; opacity:0.7;">г. Москва</span>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 Детско-юношеский центр «Виктория»</div>
+</footer>
+
+</body>
+</html>
