@@ -229,7 +229,7 @@ function renderEvents() {
   
   grid.innerHTML = filtered.map(e => `
     <a href="./event.html?slug=${e.slug}" class="event-card">
-      <div class="event-image" style="background-image: url('${e.image || '/static/images/events/default.jpg'}')">
+      <div class="event-image" style="background-image: url('${e.image || '/static/images/events/default.png'}')">
         ${e.status !== 'active' ? `<span class="event-badge ${e.status}">${e.status === 'completed' ? 'Прошедший' : 'Отменён'}</span>` : ''}
       </div>
       <div class="event-content">
