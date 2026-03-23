@@ -188,10 +188,16 @@
   
   <!-- НАВИГАЦИЯ -->
   <div style="display:flex; align-items:center; gap:24px;">
-    <a href="./index.html" style="text-decoration:none; font-size:14px; font-weight:600; color:var(--accent);">Кружки</a>
+    <a href="./index.html" style="text-decoration:none; font-size:14px; font-weight:600; color:var(--muted); transition:color 0.15s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Кружки</a>
     <a href="./events.html" style="text-decoration:none; font-size:14px; font-weight:600; color:var(--muted); transition:color 0.15s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Мастер-классы</a>
-    <a href="./prazdnik.html" style="text-decoration:none; font-size:14px; font-weight:600; color:var(--muted); transition:color 0.15s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">🎉 Праздники</a>
+    <a href="./prazdnik.html" style="text-decoration:none; font-size:14px; font-weight:600; color:var(--accent);">🎉 Праздники</a>
   </div>
+  
+  <a class="topbar-back" href="./index.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Все кружки
+  </a>
+</header>
   
   <div class="topbar-badge">Каталог кружков</div>
 </header>
