@@ -1,8 +1,3 @@
 include:
   - _events
   - _data
-```
-
-Это скажет Jekyll публиковать эти папки. После этого иконки будут доступны по адресу:
-```
-https://agbox77.github.io/viktoria/_events/static/icons/icon-telegram.png
