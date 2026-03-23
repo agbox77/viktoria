@@ -243,4 +243,40 @@ async function loadEvent() {
     `;
     
     let metaHtml = '';
-    if (foundEvent.date) metaHtml += `<div class="meta-item"><div class="meta-icon">📅
+    if (foundEvent.date) metaHtml += `<div class="meta-item"><div class="meta-icon">📅</div><div class="meta-text"><strong>Дата и время</strong><div>${foundEvent.date}</div></div></div>`;
+    if (foundEvent.age) metaHtml += `<div class="meta-item"><div class="meta-icon">👥</div><div class="meta-text"><strong>Возраст</strong><div>${foundEvent.age} лет</div></div></div>`;
+    if (foundEvent.address) metaHtml += `<div class="meta-item"><div class="meta-icon">📍</div><div class="meta-text"><strong>Адрес</strong><div>${foundEvent.address}</div></div></div>`;
+    if (foundEvent.teacher) metaHtml += `<div class="meta-item"><div class="meta-icon">👩‍🏫</div><div class="meta-text"><strong>Педагог</strong><div>${foundEvent.teacher}</div></div></div>`;
+    document.getElementById('eventMeta').innerHTML = metaHtml;
+    
+    document.getElementById('eventPrice').textContent = foundEvent.price || 'Бесплатно';
+    document.getElementById('eventDescription').textContent = foundEvent.description || 'Описание мастер-класса появится позже. Следите за обновлениями!';
+    
+    let actionsHtml = '';
+    if (foundEvent.status === 'active') {
+      if (foundEvent.post_link) {
+        actionsHtml += `<a href="${foundEvent.post_link}" target="_blank" class="btn-primary">📱 Подробнее и запись</a>`;
+      }
+      actionsHtml += `<a href="./events.html" class="btn-secondary">Все мастер-классы</a>`;
+    } else {
+      actionsHtml += `<a href="./events.html" class="btn-primary">Смотреть актуальные мастер-классы</a>`;
+    }
+    document.getElementById('eventActions').innerHTML = actionsHtml;
+    
+    if (foundEvent.post_link) {
+      const vkData = parsePostLink(foundEvent.post_link);
+      if (vkData) {
+        loadVKWidget(vkData.ownerId, vkData.postId);
+      }
+    }
+    
+  } catch (error) {
+    console.error('Ошибка загрузки:', error);
+    document.getElementById('eventTitle').textContent = 'Ошибка загрузки';
+  }
+}
+
+loadEvent();
+</script>
+</body>
+</html>
