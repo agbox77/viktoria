@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мастер-классы — Детско-юношеский центр «Виктория»</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f5; --surface: #ffffff; --surface2: #f3f0eb;
+      --border: rgba(60,40,20,0.1); --accent: #e8921a; --accent2: #c96d10;
+      --green2: #3d8a5c; --lilac2: #7a5889;
+      --text: #2c2416; --muted: #8a7a68; --radius: 16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* TOPBAR */
+    .topbar { background:#fff; border-bottom:1px solid var(--border); padding:0 32px; display:flex; align-items:center; justify-content:space-between; height:72px; position:sticky; top:0; z-index:100; }
+    .topbar-logo { display:flex; align-items:center; gap:14px; text-decoration:none; }
+    .topbar-logo img { height:48px; width:auto; }
+    .topbar-name strong { font-size:15px; font-weight:700; color:var(--text); font-family:'Playfair Display',serif; }
+    .topbar-name span { font-size:11px; color:var(--muted); }
+    .nav-links { display:flex; gap:24px; align-items:center; }
+    .nav-link { text-decoration:none; font-size:14px; font-weight:600; color:var(--muted); transition:color 0.15s; }
+    .nav-link:hover, .nav-link.active { color:var(--accent); }
+
+    /* HERO */
+    .hero { padding:56px 24px 40px; text-align:center; background: linear-gradient(135deg, rgba(232,146,26,0.08), rgba(90,171,122,0.04)); }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(32px,6vw,48px); font-weight:900; margin-bottom:16px; }
+    .hero h1 span { color:var(--accent); }
+    .hero p { color:var(--muted); max-width:600px; margin:0 auto; }
+
+    /* FILTERS */
+    .filters-bar { max-width:1200px; margin:32px auto 0; padding:0 24px; display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center; }
+    .search-box { flex:1; min-width:200px; }
+    .search-box input { width:100%; padding:12px 20px; border:1px solid var(--border); border-radius:40px; font-family:'Manrope',sans-serif; background:var(--surface); }
+    .status-filter { display:flex; gap:8px; }
+    .status-btn { padding:8px 20px; border-radius:40px; border:1px solid var(--border); background:var(--surface); font-size:13px; font-weight:600; cursor:pointer; transition:all 0.15s; }
+    .status-btn.active { background:var(--accent); border-color:var(--accent); color:white; }
+
+    /* EVENTS GRID */
+    .events-grid { max-width:1200px; margin:40px auto; padding:0 24px 80px; display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:24px; }
+    .event-card { background:var(--surface); border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); transition:all 0.2s; text-decoration:none; color:inherit; display:block; }
+    .event-card:hover { transform:translateY(-4px); box-shadow:0 12px 28px rgba(60,40,10,0.1); border-color:rgba(232,146,26,0.3); }
+    .event-image { height:180px; background:var(--surface2); background-size:cover; background-position:center; position:relative; }
+    .event-badge { position:absolute; top:12px; right:12px; background:rgba(0,0,0,0.7); color:white; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+    .event-badge.cancelled { background:#c96d10; }
+    .event-badge.completed { background:var(--muted); }
+    .event-content { padding:20px; }
+    .event-title { font-size:18px; font-weight:700; margin-bottom:8px; line-height:1.3; }
+    .event-meta { display:flex; flex-wrap:wrap; gap:12px; margin:12px 0; font-size:13px; color:var(--muted); }
+    .event-meta span { display:flex; align-items:center; gap:5px; }
+    .event-price { font-size:20px; font-weight:800; color:var(--accent); margin:12px 0 8px; }
+    .event-desc { font-size:13px; color:var(--muted); line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+
+    /* FOOTER */
+    .footer { background:#fff; border-top:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .footer-left { display:flex; align-items:center; gap:12px; }
+    .footer-left img { height:36px; opacity:0.7; }
+    .footer-org { font-size:12px; font-weight:600; color:var(--muted); }
+
+    /* EMPTY */
+    .empty-state { text-align:center; padding:80px 20px; color:var(--muted); }
+    .empty-state-icon { font-size:64px; margin-bottom:16px; opacity:0.4; }
+
+    /* SKELETON */
+    .skeleton-card { background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); overflow:hidden; }
+    .skel-image { height:180px; background:linear-gradient(90deg,var(--surface2) 25%,#ede8e0 50%,var(--surface2) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; }
+    .skel-content { padding:20px; }
+    .skel-line { height:16px; background:linear-gradient(90deg,var(--surface2) 25%,#ede8e0 50%,var(--surface2) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:8px; margin-bottom:12px; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    @media (max-width:768px) {
+      .topbar { padding:0 16px; }
+      .nav-links { gap:12px; }
+      .filters-bar { flex-direction:column; align-items:stretch; }
+      .events-grid { grid-template-columns:1fr; }
+      .footer { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="topbar-logo" href="./index.html">
+    <img src="./Victoria_logo-02.png" alt="Виктория">
+    <div class="topbar-name">
+      <strong>Виктория</strong>
+      <span>Детско-юношеский центр</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="./index.html" class="nav-link">Кружки</a>
+    <a href="./events.html" class="nav-link active">Мастер-классы</a>
+    <a href="./prazdnik.html" class="nav-link">🎉 Праздники</a>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>Мастер-классы <span>в Виктории</span></h1>
+  <p>Творческие, спортивные и научные мастер-классы для детей и взрослых. Расписание обновляется каждую неделю.</p>
+</div>
+
+<div class="filters-bar">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="🔍 Поиск по названию или педагогу..." autocomplete="off">
+  </div>
+  <div class="status-filter" id="statusFilter">
+    <button class="status-btn active" data-status="active">Актуальные</button>
+    <button class="status-btn" data-status="all">Все</button>
+    <button class="status-btn" data-status="completed">Прошедшие</button>
+  </div>
+</div>
+
+<div class="events-grid" id="eventsGrid"></div>
+
+<footer class="footer">
+  <div class="footer-left">
+    <img src="./Victoria_logo-02.png" alt="Виктория">
+    <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br>Детско-юношеский центр</div>
+  </div>
+  <div class="footer-copy">© 2025 ГБОУ ДО ДЮЦ «Виктория»</div>
+</footer>
+
+<script>
+let events = [];
+let currentStatus = 'active';
+let searchQuery = '';
+
+// Загрузка мастер-классов из папки _events
+async function loadEvents() {
+  showSkeletons();
+  try {
+    const apiUrl = 'https://api.github.com/repos/agbox77/viktoria/contents/_events';
+    const response = await fetch(apiUrl);
+    
+    if (!response.ok) {
+      events = [];
+    } else {
+      const files = await response.json();
+      const mdFiles = files.filter(f => f.name.endsWith('.md'));
+      
+      const eventsPromises = mdFiles.map(async (file) => {
+        const contentRes = await fetch(file.download_url);
+        const content = await contentRes.text();
+        
+        const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+        if (!frontmatterMatch) return null;
+        
+        const yaml = frontmatterMatch[1];
+        const data = {};
+        yaml.split('\n').forEach(line => {
+          const colonIndex = line.indexOf(':');
+          if (colonIndex > 0) {
+            let key = line.slice(0, colonIndex).trim();
+            let value = line.slice(colonIndex + 1).trim();
+            if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
+            if (value.startsWith("'") && value.endsWith("'")) value = value.slice(1, -1);
+            data[key] = value;
+          }
+        });
+        
+        // Генерируем slug из названия
+        data.slug = data.title.toLowerCase().replace(/[^а-яёa-z0-9\s]/gi, '').replace(/\s+/g, '-');
+        return data;
+      });
+      
+      events = (await Promise.all(eventsPromises)).filter(e => e !== null);
+    }
+    
+    renderEvents();
+  } catch (error) {
+    console.error('Ошибка загрузки:', error);
+    document.getElementById('eventsGrid').innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><h3>Не удалось загрузить мастер-классы</h3><p>Попробуйте обновить страницу</p></div>`;
+  }
+}
+
+function showSkeletons() {
+  const grid = document.getElementById('eventsGrid');
+  grid.innerHTML = Array(3).fill().map(() => `
+    <div class="skeleton-card">
+      <div class="skel-image"></div>
+      <div class="skel-content">
+        <div class="skel-line" style="width:70%"></div>
+        <div class="skel-line" style="width:40%"></div>
+        <div class="skel-line" style="width:50%"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  // формат из админки: DD.MM.YYYY HH:mm
+  return dateStr;
+}
+
+function renderEvents() {
+  let filtered = events.filter(e => {
+    if (currentStatus !== 'all' && e.status !== currentStatus) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      const title = (e.title || '').toLowerCase();
+      const teacher = (e.teacher || '').toLowerCase();
+      if (!title.includes(q) && !teacher.includes(q)) return false;
+    }
+    return true;
+  });
+  
+  // Сортировка: сначала активные по дате (ближайшие), потом прошедшие
+  filtered.sort((a, b) => {
+    if (a.status === 'active' && b.status !== 'active') return -1;
+    if (a.status !== 'active' && b.status === 'active') return 1;
+    // Если оба активные или оба прошедшие — по дате
+    const dateA = a.date ? new Date(a.date.split(' ')[0].split('.').reverse().join('-')) : new Date(0);
+    const dateB = b.date ? new Date(b.date.split(' ')[0].split('.').reverse().join('-')) : new Date(0);
+    return dateA - dateB;
+  });
+  
+  const grid = document.getElementById('eventsGrid');
+  
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📅</div><h3>Мастер-классов не найдено</h3><p>Попробуйте изменить фильтры или загляните позже — мы добавляем новые занятия каждую неделю</p></div>`;
+    return;
+  }
+  
+  grid.innerHTML = filtered.map(e => `
+    <a href="./event.html?slug=${e.slug}" class="event-card">
+      <div class="event-image" style="background-image: url('${e.image || '/static/images/events/default.jpg'}')">
+        ${e.status !== 'active' ? `<span class="event-badge ${e.status}">${e.status === 'completed' ? 'Прошедший' : 'Отменён'}</span>` : ''}
+      </div>
+      <div class="event-content">
+        <h3 class="event-title">${e.title || 'Мастер-класс'}</h3>
+        <div class="event-meta">
+          ${e.date ? `<span>📅 ${formatDate(e.date)}</span>` : ''}
+          ${e.age ? `<span>👥 ${e.age} лет</span>` : ''}
+        </div>
+        <div class="event-price">${e.price || 'Бесплатно'}</div>
+        <div class="event-desc">${(e.description || '').slice(0, 100)}${(e.description || '').length > 100 ? '...' : ''}</div>
+        <div class="event-meta">
+          ${e.address ? `<span>📍 ${e.address.slice(0, 40)}${e.address.length > 40 ? '...' : ''}</span>` : ''}
+        </div>
+      </div>
+    </a>
+  `).join('');
+}
+
+// Фильтры
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  renderEvents();
+});
+
+document.querySelectorAll('.status-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentStatus = btn.dataset.status;
+    renderEvents();
+  });
+});
+
+loadEvents();
+</script>
+</body>
+</html>
