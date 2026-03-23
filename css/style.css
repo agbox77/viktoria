@@ -1,0 +1,241 @@
+/* ============================================
+   Глобальные переменные и сброс
+   ============================================ */
+:root {
+  --bg: #faf8f5;
+  --surface: #ffffff;
+  --surface2: #f3f0eb;
+  --border: rgba(60, 40, 20, 0.1);
+  --accent: #e8921a;
+  --accent2: #c96d10;
+  --green2: #3d8a5c;
+  --lilac2: #7a5889;
+  --text: #2c2416;
+  --muted: #8a7a68;
+  --radius: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Manrope', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   TOPBAR
+   ============================================ */
+.topbar {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(60, 40, 10, 0.06);
+}
+
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.topbar-logo img {
+  height: 48px;
+  width: auto;
+}
+
+.topbar-name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.topbar-name strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  font-family: 'Playfair Display', serif;
+}
+
+.topbar-name span {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ============================================
+   НАВИГАЦИЯ
+   ============================================ */
+.nav-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--accent);
+}
+
+/* ============================================
+   СОЦИАЛЬНЫЕ ИКОНКИ
+   ============================================ */
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 1px solid var(--border);
+}
+
+.social-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 0.7;
+}
+
+.social-icon:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.social-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ============================================
+   КНОПКИ
+   ============================================ */
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s;
+}
+
+.btn-primary:hover {
+  background: var(--accent2);
+}
+
+.btn-secondary {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+}
+
+/* ============================================
+   ФУТЕР
+   ============================================ */
+.footer {
+  background: #fff;
+  border-top: 1px solid var(--border);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-left img {
+  height: 36px;
+  opacity: 0.7;
+}
+
+.footer-org {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.footer-copy {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ (МОБИЛЬНЫЕ УСТРОЙСТВА)
+   ============================================ */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 16px;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .social-links {
+    margin-left: 8px;
+    padding-left: 8px;
+    gap: 8px;
+  }
+
+  .footer {
+    padding: 20px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
