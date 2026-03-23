@@ -150,7 +150,7 @@ async function loadEvent() {
     
     document.title = `${foundEvent.title} — Виктория`;
     document.getElementById('eventTitle').textContent = foundEvent.title || 'Мастер-класс';
-    document.getElementById('eventImage').style.backgroundImage = `url('${foundEvent.image || '/static/images/events/default.jpg'}')`;
+    document.getElementById('eventImage').style.backgroundImage = `url('${foundEvent.image || '/static/images/events/default.png'}')`;
     if (foundEvent.status && foundEvent.status !== 'active') {
       const badge = document.createElement('span');
       badge.className = `event-badge ${foundEvent.status}`;
