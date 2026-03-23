@@ -28,7 +28,9 @@
 
     .event-container { max-width:900px; margin:0 auto; padding:32px 24px 80px; }
     .event-card { background:var(--surface); border-radius:32px; overflow:hidden; border:1px solid var(--border); }
-    .event-image { height:320px; background-size:cover; background-position:center; position:relative; }
+    .event-image { height:280px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; position:relative; background: linear-gradient(135deg, #e8921a, #c96d10); }
+    .event-image-icon { font-size:80px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2)); }
+    .event-image-category { font-size:16px; font-weight:600; background:rgba(255,255,255,0.9); padding:6px 18px; border-radius:40px; color:var(--accent2); }
     .event-badge { position:absolute; top:20px; right:20px; background:rgba(0,0,0,0.7); color:white; padding:6px 14px; border-radius:30px; font-size:13px; font-weight:600; }
     .event-badge.cancelled { background:#c96d10; }
     .event-badge.completed { background:var(--muted); }
@@ -47,7 +49,15 @@
     .btn-secondary { background:var(--surface2); color:var(--text); border:1px solid var(--border); border-radius:12px; padding:14px 28px; font-size:16px; font-weight:600; cursor:pointer; text-decoration:none; transition:all 0.15s; }
     .btn-secondary:hover { background:var(--border); }
 
+    .vk-widget-container { margin: 32px 0 24px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .vk-widget-title { font-size: 14px; font-weight: 600; color: var(--muted); margin-bottom: 16px; letter-spacing: 0.05em; text-transform: uppercase; }
+
     .footer { background:#fff; border-top:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-top:40px; }
+    .footer-left { display:flex; align-items:center; gap:12px; }
+    .footer-left img { height:36px; opacity:0.7; }
+    .footer-org { font-size:12px; font-weight:600; color:var(--muted); }
+    .footer-copy { font-size:11px; color:var(--muted); opacity:0.6; }
+
     @media (max-width:768px) {
       .topbar { padding:0 16px; }
       .event-title { font-size:26px; }
@@ -55,6 +65,8 @@
       .event-meta-grid { grid-template-columns:1fr; }
       .event-actions { flex-direction:column; }
       .footer { flex-direction:column; align-items:flex-start; }
+      .event-image { height:220px; }
+      .event-image-icon { font-size:56px; }
     }
   </style>
 </head>
@@ -85,6 +97,13 @@
       <div class="event-meta-grid" id="eventMeta"></div>
       <div class="event-price" id="eventPrice"></div>
       <div class="event-description" id="eventDescription"></div>
+      
+      <!-- Контейнер для VK-виджета -->
+      <div id="vkWidgetContainer" class="vk-widget-container" style="display: none;">
+        <div class="vk-widget-title">📱 Анонс в соцсетях</div>
+        <div id="vk_post"></div>
+      </div>
+      
       <div class="event-actions" id="eventActions"></div>
     </div>
   </div>
@@ -92,13 +111,75 @@
 
 <footer class="footer">
   <div class="footer-left">
-    <img src="./Victoria_logo-02.png" alt="Виктория">
-    <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»</div>
+    <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br>Детско-юношеский центр</div>
   </div>
   <div class="footer-copy">© 2025 ГБОУ ДО ДЮЦ «Виктория»</div>
 </footer>
 
 <script>
+function getEventIcon(title, category) {
+  const icons = {
+    'керамик': '🏺', 'глин': '🏺', 'рисова': '🎨', 'живопис': '🖌️',
+    'лепк': '✋', 'скульпт': '🗿', 'робот': '🤖', 'программ': '💻',
+    'шахмат': '♟️', 'английск': '🇬🇧', 'немецк': '🇩🇪', 'танц': '💃',
+    'музык': '🎵', 'вокал': '🎤', 'гитар': '🎸', 'театр': '🎭',
+    'спорт': '⚽', 'фитнес': '🤸', 'гимнастик': '🤸', 'бокс': '🥊',
+    'айкидо': '🥋', 'цирк': '🎪'
+  };
+  const searchText = (title + ' ' + (category || '')).toLowerCase();
+  for (const [key, icon] of Object.entries(icons)) {
+    if (searchText.includes(key)) return icon;
+  }
+  return '✨';
+}
+
+function getEventGradient(title) {
+  const gradients = [
+    'linear-gradient(135deg, #e8921a, #c96d10)',
+    'linear-gradient(135deg, #3d8a5c, #2a5f3f)',
+    'linear-gradient(135deg, #7a5889, #5a3c69)',
+    'linear-gradient(135deg, #e65c1a, #b8430c)',
+    'linear-gradient(135deg, #2c7da0, #1f5e7a)'
+  ];
+  let hash = 0;
+  for (let i = 0; i < title.length; i++) {
+    hash = ((hash << 5) - hash) + title.charCodeAt(i);
+    hash |= 0;
+  }
+  return gradients[Math.abs(hash) % gradients.length];
+}
+
+function parsePostLink(link) {
+  if (!link) return null;
+  const vkRegex = /vk\.com\/wall(-?\d+)_(\d+)/;
+  const match = link.match(vkRegex);
+  if (match) {
+    return { ownerId: match[1], postId: match[2] };
+  }
+  return null;
+}
+
+function loadVKWidget(ownerId, postId) {
+  const container = document.getElementById('vkWidgetContainer');
+  const vkPostDiv = document.getElementById('vk_post');
+  
+  if (!ownerId || !postId) return;
+  
+  container.style.display = 'block';
+  
+  const script = document.createElement('script');
+  script.src = 'https://vk.com/js/api/openapi.js?173';
+  script.async = true;
+  script.onload = () => {
+    if (window.VK && VK.Widgets) {
+      const widgetId = `vk_post_${ownerId}_${postId}`;
+      vkPostDiv.id = widgetId;
+      VK.Widgets.Post(widgetId, ownerId, postId, 'LCzgo2YCX4btQQumgw6fVxS38w');
+    }
+  };
+  document.head.appendChild(script);
+}
+
 async function loadEvent() {
   const urlParams = new URLSearchParams(window.location.search);
   const slug = urlParams.get('slug');
@@ -150,43 +231,16 @@ async function loadEvent() {
     
     document.title = `${foundEvent.title} — Виктория`;
     document.getElementById('eventTitle').textContent = foundEvent.title || 'Мастер-класс';
-    document.getElementById('eventImage').style.backgroundImage = `url('${foundEvent.image || '/static/images/events/default.png'}')`;
-    if (foundEvent.status && foundEvent.status !== 'active') {
-      const badge = document.createElement('span');
-      badge.className = `event-badge ${foundEvent.status}`;
-      badge.textContent = foundEvent.status === 'completed' ? 'Прошедший' : 'Отменён';
-      document.getElementById('eventImage').appendChild(badge);
-    }
     
-    // Мета-информация
+    const icon = getEventIcon(foundEvent.title, foundEvent.category);
+    const gradient = getEventGradient(foundEvent.title);
+    const imageDiv = document.getElementById('eventImage');
+    imageDiv.style.background = gradient;
+    imageDiv.innerHTML = `
+      <div class="event-image-icon">${icon}</div>
+      <div class="event-image-category">${foundEvent.category || 'Мастер-класс'}</div>
+      ${foundEvent.status !== 'active' ? `<span class="event-badge ${foundEvent.status}">${foundEvent.status === 'completed' ? 'Прошедший' : 'Отменён'}</span>` : ''}
+    `;
+    
     let metaHtml = '';
-    if (foundEvent.date) metaHtml += `<div class="meta-item"><div class="meta-icon">📅</div><div class="meta-text"><strong>Дата и время</strong><div>${foundEvent.date}</div></div></div>`;
-    if (foundEvent.age) metaHtml += `<div class="meta-item"><div class="meta-icon">👥</div><div class="meta-text"><strong>Возраст</strong><div>${foundEvent.age} лет</div></div></div>`;
-    if (foundEvent.address) metaHtml += `<div class="meta-item"><div class="meta-icon">📍</div><div class="meta-text"><strong>Адрес</strong><div>${foundEvent.address}</div></div></div>`;
-    if (foundEvent.teacher) metaHtml += `<div class="meta-item"><div class="meta-icon">👩‍🏫</div><div class="meta-text"><strong>Педагог</strong><div>${foundEvent.teacher}</div></div></div>`;
-    document.getElementById('eventMeta').innerHTML = metaHtml;
-    
-    document.getElementById('eventPrice').textContent = foundEvent.price || 'Бесплатно';
-    document.getElementById('eventDescription').textContent = foundEvent.description || 'Описание мастер-класса появится позже. Следите за обновлениями!';
-    
-    let actionsHtml = '';
-    if (foundEvent.status === 'active') {
-      if (foundEvent.post_link) {
-        actionsHtml += `<a href="${foundEvent.post_link}" target="_blank" class="btn-primary">📱 Подробнее и запись</a>`;
-      }
-      actionsHtml += `<a href="./events.html" class="btn-secondary">Все мастер-классы</a>`;
-    } else {
-      actionsHtml += `<a href="./events.html" class="btn-primary">Смотреть актуальные мастер-классы</a>`;
-    }
-    document.getElementById('eventActions').innerHTML = actionsHtml;
-    
-  } catch (error) {
-    console.error('Ошибка загрузки:', error);
-    document.getElementById('eventTitle').textContent = 'Ошибка загрузки';
-  }
-}
-
-loadEvent();
-</script>
-</body>
-</html>
+    if (foundEvent.date) metaHtml += `<div class="meta-item"><div class="meta-icon">📅
