@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мастер-класс — Виктория</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f5; --surface: #ffffff; --surface2: #f3f0eb;
+      --border: rgba(60,40,20,0.1); --accent: #e8921a; --accent2: #c96d10;
+      --text: #2c2416; --muted: #8a7a68; --radius: 16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    .topbar { background:#fff; border-bottom:1px solid var(--border); padding:0 32px; display:flex; align-items:center; justify-content:space-between; height:72px; position:sticky; top:0; z-index:100; }
+    .topbar-logo { display:flex; align-items:center; gap:14px; text-decoration:none; }
+    .topbar-logo img { height:48px; }
+    .topbar-name strong { font-size:15px; font-weight:700; font-family:'Playfair Display',serif; }
+    .topbar-name span { font-size:11px; color:var(--muted); }
+    .nav-links { display:flex; gap:24px; }
+    .nav-link { text-decoration:none; font-size:14px; font-weight:600; color:var(--muted); transition:color 0.15s; }
+    .nav-link:hover { color:var(--accent); }
+    .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--muted); text-decoration:none; margin:24px 32px 0; font-size:14px; font-weight:500; }
+
+    .event-container { max-width:900px; margin:0 auto; padding:32px 24px 80px; }
+    .event-card { background:var(--surface); border-radius:32px; overflow:hidden; border:1px solid var(--border); }
+    .event-image { height:320px; background-size:cover; background-position:center; position:relative; }
+    .event-badge { position:absolute; top:20px; right:20px; background:rgba(0,0,0,0.7); color:white; padding:6px 14px; border-radius:30px; font-size:13px; font-weight:600; }
+    .event-badge.cancelled { background:#c96d10; }
+    .event-badge.completed { background:var(--muted); }
+    .event-content { padding:32px; }
+    .event-title { font-family:'Playfair Display',serif; font-size:32px; font-weight:800; margin-bottom:16px; line-height:1.2; }
+    .event-meta-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; margin:24px 0; padding:20px; background:var(--surface2); border-radius:20px; }
+    .meta-item { display:flex; align-items:flex-start; gap:12px; }
+    .meta-icon { font-size:24px; }
+    .meta-text strong { display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:4px; }
+    .meta-text div { font-size:16px; font-weight:600; color:var(--text); }
+    .event-price { font-size:28px; font-weight:800; color:var(--accent); margin:20px 0; }
+    .event-description { font-size:16px; line-height:1.7; color:var(--text); margin:24px 0; }
+    .event-actions { display:flex; gap:16px; margin-top:32px; }
+    .btn-primary { background:var(--accent); color:white; border:none; border-radius:12px; padding:14px 28px; font-size:16px; font-weight:700; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:background 0.15s; }
+    .btn-primary:hover { background:var(--accent2); }
+    .btn-secondary { background:var(--surface2); color:var(--text); border:1px solid var(--border); border-radius:12px; padding:14px 28px; font-size:16px; font-weight:600; cursor:pointer; text-decoration:none; transition:all 0.15s; }
+    .btn-secondary:hover { background:var(--border); }
+
+    .footer { background:#fff; border-top:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-top:40px; }
+    @media (max-width:768px) {
+      .topbar { padding:0 16px; }
+      .event-title { font-size:26px; }
+      .event-content { padding:20px; }
+      .event-meta-grid { grid-template-columns:1fr; }
+      .event-actions { flex-direction:column; }
+      .footer { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="topbar-logo" href="./index.html">
+    <img src="./Victoria_logo-02.png" alt="Виктория">
+    <div class="topbar-name">
+      <strong>Виктория</strong>
+      <span>Детско-юношеский центр</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="./index.html" class="nav-link">Кружки</a>
+    <a href="./events.html" class="nav-link">Мастер-классы</a>
+    <a href="./prazdnik.html" class="nav-link">🎉 Праздники</a>
+  </div>
+</header>
+
+<a href="./events.html" class="back-link">← Все мастер-классы</a>
+
+<div class="event-container" id="eventContainer">
+  <div class="event-card">
+    <div class="event-image" id="eventImage"></div>
+    <div class="event-content">
+      <h1 class="event-title" id="eventTitle">Загрузка...</h1>
+      <div class="event-meta-grid" id="eventMeta"></div>
+      <div class="event-price" id="eventPrice"></div>
+      <div class="event-description" id="eventDescription"></div>
+      <div class="event-actions" id="eventActions"></div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-left">
+    <img src="./Victoria_logo-02.png" alt="Виктория">
+    <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»</div>
+  </div>
+  <div class="footer-copy">© 2025 ГБОУ ДО ДЮЦ «Виктория»</div>
+</footer>
+
+<script>
+async function loadEvent() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const slug = urlParams.get('slug');
+  
+  if (!slug) {
+    document.getElementById('eventTitle').textContent = 'Мастер-класс не найден';
+    return;
+  }
+  
+  try {
+    const apiUrl = `https://api.github.com/repos/agbox77/viktoria/contents/_events`;
+    const response = await fetch(apiUrl);
+    const files = await response.json();
+    const mdFiles = files.filter(f => f.name.endsWith('.md'));
+    
+    let foundEvent = null;
+    
+    for (const file of mdFiles) {
+      const contentRes = await fetch(file.download_url);
+      const content = await contentRes.text();
+      
+      const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+      if (!frontmatterMatch) continue;
+      
+      const yaml = frontmatterMatch[1];
+      const data = {};
+      yaml.split('\n').forEach(line => {
+        const colonIndex = line.indexOf(':');
+        if (colonIndex > 0) {
+          let key = line.slice(0, colonIndex).trim();
+          let value = line.slice(colonIndex + 1).trim();
+          if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
+          if (value.startsWith("'") && value.endsWith("'")) value = value.slice(1, -1);
+          data[key] = value;
+        }
+      });
+      
+      const eventSlug = data.title.toLowerCase().replace(/[^а-яёa-z0-9\s]/gi, '').replace(/\s+/g, '-');
+      if (eventSlug === slug) {
+        foundEvent = data;
+        break;
+      }
+    }
+    
+    if (!foundEvent) {
+      document.getElementById('eventTitle').textContent = 'Мастер-класс не найден';
+      return;
+    }
+    
+    document.title = `${foundEvent.title} — Виктория`;
+    document.getElementById('eventTitle').textContent = foundEvent.title || 'Мастер-класс';
+    document.getElementById('eventImage').style.backgroundImage = `url('${foundEvent.image || '/static/images/events/default.jpg'}')`;
+    if (foundEvent.status && foundEvent.status !== 'active') {
+      const badge = document.createElement('span');
+      badge.className = `event-badge ${foundEvent.status}`;
+      badge.textContent = foundEvent.status === 'completed' ? 'Прошедший' : 'Отменён';
+      document.getElementById('eventImage').appendChild(badge);
+    }
+    
+    // Мета-информация
+    let metaHtml = '';
+    if (foundEvent.date) metaHtml += `<div class="meta-item"><div class="meta-icon">📅</div><div class="meta-text"><strong>Дата и время</strong><div>${foundEvent.date}</div></div></div>`;
+    if (foundEvent.age) metaHtml += `<div class="meta-item"><div class="meta-icon">👥</div><div class="meta-text"><strong>Возраст</strong><div>${foundEvent.age} лет</div></div></div>`;
+    if (foundEvent.address) metaHtml += `<div class="meta-item"><div class="meta-icon">📍</div><div class="meta-text"><strong>Адрес</strong><div>${foundEvent.address}</div></div></div>`;
+    if (foundEvent.teacher) metaHtml += `<div class="meta-item"><div class="meta-icon">👩‍🏫</div><div class="meta-text"><strong>Педагог</strong><div>${foundEvent.teacher}</div></div></div>`;
+    document.getElementById('eventMeta').innerHTML = metaHtml;
+    
+    document.getElementById('eventPrice').textContent = foundEvent.price || 'Бесплатно';
+    document.getElementById('eventDescription').textContent = foundEvent.description || 'Описание мастер-класса появится позже. Следите за обновлениями!';
+    
+    let actionsHtml = '';
+    if (foundEvent.status === 'active') {
+      if (foundEvent.post_link) {
+        actionsHtml += `<a href="${foundEvent.post_link}" target="_blank" class="btn-primary">📱 Подробнее и запись</a>`;
+      }
+      actionsHtml += `<a href="./events.html" class="btn-secondary">Все мастер-классы</a>`;
+    } else {
+      actionsHtml += `<a href="./events.html" class="btn-primary">Смотреть актуальные мастер-классы</a>`;
+    }
+    document.getElementById('eventActions').innerHTML = actionsHtml;
+    
+  } catch (error) {
+    console.error('Ошибка загрузки:', error);
+    document.getElementById('eventTitle').textContent = 'Ошибка загрузки';
+  }
+}
+
+loadEvent();
+</script>
+</body>
+</html>
