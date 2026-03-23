@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* Стили остаются точно такими же, как были */
     :root {
       --bg: #faf8f5; --surface: #ffffff; --surface2: #f3f0eb;
       --border: rgba(60,40,20,0.1); --accent: #e8921a; --accent2: #c96d10;
@@ -322,12 +323,15 @@
 </div>
 
 <script>
-// STATE
+// ============================================================
+// НОВАЯ ВЕРСИЯ: загрузка данных из папки _data/circles/ (админка)
+// ============================================================
+
 let allData = [];
 let favorites = JSON.parse(localStorage.getItem('krug_fav') || '[]');
 let state = { search: '', age: '', category: '', showFav: false, sort: 'default' };
 
-// EMOJI
+// Эмодзи для категорий
 const emojiMap = { 'аэробика':'🤸','хор':'🎵','гимнастика':'🤼','английск':'🇬🇧','математик':'📐','астроном':'🔭','айкидо':'🥋','цирк':'🎪','глин':'🏺','театр':'🎭','рисован':'🎨','танц':'💃','музык':'🎸','плаван':'🏊','футбол':'⚽','шахмат':'♟️','програм':'💻','робот':'🤖','вокал':'🎤','лепк':'🏺','рукодел':'🧵','стретч':'🧘','бокс':'🥊','волейбол':'🏐','баскетбол':'🏀','художеств':'🎨','народн':'🪗' };
 function getEmoji(cat) {
   if (!cat) return '🌟';
@@ -338,7 +342,7 @@ function getEmoji(cat) {
   return pool[Math.abs(h)%pool.length];
 }
 
-// AGE MATCH
+// Возрастное соответствие
 function matchAge(itemAge, filter) {
   if (!filter) return true;
   if (!itemAge) return false;
@@ -353,18 +357,24 @@ function matchAge(itemAge, filter) {
   return false;
 }
 
-// HIGHLIGHT
+// Подсветка поиска
 function hl(text, q) {
   if (!q||!text) return text||'';
   const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
   return String(text).replace(re,'<mark class="hl">$1</mark>');
 }
 
-// RENDER CARD
+// Рендер карточки
 function renderCard(item, idx) {
-  const id=item['Ссылка']||'', isFav=favorites.includes(id), q=state.search;
-  const cat=item['Наименование третьего уровня РБНДО']||'';
-  const age=item['Возраст']||'', addr=item['Адрес предоставления услуги']||'', teach=item['Педагог']||'';
+  const id=item.link || item['Ссылка'] || '';
+  const isFav=favorites.includes(id);
+  const q=state.search;
+  const cat=item.category || item['Наименование третьего уровня РБНДО'] || '';
+  const age=item.age || item['Возраст'] || '';
+  const addr=item.address || item['Адрес предоставления услуги'] || '';
+  const teach=item.teacher || item['Педагог'] || '';
+  const title=item.title || item['Наименование детского объединения'] || '';
+  
   return `<div class="card" style="animation-delay:${Math.min(idx*25,300)}ms">
     <button class="card-fav ${isFav?'active':''}" onclick="toggleFav('${id.replace(/'/g,"\\'")}')">
       ${isFav?'★':'☆'}
@@ -372,7 +382,7 @@ function renderCard(item, idx) {
     <div class="card-top">
       <div class="card-icon">${getEmoji(cat)}</div>
       <div class="card-info">
-        <div class="card-title">${hl(item['Наименование детского объединения'],q)}</div>
+        <div class="card-title">${hl(title,q)}</div>
         <div class="card-category">${cat}</div>
       </div>
     </div>
@@ -383,7 +393,7 @@ function renderCard(item, idx) {
   </div>`;
 }
 
-// SKELETON
+// Скелетон
 function showSkeleton() {
   document.getElementById('list').innerHTML = Array.from({length:6}).map(()=>`
     <div class="skeleton-card">
@@ -400,7 +410,7 @@ function showSkeleton() {
     </div>`).join('');
 }
 
-// ACTIVE TAGS
+// Активные теги
 function renderActiveTags() {
   const tags = [];
   if (state.age) tags.push({label:`Возраст: ${state.age}`,key:'age'});
@@ -422,13 +432,11 @@ function removeTag(key) {
   updateResetBtn(); updateMobileBadge(); applyFilters();
 }
 
-// PLURAL
 function plural(n,one,few,many) {
   const m=n%100; if(m>=11&&m<=14) return many;
   const r=n%10; if(r===1) return one; if(r>=2&&r<=4) return few; return many;
 }
 
-// RENDER LIST
 function renderList(items) {
   const list = document.getElementById('list');
   if (!items.length) {
@@ -439,7 +447,6 @@ function renderList(items) {
   document.getElementById('toolbarLeft').innerHTML=`<strong>${items.length}</strong> ${plural(items.length,'кружок','кружка','кружков')}`;
 }
 
-// UPDATE STATS
 function updateStats(count) {
   document.getElementById('statsCount').textContent=count;
   const a=[];
@@ -450,27 +457,33 @@ function updateStats(count) {
   document.getElementById('statsActive').textContent=a.length?'· '+a.join(', '):'';
 }
 
-// APPLY FILTERS
 function applyFilters() {
   const text=state.search.toLowerCase();
   let filtered=allData.filter(item=>{
-    if(text){ const t=[item['Наименование детского объединения'],item['Наименование третьего уровня РБНДО'],item['Адрес предоставления услуги'],item['Педагог']].join(' ').toLowerCase(); if(!t.includes(text)) return false; }
-    if(state.category&&item['Наименование третьего уровня РБНДО']!==state.category) return false;
-    if(!matchAge(item['Возраст'],state.age)) return false;
-    if(state.showFav&&!favorites.includes(item['Ссылка'])) return false;
+    const title = item.title || item['Наименование детского объединения'] || '';
+    const category = item.category || item['Наименование третьего уровня РБНДО'] || '';
+    const address = item.address || item['Адрес предоставления услуги'] || '';
+    const teacher = item.teacher || item['Педагог'] || '';
+    
+    if(text){ const t=[title, category, address, teacher].join(' ').toLowerCase(); if(!t.includes(text)) return false; }
+    if(state.category && category !== state.category) return false;
+    if(!matchAge(item.age || item['Возраст'] || '', state.age)) return false;
+    if(state.showFav && !favorites.includes(item.link || item['Ссылка'] || '')) return false;
     return true;
   });
-  if(state.sort==='alpha') filtered.sort((a,b)=>(a['Наименование детского объединения']||'').localeCompare(b['Наименование детского объединения']||'','ru'));
-  else if(state.sort==='age') filtered.sort((a,b)=>{const an=(a['Возраст']||'').match(/\d+/),bn=(b['Возраст']||'').match(/\d+/);return(an?+an[0]:99)-(bn?+bn[0]:99);});
+  if(state.sort==='alpha') filtered.sort((a,b)=>(a.title || a['Наименование детского объединения'] || '').localeCompare(b.title || b['Наименование детского объединения'] || '','ru'));
+  else if(state.sort==='age') filtered.sort((a,b)=>{const an=(a.age || a['Возраст'] || '').match(/\d+/),bn=(b.age || b['Возраст'] || '').match(/\d+/);return(an?+an[0]:99)-(bn?+bn[0]:99);});
   renderList(filtered);
   updateStats(filtered.length);
   renderActiveTags();
 }
 
-// INIT CATEGORIES
 function buildCatHTML(targetId, fnName) {
   const counts={};
-  allData.forEach(item=>{const c=item['Наименование третьего уровня РБНДО'];if(c) counts[c]=(counts[c]||0)+1;});
+  allData.forEach(item=>{
+    const c = item.category || item['Наименование третьего уровня РБНДО'] || '';
+    if(c) counts[c]=(counts[c]||0)+1;
+  });
   const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
   document.getElementById(targetId).innerHTML=sorted.map(([cat,cnt])=>`
     <div class="cat-item" data-cat="${cat.replace(/"/g,'&quot;')}" onclick="${fnName}(this)">
@@ -485,14 +498,12 @@ function selectCategory(el) {
 }
 function selectCategoryDrawer(el) { selectCategory(el); }
 
-// FAVORITES
 function toggleFav(id) {
   favorites=favorites.includes(id)?favorites.filter(f=>f!==id):[...favorites,id];
   localStorage.setItem('krug_fav',JSON.stringify(favorites));
   applyFilters();
 }
 
-// RESET
 function updateResetBtn() {
   document.getElementById('filterReset').classList.toggle('active',!!(state.search||state.age||state.category||state.showFav));
 }
@@ -511,7 +522,6 @@ function resetFilters() {
   updateResetBtn(); updateMobileBadge(); applyFilters();
 }
 
-// DRAWER
 function syncDrawerToState() {
   document.querySelectorAll('#agePillsDrawer .age-pill').forEach(p=>p.classList.toggle('active',p.dataset.age===state.age));
   document.querySelectorAll('#catListDrawer .cat-item').forEach(i=>i.classList.toggle('active',i.dataset.cat===state.category));
@@ -522,7 +532,67 @@ function syncDrawerToState() {
 function openDrawer() { syncDrawerToState(); document.getElementById('drawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeDrawer() { document.getElementById('drawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow=''; }
 
-// EVENTS
+// ЗАГРУЗКА ДАННЫХ ИЗ ПАПКИ _data/circles/
+async function loadDataFromCMS() {
+  showSkeleton();
+  try {
+    // Получаем список файлов из папки _data/circles через GitHub API
+    const apiUrl = 'https://api.github.com/repos/agbox77/viktoria/contents/_data/circles';
+    const response = await fetch(apiUrl);
+    
+    if (!response.ok) {
+      // Если папка пуста или не существует, пробуем загрузить из data.json как запасной вариант
+      console.log('Папка _data/circles не найдена, загружаем data.json');
+      const fallbackRes = await fetch('./data.json');
+      const fallbackData = await fallbackRes.json();
+      allData = fallbackData;
+    } else {
+      const files = await response.json();
+      const mdFiles = files.filter(f => f.name.endsWith('.md'));
+      
+      // Загружаем содержимое каждого .md файла
+      const circlesPromises = mdFiles.map(async (file) => {
+        const contentRes = await fetch(file.download_url);
+        const content = await contentRes.text();
+        
+        // Парсим frontmatter (YAML между --- и ---)
+        const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+        if (!frontmatterMatch) return null;
+        
+        const yaml = frontmatterMatch[1];
+        const data = {};
+        // Простой парсинг YAML строк
+        yaml.split('\n').forEach(line => {
+          const colonIndex = line.indexOf(':');
+          if (colonIndex > 0) {
+            let key = line.slice(0, colonIndex).trim();
+            let value = line.slice(colonIndex + 1).trim();
+            // Убираем кавычки, если есть
+            if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
+            if (value.startsWith("'") && value.endsWith("'")) value = value.slice(1, -1);
+            data[key] = value;
+          }
+        });
+        return data;
+      });
+      
+      const circlesData = await Promise.all(circlesPromises);
+      allData = circlesData.filter(c => c !== null);
+    }
+    
+    // Строим категории и применяем фильтры
+    buildCatHTML('catList', 'selectCategory');
+    buildCatHTML('catListDrawer', 'selectCategoryDrawer');
+    applyFilters();
+    updateMobileBadge();
+    
+  } catch (error) {
+    console.error('Ошибка загрузки данных:', error);
+    document.getElementById('list').innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div><h3>Не удалось загрузить данные</h3><p>Проверьте, что папка _data/circles существует и содержит файлы кружков</p></div>`;
+  }
+}
+
+// Инициализация событий
 document.getElementById('search').addEventListener('input', e=>{ state.search=e.target.value; document.getElementById('searchClear').classList.toggle('visible',!!e.target.value); updateResetBtn(); updateMobileBadge(); applyFilters(); });
 document.getElementById('searchClear').addEventListener('click', ()=>{ document.getElementById('search').value=''; state.search=''; document.getElementById('searchClear').classList.remove('visible'); updateResetBtn(); updateMobileBadge(); applyFilters(); });
 document.getElementById('agePills').addEventListener('click', e=>{ const p=e.target.closest('.age-pill'); if(!p) return; state.age=p.dataset.age; document.querySelectorAll('.age-pill').forEach(x=>x.classList.toggle('active',x.dataset.age===state.age)); updateResetBtn(); updateMobileBadge(); applyFilters(); });
@@ -536,16 +606,13 @@ document.getElementById('drawerApplyBtn').addEventListener('click', closeDrawer)
 document.getElementById('drawerResetBtn').addEventListener('click', ()=>{ resetFilters(); syncDrawerToState(); });
 document.getElementById('favToggleDrawer').addEventListener('click', ()=>{ state.showFav=!state.showFav; const btn=document.getElementById('favToggle'); btn.classList.toggle('active',state.showFav); btn.innerHTML=state.showFav?'<span class="fav-toggle-star">★</span>Только избранное':'<span class="fav-toggle-star">★</span>Показать избранное'; updateResetBtn(); updateMobileBadge(); syncDrawerToState(); applyFilters(); });
 document.getElementById('agePillsDrawer').addEventListener('click', e=>{ const p=e.target.closest('.age-pill'); if(!p) return; state.age=p.dataset.age; document.querySelectorAll('.age-pill').forEach(x=>x.classList.toggle('active',x.dataset.age===state.age)); updateResetBtn(); updateMobileBadge(); applyFilters(); });
+
 let touchY=0;
 document.getElementById('drawer').addEventListener('touchstart', e=>{ touchY=e.touches[0].clientY; },{passive:true});
 document.getElementById('drawer').addEventListener('touchmove', e=>{ if(e.touches[0].clientY-touchY>60) closeDrawer(); },{passive:true});
 
-// LOAD
-showSkeleton();
-fetch('./data.json')
-  .then(r=>r.json())
-  .then(json=>{ allData=json; buildCatHTML('catList','selectCategory'); buildCatHTML('catListDrawer','selectCategoryDrawer'); applyFilters(); updateMobileBadge(); })
-  .catch(()=>{ document.getElementById('list').innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><h3>Не удалось загрузить данные</h3><p>Проверьте, что data.json лежит рядом с index.html</p></div>`; });
+// Запуск загрузки
+loadDataFromCMS();
 </script>
 </body>
 </html>
