@@ -45,7 +45,9 @@
     .events-grid { max-width:1200px; margin:40px auto; padding:0 24px 80px; display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:24px; }
     .event-card { background:var(--surface); border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); transition:all 0.2s; text-decoration:none; color:inherit; display:block; }
     .event-card:hover { transform:translateY(-4px); box-shadow:0 12px 28px rgba(60,40,10,0.1); border-color:rgba(232,146,26,0.3); }
-    .event-image { height:180px; background:var(--surface2); background-size:cover; background-position:center; position:relative; }
+    .event-image { height:180px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; position:relative; }
+    .event-image-icon { font-size:56px; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
+    .event-image-category { font-size:12px; font-weight:600; background:rgba(255,255,255,0.9); padding:4px 12px; border-radius:30px; color:var(--accent2); }
     .event-badge { position:absolute; top:12px; right:12px; background:rgba(0,0,0,0.7); color:white; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; }
     .event-badge.cancelled { background:#c96d10; }
     .event-badge.completed { background:var(--muted); }
@@ -61,6 +63,7 @@
     .footer-left { display:flex; align-items:center; gap:12px; }
     .footer-left img { height:36px; opacity:0.7; }
     .footer-org { font-size:12px; font-weight:600; color:var(--muted); }
+    .footer-copy { font-size:11px; color:var(--muted); opacity:0.6; }
 
     /* EMPTY */
     .empty-state { text-align:center; padding:80px 20px; color:var(--muted); }
@@ -130,7 +133,38 @@ let events = [];
 let currentStatus = 'active';
 let searchQuery = '';
 
-// Загрузка мастер-классов из папки _events
+function getEventIcon(title, category) {
+  const icons = {
+    'керамик': '🏺', 'глин': '🏺', 'рисова': '🎨', 'живопис': '🖌️',
+    'лепк': '✋', 'скульпт': '🗿', 'робот': '🤖', 'программ': '💻',
+    'шахмат': '♟️', 'английск': '🇬🇧', 'немецк': '🇩🇪', 'танц': '💃',
+    'музык': '🎵', 'вокал': '🎤', 'гитар': '🎸', 'театр': '🎭',
+    'спорт': '⚽', 'фитнес': '🤸', 'гимнастик': '🤸', 'бокс': '🥊',
+    'айкидо': '🥋', 'цирк': '🎪'
+  };
+  const searchText = (title + ' ' + (category || '')).toLowerCase();
+  for (const [key, icon] of Object.entries(icons)) {
+    if (searchText.includes(key)) return icon;
+  }
+  return '✨';
+}
+
+function getEventGradient(title) {
+  const gradients = [
+    'linear-gradient(135deg, #e8921a, #c96d10)',
+    'linear-gradient(135deg, #3d8a5c, #2a5f3f)',
+    'linear-gradient(135deg, #7a5889, #5a3c69)',
+    'linear-gradient(135deg, #e65c1a, #b8430c)',
+    'linear-gradient(135deg, #2c7da0, #1f5e7a)'
+  ];
+  let hash = 0;
+  for (let i = 0; i < title.length; i++) {
+    hash = ((hash << 5) - hash) + title.charCodeAt(i);
+    hash |= 0;
+  }
+  return gradients[Math.abs(hash) % gradients.length];
+}
+
 async function loadEvents() {
   showSkeletons();
   try {
@@ -163,7 +197,6 @@ async function loadEvents() {
           }
         });
         
-        // Генерируем slug из названия
         data.slug = data.title.toLowerCase().replace(/[^а-яёa-z0-9\s]/gi, '').replace(/\s+/g, '-');
         return data;
       });
@@ -194,7 +227,6 @@ function showSkeletons() {
 
 function formatDate(dateStr) {
   if (!dateStr) return '';
-  // формат из админки: DD.MM.YYYY HH:mm
   return dateStr;
 }
 
@@ -210,11 +242,9 @@ function renderEvents() {
     return true;
   });
   
-  // Сортировка: сначала активные по дате (ближайшие), потом прошедшие
   filtered.sort((a, b) => {
     if (a.status === 'active' && b.status !== 'active') return -1;
     if (a.status !== 'active' && b.status === 'active') return 1;
-    // Если оба активные или оба прошедшие — по дате
     const dateA = a.date ? new Date(a.date.split(' ')[0].split('.').reverse().join('-')) : new Date(0);
     const dateB = b.date ? new Date(b.date.split(' ')[0].split('.').reverse().join('-')) : new Date(0);
     return dateA - dateB;
@@ -223,32 +253,38 @@ function renderEvents() {
   const grid = document.getElementById('eventsGrid');
   
   if (filtered.length === 0) {
-    grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📅</div><h3>Мастер-классов не найдено</h3><p>Попробуйте изменить фильтры или загляните позже — мы добавляем новые занятия каждую неделю</p></div>`;
+    grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📅</div><h3>Мастер-классов не найдено</h3><p>Попробуйте изменить фильтры</p></div>`;
     return;
   }
   
-  grid.innerHTML = filtered.map(e => `
-    <a href="./event.html?slug=${e.slug}" class="event-card">
-      <div class="event-image" style="background-image: url('${(e.image || '/static/images/events/default.png').replace(/'/g, "%27")}')">
-        ${e.status !== 'active' ? `<span class="event-badge ${e.status}">${e.status === 'completed' ? 'Прошедший' : 'Отменён'}</span>` : ''}
-      </div>
-      <div class="event-content">
-        <h3 class="event-title">${e.title || 'Мастер-класс'}</h3>
-        <div class="event-meta">
-          ${e.date ? `<span>📅 ${formatDate(e.date)}</span>` : ''}
-          ${e.age ? `<span>👥 ${e.age} лет</span>` : ''}
+  grid.innerHTML = filtered.map(e => {
+    const icon = getEventIcon(e.title, e.category);
+    const gradient = getEventGradient(e.title);
+    
+    return `
+      <a href="./event.html?slug=${e.slug}" class="event-card">
+        <div class="event-image" style="background: ${gradient};">
+          <div class="event-image-icon">${icon}</div>
+          <div class="event-image-category">${e.category || 'Мастер-класс'}</div>
+          ${e.status !== 'active' ? `<span class="event-badge ${e.status}">${e.status === 'completed' ? 'Прошедший' : 'Отменён'}</span>` : ''}
         </div>
-        <div class="event-price">${e.price || 'Бесплатно'}</div>
-        <div class="event-desc">${(e.description || '').slice(0, 100)}${(e.description || '').length > 100 ? '...' : ''}</div>
-        <div class="event-meta">
-          ${e.address ? `<span>📍 ${e.address.slice(0, 40)}${e.address.length > 40 ? '...' : ''}</span>` : ''}
+        <div class="event-content">
+          <h3 class="event-title">${e.title || 'Мастер-класс'}</h3>
+          <div class="event-meta">
+            ${e.date ? `<span>📅 ${formatDate(e.date)}</span>` : ''}
+            ${e.age ? `<span>👥 ${e.age} лет</span>` : ''}
+          </div>
+          <div class="event-price">${e.price || 'Бесплатно'}</div>
+          <div class="event-desc">${(e.description || '').slice(0, 100)}${(e.description || '').length > 100 ? '...' : ''}</div>
+          <div class="event-meta">
+            ${e.address ? `<span>📍 ${e.address.slice(0, 40)}${e.address.length > 40 ? '...' : ''}</span>` : ''}
+          </div>
         </div>
-      </div>
-    </a>
-  `).join('');
+      </a>
+    `;
+  }).join('');
 }
 
-// Фильтры
 document.getElementById('searchInput').addEventListener('input', e => {
   searchQuery = e.target.value;
   renderEvents();
