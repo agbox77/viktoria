@@ -1,3 +1,65 @@
 include:
   - _events
   - _data
+  - _posts
+
+backend:
+  name: github
+  repo: agbox77/viktoria
+  branch: main
+  base_url: https://viktoria-cms-auth.sergienkoalvl.workers.dev
+  auth_endpoint: auth/github
+
+media_folder: static/images
+public_folder: /static/images
+
+collections:
+  - name: circles
+    label: Кружки
+    label_singular: Кружок
+    folder: _data/circles
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Название, widget: string }
+      - { name: category, label: Категория, widget: string }
+      - { name: age, label: Возраст, widget: string }
+      - { name: address, label: Адрес, widget: string }
+      - { name: teacher, label: Педагог, widget: string }
+      - { name: link, label: Ссылка на запись, widget: string }
+
+  - name: events
+    label: Мастер-классы
+    label_singular: Мастер-класс
+    folder: _events
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Название, widget: string }
+      - { name: category, label: Категория, widget: string, default: "Мастер-класс" }
+      - { name: date, label: Дата и время, widget: datetime, date_format: DD.MM.YYYY, time_format: HH:mm, format: DD.MM.YYYY HH:mm }
+      - { name: price, label: Стоимость, widget: string, default: "Бесплатно" }
+      - { name: age, label: Возраст, widget: string }
+      - { name: address, label: Адрес, widget: string }
+      - { name: teacher, label: Педагог, widget: string }
+      - { name: post_link, label: Ссылка на пост (VK/Telegram), widget: string, required: false }
+      - { name: description, label: Описание, widget: text, required: false }
+      - { name: image, label: Изображение, widget: image, required: false, media_folder: "static/images/events", public_folder: "/static/images/events" }
+      - { name: status, label: Статус, widget: select, options: ["active", "completed", "cancelled"], default: "active" }
+
+  - name: posts
+    label: Статьи и новости
+    label_singular: Публикация
+    folder: _posts
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: title, label: Заголовок, widget: string }
+      - { name: type, label: Тип, widget: select, options: ["Новость", "Статья", "Анонс"], default: "Новость" }
+      - { name: author, label: Автор, widget: select, options: ["Администрация", "Педагог", "Редакция"] }
+      - { name: date, label: Дата, widget: datetime, date_format: DD.MM.YYYY, time_format: HH:mm, format: DD.MM.YYYY HH:mm }
+      - { name: image, label: Обложка, widget: image, required: false, media_folder: "static/images/posts", public_folder: "/static/images/posts" }
+      - { name: excerpt, label: Краткое описание, widget: text, hint: "Показывается в карточке и в SEO описании" }
+      - { name: body, label: Текст статьи, widget: markdown }
+      - { name: tags, label: Теги, widget: list, required: false, hint: "Через запятую: спорт, творчество, новость" }
+      - { name: seo_title, label: SEO заголовок, widget: string, required: false, hint: "Если пусто — используется заголовок статьи" }
