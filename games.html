@@ -118,6 +118,28 @@
       );
     }
 
+    /* Тир */
+    .preview-tir {
+      background: linear-gradient(160deg, #2b1a0d 0%, #3d2510 50%, #1a0d05 100%);
+    }
+    .tir-target {
+      position: relative; width: 110px; height: 110px;
+      display: flex; align-items: center; justify-content: center;
+      animation: targetPulse 2s ease-in-out infinite;
+    }
+    @keyframes targetPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+    .tir-ring {
+      position: absolute; border-radius: 50%; border: 3px solid;
+    }
+    .tir-ring.r1 { width:110px; height:110px; border-color:#cc1e2e; background:rgba(204,30,46,0.12); }
+    .tir-ring.r2 { width:78px;  height:78px;  border-color:#d4a017; background:rgba(212,160,23,0.15); }
+    .tir-ring.r3 { width:50px;  height:50px;  border-color:#fff;    background:rgba(255,255,255,0.1); }
+    .tir-ring.r4 { width:26px;  height:26px;  border-color:#cc1e2e; background:rgba(204,30,46,0.4); }
+    .tir-center  { position:relative; z-index:2; font-size:14px; }
+
     /* Заглушка — скоро */
     .preview-coming {
       background: linear-gradient(160deg, #f3f0eb 0%, #ede8e0 100%);
@@ -287,34 +309,39 @@
       </div>
     </a>
 
-    <!-- СКОРО 1 -->
-    <div class="game-card" style="cursor:default;">
-      <div class="card-preview preview-coming">
-        <span class="coming-icon">🎨</span>
-        <span class="coming-badge">Скоро</span>
+    <!-- ТИР -->
+    <a class="game-card" href="/viktoria/tir.html">
+      <div class="card-preview preview-tir">
+        <div class="tir-target">
+          <div class="tir-ring r1"></div>
+          <div class="tir-ring r2"></div>
+          <div class="tir-ring r3"></div>
+          <div class="tir-ring r4"></div>
+          <div class="tir-center">🎯</div>
+        </div>
       </div>
       <div class="card-body">
         <div class="card-meta-row">
-          <span class="card-tag lilac">Творчество</span>
+          <span class="card-tag">Меткость</span>
+          <span class="card-tag green">Реакция</span>
           <div class="card-difficulty">
             <div class="diff-dot filled"></div>
+            <div class="diff-dot filled"></div>
             <div class="diff-dot"></div>
-            <div class="diff-dot"></div>
-            <span>Легко</span>
+            <span>Средне</span>
           </div>
         </div>
-        <div class="card-title">Художник</div>
-        <div class="card-desc">Создай свой шедевр в мини-редакторе и поделись с друзьями. Скоро появится!</div>
+        <div class="card-title">Тир</div>
+        <div class="card-desc">Стреляй по мишеням и набирай очки. Проверь точность и скорость реакции!</div>
         <div class="card-footer">
           <div class="card-stats">
-            <div class="card-stat">🎨 Рисование</div>
+            <div class="card-stat">🎯 Мишени</div>
+            <div class="card-stat">⏱️ ~3 мин</div>
           </div>
-          <span class="card-play-btn disabled">
-            🔒 Скоро
-          </span>
+          <span class="card-play-btn">▶ Играть</span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- СКОРО 2 -->
     <div class="game-card" style="cursor:default;">
