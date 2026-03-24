@@ -1,8 +1,3 @@
-include:
-  - _events
-  - _data
-  - _posts
-
 backend:
   name: github
   repo: agbox77/viktoria
@@ -56,10 +51,10 @@ collections:
     fields:
       - { name: title, label: Заголовок, widget: string }
       - { name: type, label: Тип, widget: select, options: ["Новость", "Статья", "Анонс"], default: "Новость" }
-      - { name: author, label: Автор, widget: select, options: ["Администрация", "Педагог", "Редакция"] }
+      - { name: author, label: Автор, widget: string }
       - { name: date, label: Дата, widget: datetime, date_format: DD.MM.YYYY, time_format: HH:mm, format: DD.MM.YYYY HH:mm }
       - { name: image, label: Обложка, widget: image, required: false, media_folder: "static/images/posts", public_folder: "/static/images/posts" }
-      - { name: excerpt, label: Краткое описание, widget: text, hint: "Показывается в карточке и в SEO описании" }
-      - { name: body, label: Текст статьи, widget: markdown }
-      - { name: tags, label: Теги, widget: list, required: false, hint: "Через запятую: спорт, творчество, новость" }
-      - { name: seo_title, label: SEO заголовок, widget: string, required: false, hint: "Если пусто — используется заголовок статьи" }
+      - { name: excerpt, label: Краткое описание, widget: text, hint: "Показывается в карточке и в SEO" }
+      - { name: body, label: Текст, widget: markdown }
+      - { name: tags, label: Теги, widget: list, required: false }
+      - { name: seo_title, label: SEO заголовок, widget: string, required: false }
