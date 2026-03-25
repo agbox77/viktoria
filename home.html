@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Детско-юношеский центр «Виктория» — Москва</title>
+  <meta name="description" content="Детско-юношеский центр «Виктория» в Москве. Кружки, мастер-классы, праздники, картинг и тир. Запишитесь сегодня!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/viktoria/css/style.css">
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Manrope',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
+
+    /* ═══════════════════════════════════
+       HERO
+    ═══════════════════════════════════ */
+    .hero {
+      position:relative; min-height:92vh;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      text-align:center; padding:80px 24px 64px;
+      overflow:hidden;
+    }
+    .hero-bg {
+      position:absolute; inset:0; pointer-events:none;
+      background:
+        radial-gradient(ellipse 100% 80% at 50% -20%, rgba(232,146,26,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 60% at 5% 100%, rgba(61,138,92,0.1) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 60% at 95% 90%, rgba(122,88,137,0.1) 0%, transparent 55%);
+    }
+    /* Декоративные круги */
+    .hero-orb { position:absolute; border-radius:50%; pointer-events:none; }
+    .hero-orb-1 { width:600px; height:600px; top:-200px; right:-150px; background:radial-gradient(circle, rgba(232,146,26,0.07) 0%, transparent 70%); }
+    .hero-orb-2 { width:400px; height:400px; bottom:-100px; left:-100px; background:radial-gradient(circle, rgba(61,138,92,0.07) 0%, transparent 70%); }
+
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:11px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase;
+      color:var(--accent); background:rgba(232,146,26,0.1); border:1px solid rgba(232,146,26,0.25);
+      border-radius:100px; padding:7px 18px; margin-bottom:28px;
+      animation:fadeUp 0.6s ease both;
+    }
+    .hero-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(44px,8vw,88px); font-weight:900;
+      line-height:0.95; letter-spacing:-0.03em;
+      margin-bottom:24px; position:relative; z-index:1;
+      animation:fadeUp 0.6s 0.1s ease both;
+    }
+    .hero-title .line2 { display:block; font-style:italic; color:var(--accent); }
+    .hero-title .line3 {
+      display:block;
+      background:linear-gradient(135deg, var(--text) 0%, rgba(44,36,22,0.6) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .hero-sub {
+      font-size:18px; color:var(--muted); max-width:540px;
+      line-height:1.7; margin:0 auto 40px;
+      animation:fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-cta-row {
+      display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+      animation:fadeUp 0.6s 0.3s ease both;
+    }
+    .btn-hero-primary {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--accent); color:#fff; border:none;
+      border-radius:14px; padding:16px 32px;
+      font-family:'Manrope',sans-serif; font-size:15px; font-weight:700;
+      text-decoration:none; cursor:pointer;
+      box-shadow:0 8px 28px rgba(232,146,26,0.35);
+      transition:background 0.15s, transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-hero-primary:hover { background:var(--accent2); transform:translateY(-2px); box-shadow:0 12px 36px rgba(232,146,26,0.45); }
+    .btn-hero-secondary {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--surface); color:var(--text);
+      border:1.5px solid var(--border); border-radius:14px;
+      padding:16px 32px; font-family:'Manrope',sans-serif;
+      font-size:15px; font-weight:600; text-decoration:none;
+      transition:all 0.15s;
+    }
+    .btn-hero-secondary:hover { border-color:rgba(232,146,26,0.35); color:var(--accent); transform:translateY(-2px); }
+
+    /* Статы под hero */
+    .hero-stats {
+      display:flex; gap:48px; justify-content:center; flex-wrap:wrap;
+      margin-top:64px; padding-top:48px;
+      border-top:1px solid var(--border);
+      width:100%; max-width:700px;
+      animation:fadeUp 0.6s 0.4s ease both;
+    }
+    .hero-stat-num {
+      font-family:'Playfair Display',serif;
+      font-size:36px; font-weight:900; color:var(--accent); line-height:1;
+    }
+    .hero-stat-label { font-size:12px; color:var(--muted); font-weight:600; margin-top:4px; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ═══════════════════════════════════
+       СЕКЦИИ — общие стили
+    ═══════════════════════════════════ */
+    section { padding:80px 0; }
+    .section-inner { max-width:1200px; margin:0 auto; padding:0 24px; }
+    .section-head { margin-bottom:40px; }
+    .section-label {
+      font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
+      color:var(--accent); margin-bottom:10px; display:block;
+    }
+    .section-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(28px,4vw,42px); font-weight:900;
+      line-height:1.1; letter-spacing:-0.02em;
+    }
+    .section-title span { color:var(--accent); }
+    .section-sub { font-size:15px; color:var(--muted); margin-top:10px; line-height:1.6; }
+    .section-link {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:13px; font-weight:700; color:var(--accent);
+      text-decoration:none; margin-top:4px;
+      transition:gap 0.15s;
+    }
+    .section-link:hover { gap:10px; }
+
+    /* ═══════════════════════════════════
+       СПЕЦПРЕДЛОЖЕНИЕ — баннер
+    ═══════════════════════════════════ */
+    .promo-banner {
+      background:linear-gradient(135deg, #1a3a6b 0%, #0d2550 60%, #1a4a2b 100%);
+      border-radius:24px; padding:48px;
+      display:grid; grid-template-columns:1fr auto;
+      gap:32px; align-items:center;
+      position:relative; overflow:hidden;
+    }
+    .promo-banner::before {
+      content:'🎉';
+      position:absolute; right:180px; top:-20px;
+      font-size:120px; opacity:0.08; pointer-events:none;
+      transform:rotate(15deg);
+    }
+    .promo-tag {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
+      color:#f0c060; background:rgba(240,192,96,0.15); border:1px solid rgba(240,192,96,0.3);
+      border-radius:6px; padding:4px 12px; margin-bottom:14px;
+    }
+    .promo-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(22px,3vw,34px); font-weight:900;
+      color:#fff; line-height:1.15; margin-bottom:12px;
+    }
+    .promo-desc { font-size:14px; color:rgba(255,255,255,0.65); line-height:1.6; max-width:480px; }
+    .promo-cta {
+      display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
+      background:#f0c060; color:#1a2a0b; border:none; border-radius:12px;
+      padding:16px 28px; font-family:'Manrope',sans-serif; font-size:14px; font-weight:800;
+      cursor:pointer; text-decoration:none; flex-shrink:0;
+      transition:background 0.15s, transform 0.15s;
+    }
+    .promo-cta:hover { background:#e8b840; transform:scale(1.03); }
+
+    /* ═══════════════════════════════════
+       РАЗДЕЛЫ — карточки навигации
+    ═══════════════════════════════════ */
+    .nav-cards-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+    .nav-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:20px; padding:28px 24px;
+      text-decoration:none; color:inherit;
+      display:flex; flex-direction:column; gap:12px;
+      transition:transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      position:relative; overflow:hidden;
+    }
+    .nav-card::after {
+      content:''; position:absolute; inset:0;
+      opacity:0; transition:opacity 0.2s;
+    }
+    .nav-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(60,40,10,0.1); border-color:rgba(232,146,26,0.25); }
+    .nav-card-icon { font-size:36px; }
+    .nav-card-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; }
+    .nav-card-desc { font-size:13px; color:var(--muted); line-height:1.5; }
+    .nav-card-arrow {
+      margin-top:auto; display:flex; align-items:center; gap:6px;
+      font-size:12px; font-weight:700; color:var(--accent);
+    }
+
+    /* ═══════════════════════════════════
+       БЛИЖАЙШИЕ МАСТЕР-КЛАССЫ
+    ═══════════════════════════════════ */
+    .events-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+    }
+    .event-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:16px; overflow:hidden;
+      text-decoration:none; color:inherit;
+      display:flex; flex-direction:column;
+      transition:transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .event-card:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(60,40,10,0.09); border-color:rgba(232,146,26,0.2); }
+    .event-card-img {
+      height:160px; background:var(--surface2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:52px; overflow:hidden; position:relative;
+    }
+    .event-card-img img { width:100%; height:100%; object-fit:cover; }
+    .event-status {
+      position:absolute; top:10px; left:10px;
+      font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+      background:rgba(61,138,92,0.9); color:#fff;
+      border-radius:5px; padding:3px 9px;
+    }
+    .event-card-body { padding:16px; flex:1; display:flex; flex-direction:column; gap:6px; }
+    .event-date { font-size:12px; font-weight:700; color:var(--accent); }
+    .event-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; line-height:1.3; }
+    .event-meta { font-size:12px; color:var(--muted); margin-top:auto; padding-top:10px; display:flex; gap:10px; flex-wrap:wrap; }
+
+    /* Скелетон */
+    .skel { border-radius:8px; background:linear-gradient(90deg,var(--surface2) 25%,#ede8e0 50%,var(--surface2) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    /* ═══════════════════════════════════
+       АКТИВНОСТИ (картинг, тир...)
+    ═══════════════════════════════════ */
+    .activities-grid {
+      display:grid; grid-template-columns:repeat(2,1fr); gap:16px;
+    }
+    .activity-card {
+      border-radius:20px; padding:32px;
+      text-decoration:none; color:inherit;
+      display:flex; align-items:center; gap:20px;
+      transition:transform 0.2s, box-shadow 0.2s;
+      position:relative; overflow:hidden;
+    }
+    .activity-card:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(0,0,0,0.15); }
+    .activity-card-karting { background:linear-gradient(135deg,#1a3a6b,#0d2550); }
+    .activity-card-tir { background:linear-gradient(135deg,#2d1a0d,#4a2010); }
+    .activity-card-prazdnik { background:linear-gradient(135deg,#2a1a3a,#1a0d2a); }
+    .activity-card-more { background:var(--surface); border:1.5px dashed var(--border); }
+    .activity-icon { font-size:48px; flex-shrink:0; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
+    .activity-info { flex:1; }
+    .activity-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:#fff; margin-bottom:6px; }
+    .activity-desc { font-size:13px; color:rgba(255,255,255,0.6); line-height:1.5; }
+    .activity-link { margin-top:12px; font-size:12px; font-weight:700; color:rgba(255,255,255,0.5); display:inline-flex; align-items:center; gap:4px; }
+    .activity-card-more .activity-title { color:var(--text); }
+    .activity-card-more .activity-desc { color:var(--muted); }
+    .activity-card-more .activity-link { color:var(--accent); }
+
+    /* ═══════════════════════════════════
+       НОВОСТИ
+    ═══════════════════════════════════ */
+    .news-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .news-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:14px; padding:20px;
+      text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:8px;
+      transition:transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .news-card:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(60,40,10,0.08); border-color:rgba(232,146,26,0.2); }
+    .news-type { font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:3px 8px; border-radius:5px; display:inline-block; width:fit-content; }
+    .type-news { background:rgba(232,146,26,0.1); color:var(--accent); }
+    .type-article { background:rgba(61,138,92,0.1); color:var(--green2); }
+    .type-announce { background:rgba(122,88,137,0.1); color:var(--lilac2); }
+    .news-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; line-height:1.3; }
+    .news-excerpt { font-size:13px; color:var(--muted); line-height:1.5; }
+    .news-date { font-size:11px; color:var(--muted); margin-top:auto; padding-top:8px; }
+
+    /* ═══════════════════════════════════
+       КРУЖКИ — краткий блок
+    ═══════════════════════════════════ */
+    .circles-preview {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:24px; padding:40px;
+      display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;
+    }
+    .circles-cats { display:flex; flex-wrap:wrap; gap:10px; }
+    .circles-cat {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 16px; border-radius:12px;
+      background:var(--surface2); border:1px solid var(--border);
+      font-size:13px; font-weight:600; color:var(--text);
+      text-decoration:none; transition:all 0.15s;
+    }
+    .circles-cat:hover { border-color:rgba(232,146,26,0.3); color:var(--accent); background:rgba(232,146,26,0.05); }
+    .circles-count { font-size:11px; font-weight:700; color:var(--muted); opacity:0.6; margin-left:auto; }
+
+    /* ═══════════════════════════════════
+       КОНТАКТЫ
+    ═══════════════════════════════════ */
+    .contacts-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .contact-card {
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:16px; padding:28px;
+      display:flex; align-items:flex-start; gap:16px;
+    }
+    .contact-icon { font-size:28px; flex-shrink:0; margin-top:2px; }
+    .contact-label { font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+    .contact-value { font-size:16px; font-weight:700; color:var(--text); line-height:1.4; }
+    .contact-sub { font-size:13px; color:var(--muted); margin-top:4px; }
+
+    /* ═══════════════════════════════════
+       ФУТЕР
+    ═══════════════════════════════════ */
+    .footer { background:#fff; border-top:1px solid var(--border); padding:32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+    .footer-left { display:flex; align-items:center; gap:14px; }
+    .footer-left img { height:40px; opacity:0.7; }
+    .footer-org { font-size:13px; font-weight:600; color:var(--muted); line-height:1.4; }
+    .footer-copy { font-size:12px; color:var(--muted); opacity:0.5; }
+
+    /* ═══════════════════════════════════
+       АДАПТИВ
+    ═══════════════════════════════════ */
+    @media (max-width:900px) {
+      .nav-cards-grid { grid-template-columns:repeat(2,1fr); }
+      .events-grid { grid-template-columns:repeat(2,1fr); }
+      .news-grid { grid-template-columns:repeat(2,1fr); }
+      .contacts-grid { grid-template-columns:1fr; }
+      .circles-preview { grid-template-columns:1fr; }
+      .promo-banner { grid-template-columns:1fr; }
+    }
+    @media (max-width:600px) {
+      section { padding:48px 0; }
+      .hero { min-height:auto; padding:40px 16px 48px; }
+      .hero-stats { gap:28px; }
+      .section-inner { padding:0 16px; }
+      .nav-cards-grid { grid-template-columns:1fr; }
+      .events-grid { grid-template-columns:1fr; }
+      .news-grid { grid-template-columns:1fr; }
+      .activities-grid { grid-template-columns:1fr; }
+      .promo-banner { padding:28px 20px; }
+      .footer { padding:20px 16px; flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+<script src="/viktoria/header.js"></script>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-eyebrow">
+    <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+    Москва · ГБОУ ДО ДЮЦ «Виктория»
+  </div>
+
+  <h1 class="hero-title">
+    Здесь начинается<br>
+    <span class="line2">детство</span>
+  </h1>
+
+  <p class="hero-sub">Кружки, мастер-классы, праздники, картинг и тир — всё для развития вашего ребёнка в четырёх площадках Москвы.</p>
+
+  <div class="hero-cta-row">
+    <a class="btn-hero-primary" href="/viktoria/index.html">
+      Выбрать кружок
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+    <a class="btn-hero-secondary" href="/viktoria/events.html">
+      Мастер-классы
+    </a>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num">50+</div>
+      <div class="hero-stat-label">кружков и секций</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">4</div>
+      <div class="hero-stat-label">площадки в Москве</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">1000+</div>
+      <div class="hero-stat-label">учеников в год</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ СПЕЦПРЕДЛОЖЕНИЕ ═══ -->
+<section style="padding:0 0 60px">
+  <div class="section-inner">
+    <div class="promo-banner">
+      <div>
+        <div class="promo-tag">🎉 Спецпредложение</div>
+        <div class="promo-title">Праздник в «Виктории» —<br>незабываемо и доступно!</div>
+        <div class="promo-desc">День рождения, выпускной или день класса — соберите программу из наших активностей. Чем больше модулей, тем выгоднее цена.</div>
+      </div>
+      <a class="promo-cta" href="/viktoria/prazdnik.html">
+        Рассчитать стоимость
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ РАЗДЕЛЫ САЙТА ═══ -->
+<section style="padding:0 0 80px">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label">Всё в одном месте</span>
+      <h2 class="section-title">Что мы <span>предлагаем</span></h2>
+    </div>
+    <div class="nav-cards-grid">
+      <a class="nav-card" href="/viktoria/index.html">
+        <div class="nav-card-icon">🎓</div>
+        <div class="nav-card-title">Кружки и секции</div>
+        <div class="nav-card-desc">Более 50 направлений — спорт, творчество, наука, музыка и языки</div>
+        <div class="nav-card-arrow">Смотреть каталог <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a class="nav-card" href="/viktoria/events.html">
+        <div class="nav-card-icon">🎨</div>
+        <div class="nav-card-title">Мастер-классы</div>
+        <div class="nav-card-desc">Разовые занятия для детей и взрослых. Записывайся на ближайшие!</div>
+        <div class="nav-card-arrow">Расписание <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a class="nav-card" href="/viktoria/prazdnik.html">
+        <div class="nav-card-icon">🎉</div>
+        <div class="nav-card-title">Праздники</div>
+        <div class="nav-card-desc">Дни рождения, выпускные, дни класса — незабываемые события для детей</div>
+        <div class="nav-card-arrow">Рассчитать стоимость <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a class="nav-card" href="/viktoria/games.html">
+        <div class="nav-card-icon">🎮</div>
+        <div class="nav-card-title">Игры</div>
+        <div class="nav-card-desc">Мини-игры в браузере — картинг, тир и другие активности центра</div>
+        <div class="nav-card-arrow">Играть <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a class="nav-card" href="/viktoria/blog.html">
+        <div class="nav-card-icon">📰</div>
+        <div class="nav-card-title">Новости и статьи</div>
+        <div class="nav-card-desc">Полезные материалы для родителей, анонсы событий и итоги мероприятий</div>
+        <div class="nav-card-arrow">Читать <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a class="nav-card" href="#contacts">
+        <div class="nav-card-icon">📍</div>
+        <div class="nav-card-title">Контакты</div>
+        <div class="nav-card-desc">Адрес, телефон, время работы. Приходите — мы ждём!</div>
+        <div class="nav-card-arrow">Как добраться <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ БЛИЖАЙШИЕ МАСТЕР-КЛАССЫ ═══ -->
+<section style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-head" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px">
+      <div>
+        <span class="section-label">Ближайшие события</span>
+        <h2 class="section-title">Мастер-<span>классы</span></h2>
+      </div>
+      <a class="section-link" href="/viktoria/events.html">
+        Все мастер-классы
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="events-grid" id="eventsGrid">
+      <!-- Скелетоны -->
+      <div class="event-card" style="pointer-events:none">
+        <div class="skel" style="height:160px;border-radius:0"></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+          <div class="skel" style="height:11px;width:40%"></div>
+          <div class="skel" style="height:16px;width:80%"></div>
+          <div class="skel" style="height:11px;width:60%"></div>
+        </div>
+      </div>
+      <div class="event-card" style="pointer-events:none">
+        <div class="skel" style="height:160px;border-radius:0"></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+          <div class="skel" style="height:11px;width:40%"></div>
+          <div class="skel" style="height:16px;width:75%"></div>
+          <div class="skel" style="height:11px;width:55%"></div>
+        </div>
+      </div>
+      <div class="event-card" style="pointer-events:none">
+        <div class="skel" style="height:160px;border-radius:0"></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+          <div class="skel" style="height:11px;width:40%"></div>
+          <div class="skel" style="height:16px;width:85%"></div>
+          <div class="skel" style="height:11px;width:50%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ АКТИВНОСТИ ═══ -->
+<section>
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label">Активный отдых</span>
+      <h2 class="section-title">Активности <span>центра</span></h2>
+      <p class="section-sub">Попробуй себя в разных форматах — от картинга до творческих мастерских</p>
+    </div>
+    <div class="activities-grid">
+      <a class="activity-card activity-card-karting" href="/viktoria/karting.html">
+        <div class="activity-icon">🏎️</div>
+        <div class="activity-info">
+          <div class="activity-title">Картинг</div>
+          <div class="activity-desc">Гонки на настоящих карт-машинах по профессиональному треку</div>
+          <div class="activity-link">Попробовать игру <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+      </a>
+      <a class="activity-card activity-card-tir" href="/viktoria/tir.html">
+        <div class="activity-icon">🎯</div>
+        <div class="activity-info">
+          <div class="activity-title">Тир</div>
+          <div class="activity-desc">Развивай меткость и концентрацию в нашем современном тире</div>
+          <div class="activity-link">Попробовать игру <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+      </a>
+      <a class="activity-card activity-card-prazdnik" href="/viktoria/prazdnik.html">
+        <div class="activity-icon">🎉</div>
+        <div class="activity-info">
+          <div class="activity-title">Праздники</div>
+          <div class="activity-desc">Незабываемые события с программой под любой формат и возраст</div>
+          <div class="activity-link">Рассчитать стоимость <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+      </a>
+      <a class="activity-card activity-card-more" href="/viktoria/games.html">
+        <div class="activity-icon" style="opacity:0.4">🎮</div>
+        <div class="activity-info">
+          <div class="activity-title">Все активности</div>
+          <div class="activity-desc">Смотри полный список активностей и играй прямо в браузере</div>
+          <div class="activity-link">Открыть игры <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ КРУЖКИ ═══ -->
+<section style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <div class="circles-preview">
+      <div>
+        <span class="section-label">Постоянные занятия</span>
+        <h2 class="section-title" style="margin-bottom:12px">Кружки и <span>секции</span></h2>
+        <p style="font-size:15px;color:var(--muted);line-height:1.6;margin-bottom:24px">Более 50 направлений для детей и взрослых. Найди своё — спорт, творчество, наука или искусство.</p>
+        <a class="btn-hero-primary" href="/viktoria/index.html" style="display:inline-flex">
+          Смотреть каталог
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="circles-cats">
+        <a class="circles-cat" href="/viktoria/index.html">🏅 Спорт и физкультура</a>
+        <a class="circles-cat" href="/viktoria/index.html">🎨 Творчество и искусство</a>
+        <a class="circles-cat" href="/viktoria/index.html">🔬 Наука и технологии</a>
+        <a class="circles-cat" href="/viktoria/index.html">🎭 Театр и музыка</a>
+        <a class="circles-cat" href="/viktoria/index.html">🌍 Языки и культура</a>
+        <a class="circles-cat" href="/viktoria/index.html">💃 Танцы</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ НОВОСТИ ═══ -->
+<section>
+  <div class="section-inner">
+    <div class="section-head" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px">
+      <div>
+        <span class="section-label">Медиа центра</span>
+        <h2 class="section-title">Новости и <span>статьи</span></h2>
+      </div>
+      <a class="section-link" href="/viktoria/blog.html">
+        Все публикации
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="news-grid" id="newsGrid">
+      <div class="news-card" style="pointer-events:none">
+        <div class="skel" style="height:11px;width:30%"></div>
+        <div class="skel" style="height:16px;width:90%"></div>
+        <div class="skel" style="height:13px;width:75%"></div>
+        <div class="skel" style="height:13px;width:60%"></div>
+      </div>
+      <div class="news-card" style="pointer-events:none">
+        <div class="skel" style="height:11px;width:25%"></div>
+        <div class="skel" style="height:16px;width:85%"></div>
+        <div class="skel" style="height:13px;width:70%"></div>
+      </div>
+      <div class="news-card" style="pointer-events:none">
+        <div class="skel" style="height:11px;width:35%"></div>
+        <div class="skel" style="height:16px;width:80%"></div>
+        <div class="skel" style="height:13px;width:65%"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ КОНТАКТЫ ═══ -->
+<section id="contacts" style="background:var(--surface); border-top:1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label">Мы здесь</span>
+      <h2 class="section-title">Контакты и <span>адрес</span></h2>
+    </div>
+    <div class="contacts-grid">
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Газопровод</div>
+          <div class="contact-value">ул. Газопровод, д. 4</div>
+          <div class="contact-sub">
+            <a href="tel:+74953825938" style="color:var(--accent);text-decoration:none;font-weight:600">+7 (495) 382-59-38</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Юный техник</div>
+          <div class="contact-value">ул. Нагатинская, д. 22, корп. 2</div>
+          <div class="contact-sub">
+            <a href="tel:+74996160288" style="color:var(--accent);text-decoration:none;font-weight:600">+7 (499) 616-02-88</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Музыкально-хоровая студия «Аннино»</div>
+          <div class="contact-value">Варшавское ш., д. 145, стр. 1</div>
+          <div class="contact-sub">
+            <a href="tel:+74953862289" style="color:var(--accent);text-decoration:none;font-weight:600">+7 (495) 386-22-89</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Щербинка</div>
+          <div class="contact-value">г. Щербинка, ул. Пушкинская, д. 3А</div>
+          <div class="contact-sub">
+            <a href="tel:+74958670537" style="color:var(--accent);text-decoration:none;font-weight:600">+7 (495) 867-05-37</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+      <a href="https://t.me/dyutsvictory" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;border:1px solid var(--border);background:var(--surface);text-decoration:none;font-size:13px;font-weight:600;color:var(--text);transition:all 0.15s">💬 Telegram</a>
+      <a href="https://vk.com/dyutsvictory" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;border:1px solid var(--border);background:var(--surface);text-decoration:none;font-size:13px;font-weight:600;color:var(--text);transition:all 0.15s">💙 ВКонтакте</a>
+      <a href="https://max.ru/id7724732065_gos" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;border:1px solid var(--border);background:var(--surface);text-decoration:none;font-size:13px;font-weight:600;color:var(--text);transition:all 0.15s">🟠 Max</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-left">
+    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
+    <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br><span style="font-weight:400;opacity:0.7;">г. Москва</span></div>
+  </div>
+  <div class="footer-copy">© 2025 Детско-юношеский центр «Виктория»</div>
+</footer>
+
+<script>
+const REPO = 'agbox77/viktoria';
+
+function parseFM(text) {
+  const m = text.match(/^---\n([\s\S]*?)\n---/);
+  if (!m) return null;
+  const d = {};
+  m[1].split('\n').forEach(l => {
+    const ci = l.indexOf(':'); if (ci<1) return;
+    let k=l.slice(0,ci).trim(), v=l.slice(ci+1).trim();
+    if ((v.startsWith('"')&&v.endsWith('"'))||(v.startsWith("'")&&v.endsWith("'"))) v=v.slice(1,-1);
+    d[k]=v;
+  });
+  return d;
+}
+
+function fmtDate(s) {
+  if (!s) return '';
+  const p=s.split(' ')[0];
+  if (p.includes('.')) { const [d,m,y]=p.split('.'); const mn=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек']; return `${parseInt(d)} ${mn[parseInt(m)-1]}`; }
+  return s;
+}
+
+// Загрузка мастер-классов
+async function loadEvents() {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/_events`);
+    if (!res.ok) throw new Error();
+    const files = await res.json();
+    const mdFiles = files.filter(f=>f.name.endsWith('.md'));
+    const all = await Promise.all(mdFiles.map(async f=>{
+      const r=await fetch(f.download_url);
+      const t=await r.text();
+      const d=parseFM(t); if(!d) return null;
+      d.slug=f.name.replace('.md',''); return d;
+    }));
+    const active = all.filter(e=>e&&e.status==='active')
+      .sort((a,b)=>{
+        const da=a.date?new Date(a.date.split(' ')[0].split('.').reverse().join('-')):new Date(0);
+        const db=b.date?new Date(b.date.split(' ')[0].split('.').reverse().join('-')):new Date(0);
+        return da-db;
+      }).slice(0,3);
+
+    if (!active.length) { document.getElementById('eventsGrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Скоро появятся новые мастер-классы</div>'; return; }
+
+    document.getElementById('eventsGrid').innerHTML = active.map(e=>`
+      <a class="event-card" href="/viktoria/event.html?slug=${encodeURIComponent(e.slug)}">
+        <div class="event-card-img">
+          ${e.image?`<img src="${e.image}" alt="${e.title}">`:`<span>${e.category==='Картинг'?'🏎️':e.category==='Тир'?'🎯':'🎨'}</span>`}
+          <span class="event-status">Активно</span>
+        </div>
+        <div class="event-card-body">
+          <div class="event-date">${fmtDate(e.date)}${e.date&&e.date.includes(' ')?' · '+e.date.split(' ')[1]:''}</div>
+          <div class="event-title">${e.title}</div>
+          <div class="event-meta">
+            ${e.price?`<span>💰 ${e.price}</span>`:''}
+            ${e.age?`<span>👤 ${e.age} лет</span>`:''}
+          </div>
+        </div>
+      </a>`).join('');
+  } catch(e) {
+    document.getElementById('eventsGrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Скоро появятся новые мастер-классы</div>';
+  }
+}
+
+// Загрузка новостей
+async function loadNews() {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/_posts`);
+    if (!res.ok) throw new Error();
+    const files = await res.json();
+    const mdFiles = files.filter(f=>f.name.endsWith('.md'));
+    const all = await Promise.all(mdFiles.map(async f=>{
+      const r=await fetch(f.download_url);
+      const t=await r.text();
+      const d=parseFM(t); if(!d) return null;
+      d.slug=f.name.replace('.md',''); return d;
+    }));
+    const sorted = all.filter(Boolean).sort((a,b)=>{
+      const da=a.date?new Date(a.date.split(' ')[0].split('.').reverse().join('-')):new Date(0);
+      const db=b.date?new Date(b.date.split(' ')[0].split('.').reverse().join('-')):new Date(0);
+      return db-da;
+    }).slice(0,3);
+
+    const typeMap={'Новость':'type-news','Статья':'type-article','Анонс':'type-announce'};
+    if (!sorted.length) { document.getElementById('newsGrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Скоро появятся первые публикации</div>'; return; }
+
+    document.getElementById('newsGrid').innerHTML = sorted.map(p=>`
+      <a class="news-card" href="/viktoria/post.html?slug=${encodeURIComponent(p.slug)}">
+        <span class="news-type ${typeMap[p.type]||'type-news'}">${p.type||'Новость'}</span>
+        <div class="news-title">${p.title}</div>
+        ${p.excerpt?`<div class="news-excerpt">${p.excerpt.slice(0,100)}${p.excerpt.length>100?'…':''}</div>`:''}
+        <div class="news-date">${fmtDate(p.date)}${p.author?' · '+p.author:''}</div>
+      </a>`).join('');
+  } catch(e) {
+    document.getElementById('newsGrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Скоро появятся первые публикации</div>';
+  }
+}
+
+loadEvents();
+loadNews();
+</script>
+</body>
+</html>
