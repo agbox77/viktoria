@@ -103,23 +103,47 @@
 <script>
 function mdToHtml(md) {
   if (!md) return '';
-  let html = md
-    .replace(/^### (.+)$/gm,'<h3>$1</h3>')
-    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
-    .replace(/^# (.+)$/gm,'<h2>$1</h2>')
-    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g,'<em>$1</em>')
-    .replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>')
-    .replace(/^---$/gm,'<hr>')
-    .replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>')
-    .replace(/^- (.+)$/gm,'<li>$1</li>');
-  html = html.replace(/(<li>[\s\S]+?<\/li>)/g,'<ul>$1</ul>');
-  html = html.split(/\n\n+/).map(block => {
-    block = block.trim();
-    if (!block) return '';
-    if (block.startsWith('<')) return block;
-    return `<p>${block}</p>`;
-  }).join('\n');
+  
+  const lines = md.split('\n');
+  let html = '';
+  let inList = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i];
+
+    // Inline форматирование
+    line = line
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+
+    if (/^### (.+)/.test(line)) {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<h3>${line.replace(/^### /, '')}</h3>`;
+    } else if (/^## (.+)/.test(line)) {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<h2>${line.replace(/^## /, '')}</h2>`;
+    } else if (/^# (.+)/.test(line)) {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<h2>${line.replace(/^# /, '')}</h2>`;
+    } else if (/^> (.+)/.test(line)) {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<blockquote>${line.replace(/^> /, '')}</blockquote>`;
+    } else if (/^---$/.test(line)) {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += '<hr>';
+    } else if (/^- (.+)/.test(line)) {
+      if (!inList) { html += '<ul>'; inList = true; }
+      html += `<li>${line.replace(/^- /, '')}</li>`;
+    } else if (line.trim() === '') {
+      if (inList) { html += '</ul>'; inList = false; }
+      // пустая строка = разделитель абзацев, не добавляем ничего
+    } else {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<p>${line}</p>`;
+    }
+  }
+  if (inList) html += '</ul>';
   return html;
 }
 
