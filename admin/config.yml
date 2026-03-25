@@ -42,7 +42,7 @@ collections:
       - { name: image, label: Изображение, widget: image, required: false, media_folder: "static/images/events", public_folder: "/static/images/events" }
       - { name: status, label: Статус, widget: select, options: ["active", "completed", "cancelled"], default: "active" }
 
-  - name: posts
+ - name: posts
     label: Статьи и новости
     label_singular: Публикация
     folder: _posts
@@ -53,7 +53,7 @@ collections:
       - { name: type, label: Тип, widget: select, options: ["Новость", "Статья", "Анонс"], default: "Новость" }
       - { name: author, label: Автор, widget: string }
       - { name: date, label: Дата, widget: datetime, date_format: DD.MM.YYYY, time_format: HH:mm, format: DD.MM.YYYY HH:mm }
-      - { name: image, label: Обложка, widget: image, required: false, media_folder: "static/images/posts", public_folder: "/static/images/posts" }
+      - { name: image, label: Обложка, widget: image, required: false, media_folder: "static/images/posts", public_folder: "/static/images/posts", hint: "JPG или PNG, рекомендуемый размер 1200×630px, не более 2MB" }
       - { name: excerpt, label: Краткое описание, widget: text }
       - { name: body, label: Текст, widget: markdown }
       - { name: tags, label: Теги, widget: list, required: false }
