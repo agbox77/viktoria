@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Новости и статьи — ДЮЦ «Виктория»</title>
+  <meta name="description" content="Новости, статьи и анонсы Детско-юношеского центра «Виктория». Полезные материалы для родителей и детей.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/viktoria/css/style.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    .hero { position:relative; padding:64px 24px 48px; text-align:center; overflow:hidden; }
+    .hero::before { content:''; position:absolute; inset:0; pointer-events:none; background: radial-gradient(ellipse 80% 60% at 50% -10%,rgba(232,146,26,0.13) 0%,transparent 65%), radial-gradient(ellipse 40% 50% at 10% 90%,rgba(90,171,122,0.07) 0%,transparent 60%); }
+    .hero-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); background:rgba(232,146,26,0.1); border:1px solid rgba(232,146,26,0.2); border-radius:100px; padding:6px 16px; margin-bottom:24px; }
+    .hero-title { font-family:'Playfair Display',serif; font-size:clamp(36px,6vw,64px); font-weight:900; line-height:1; letter-spacing:-0.02em; margin-bottom:16px; }
+    .hero-title span { background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .hero-sub { font-size:16px; color:var(--muted); max-width:480px; margin:0 auto; line-height:1.7; }
+
+    /* ФИЛЬТРЫ */
+    .filters-bar { max-width:1100px; margin:0 auto; padding:0 24px 32px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .filter-btn { padding:8px 18px; border-radius:100px; font-family:'Manrope',sans-serif; font-size:13px; font-weight:600; border:1px solid var(--border); background:var(--surface); color:var(--muted); cursor:pointer; transition:all 0.15s; }
+    .filter-btn:hover { border-color:rgba(232,146,26,0.3); color:var(--text); }
+    .filter-btn.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .search-wrap { margin-left:auto; position:relative; }
+    .search-wrap svg { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; }
+    .search-input { padding:9px 16px 9px 40px; font-family:'Manrope',sans-serif; font-size:13px; font-weight:500; background:var(--surface); border:1px solid var(--border); border-radius:10px; color:var(--text); outline:none; width:220px; transition:all 0.2s; }
+    .search-input:focus { border-color:rgba(232,146,26,0.4); box-shadow:0 0 0 3px rgba(232,146,26,0.08); }
+    .search-input::placeholder { color:var(--muted); }
+
+    /* СЕТКА */
+    .posts-wrap { max-width:1100px; margin:0 auto; padding:0 24px 80px; }
+    .posts-count { font-size:13px; color:var(--muted); margin-bottom:20px; }
+    .posts-count strong { color:var(--text); font-weight:700; }
+    .posts-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+
+    /* КАРТОЧКА */
+    .post-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; cursor:pointer; transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s; text-decoration:none; color:inherit; display:flex; flex-direction:column; animation:cardIn 0.3s ease both; }
+    @keyframes cardIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    .post-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(60,40,10,0.1); border-color:rgba(232,146,26,0.25); }
+    .post-card.featured { grid-column:span 2; }
+    .post-card.featured .card-image { height:280px; }
+    .post-card.featured .card-title { font-size:22px; }
+
+    .card-image { width:100%; height:200px; background:var(--surface2); overflow:hidden; position:relative; flex-shrink:0; }
+    .card-image img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s; }
+    .post-card:hover .card-image img { transform:scale(1.04); }
+    .card-image-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:52px; opacity:0.2; background:linear-gradient(135deg,var(--surface2),#ede8e0); }
+
+    .card-type-badge { position:absolute; top:12px; left:12px; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:4px 10px; border-radius:6px; }
+    .badge-news { background:rgba(232,146,26,0.9); color:#fff; }
+    .badge-article { background:rgba(61,138,92,0.9); color:#fff; }
+    .badge-announce { background:rgba(122,88,137,0.9); color:#fff; }
+
+    .card-body { padding:20px; display:flex; flex-direction:column; gap:8px; flex:1; }
+    .card-meta { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--muted); }
+    .card-meta-dot { width:3px; height:3px; border-radius:50%; background:var(--border); }
+    .card-title { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; line-height:1.3; color:var(--text); }
+    .card-excerpt { font-size:13px; color:var(--muted); line-height:1.6; }
+    .card-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:12px; }
+    .card-tag { font-size:11px; font-weight:600; padding:3px 8px; background:var(--surface2); border-radius:5px; color:var(--muted); }
+
+    /* СКЕЛЕТОН */
+    .skeleton { background:var(--surface); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    .skel { border-radius:6px; background:linear-gradient(90deg,var(--surface2) 25%,#ede8e0 50%,var(--surface2) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    .empty-state { grid-column:1/-1; text-align:center; padding:80px 20px; color:var(--muted); }
+    .empty-state-icon { font-size:48px; margin-bottom:16px; opacity:0.3; }
+    .empty-state h3 { font-size:18px; font-weight:700; color:var(--text); margin-bottom:8px; }
+
+    .footer { background:#fff; border-top:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .footer-left { display:flex; align-items:center; gap:12px; }
+    .footer-left img { height:36px; opacity:0.7; }
+    .footer-org { font-size:12px; font-weight:600; color:var(--muted); line-height:1.4; }
+    .footer-copy { font-size:11px; color:var(--muted); opacity:0.6; }
+
+    @media (max-width:900px) { .posts-grid { grid-template-columns:repeat(2,1fr); } .post-card.featured { grid-column:span 2; } }
+    @media (max-width:600px) {
+      .posts-grid { grid-template-columns:1fr; }
+      .post-card.featured { grid-column:span 1; }
+      .post-card.featured .card-image { height:200px; }
+      .post-card.featured .card-title { font-size:18px; }
+      .hero { padding:40px 16px 32px; }
+      .filters-bar { padding:0 16px 24px; }
+      .posts-wrap { padding:0 16px 80px; }
+      .search-wrap { margin-left:0; width:100%; }
+      .search-input { width:100%; }
+      .footer { padding:20px 16px; flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+<script src="/viktoria/header.js"></script>
+
+<div class="hero">
+  <div class="hero-eyebrow">✍️ Медиа центра</div>
+  <h1 class="hero-title">Новости и<br><span>статьи</span></h1>
+  <p class="hero-sub">Полезные материалы для родителей, новости центра и анонсы предстоящих событий.</p>
+</div>
+
+<div class="filters-bar">
+  <button class="filter-btn active" data-type="all">Все</button>
+  <button class="filter-btn" data-type="Новость">Новости</button>
+  <button class="filter-btn" data-type="Статья">Статьи</button>
+  <button class="filter-btn" data-type="Анонс">Анонсы</button>
+  <div class="search-wrap">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input class="search-input" id="searchInput" type="text" placeholder="Поиск..." autocomplete="off">
+  </div>
+</div>
+
+<div class="posts-wrap">
+  <div class="posts-count" id="postsCount"></div>
+  <div class="posts-grid" id="postsGrid"></div>
+</div>
+
+<footer class="footer">
+  <div class="footer-left">
+    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
+    <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br><span style="font-weight:400;opacity:0.7;">г. Москва</span></div>
+  </div>
+  <div class="footer-copy">© 2025 Детско-юношеский центр «Виктория»</div>
+</footer>
+
+<script>
+const REPO = 'agbox77/viktoria';
+const BRANCH = 'main';
+let allPosts = [];
+let currentType = 'all';
+let searchQuery = '';
+
+const TYPE_MAP = {
+  'Новость':  { cls:'badge-news',     icon:'📰' },
+  'Статья':   { cls:'badge-article',  icon:'📝' },
+  'Анонс':    { cls:'badge-announce', icon:'📣' },
+};
+
+function parseFrontmatter(text) {
+  const m = text.match(/^---\n([\s\S]*?)\n---/);
+  if (!m) return null;
+  const data = {};
+  m[1].split('\n').forEach(line => {
+    const ci = line.indexOf(':');
+    if (ci < 1) return;
+    let k = line.slice(0, ci).trim();
+    let v = line.slice(ci + 1).trim();
+    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1,-1);
+    if (v.startsWith('[')) { try { data[k] = JSON.parse(v.replace(/'/g,'"')); } catch { data[k]=[]; } }
+    else data[k] = v;
+  });
+  return data;
+}
+
+function formatDate(str) {
+  if (!str) return '';
+  const parts = str.split(' ')[0];
+  if (parts.includes('.')) {
+    const [d,m,y] = parts.split('.');
+    const months = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+    return `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
+  }
+  return str;
+}
+
+function renderCard(post, idx) {
+  const isFeatured = idx === 0 ? 'featured' : '';
+  const type = post.type || 'Новость';
+  const tm = TYPE_MAP[type] || TYPE_MAP['Новость'];
+  const imageHtml = post.image
+    ? `<img src="${post.image}" alt="${post.title}" loading="lazy">`
+    : `<div class="card-image-placeholder">${tm.icon}</div>`;
+  const tagsArr = Array.isArray(post.tags) ? post.tags : (post.tags ? post.tags.split(',') : []);
+  const tagsHtml = tagsArr.length ? `<div class="card-tags">${tagsArr.map(t=>`<span class="card-tag">${t.trim()}</span>`).join('')}</div>` : '';
+
+  return `
+    <a class="post-card ${isFeatured}" href="/viktoria/post.html?slug=${encodeURIComponent(post.slug)}" style="animation-delay:${Math.min(idx*40,300)}ms">
+      <div class="card-image">
+        ${imageHtml}
+        <span class="card-type-badge ${tm.cls}">${type}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span>${formatDate(post.date)}</span>
+          ${post.author ? `<span class="card-meta-dot"></span><span>${post.author}</span>` : ''}
+        </div>
+        <div class="card-title">${post.title}</div>
+        ${post.excerpt ? `<div class="card-excerpt">${post.excerpt}</div>` : ''}
+        ${tagsHtml}
+      </div>
+    </a>`;
+}
+
+function showSkeletons() {
+  document.getElementById('postsGrid').innerHTML = Array(6).fill(`
+    <div class="skeleton">
+      <div class="skel" style="height:200px;border-radius:0"></div>
+      <div style="padding:20px;display:flex;flex-direction:column;gap:10px">
+        <div class="skel" style="height:11px;width:40%"></div>
+        <div class="skel" style="height:18px;width:85%"></div>
+        <div class="skel" style="height:13px;width:70%"></div>
+        <div class="skel" style="height:13px;width:55%"></div>
+      </div>
+    </div>`).join('');
+}
+
+function renderPosts() {
+  let filtered = allPosts.filter(p => {
+    if (currentType !== 'all' && p.type !== currentType) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      if (!(p.title||'').toLowerCase().includes(q) && !(p.excerpt||'').toLowerCase().includes(q) && !(p.author||'').toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+
+  const grid = document.getElementById('postsGrid');
+  const count = document.getElementById('postsCount');
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔍</div><h3>Ничего не найдено</h3><p>Попробуйте изменить фильтр или поисковый запрос</p></div>`;
+    count.innerHTML = '';
+    return;
+  }
+  count.innerHTML = `<strong>${filtered.length}</strong> публикаций`;
+  grid.innerHTML = filtered.map((p,i) => renderCard(p,i)).join('');
+}
+
+async function loadPosts() {
+  showSkeletons();
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/_posts?ref=${BRANCH}`);
+    if (!res.ok) throw new Error('no posts');
+    const files = await res.json();
+    const mdFiles = files.filter(f => f.name.endsWith('.md'));
+    const promises = mdFiles.map(async file => {
+      const r = await fetch(file.download_url);
+      const text = await r.text();
+      const data = parseFrontmatter(text);
+      if (!data) return null;
+      data.slug = file.name.replace('.md','');
+      return data;
+    });
+    allPosts = (await Promise.all(promises)).filter(Boolean);
+    allPosts.sort((a,b) => {
+      const da = a.date ? new Date(a.date.split(' ')[0].split('.').reverse().join('-')) : new Date(0);
+      const db = b.date ? new Date(b.date.split(' ')[0].split('.').reverse().join('-')) : new Date(0);
+      return db - da;
+    });
+    renderPosts();
+  } catch(err) {
+    document.getElementById('postsGrid').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">✍️</div>
+        <h3>Пока нет публикаций</h3>
+        <p>Добавьте первую статью или новость через админку!</p>
+      </div>`;
+  }
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentType = btn.dataset.type;
+    renderPosts();
+  });
+});
+document.getElementById('searchInput').addEventListener('input', e => { searchQuery = e.target.value; renderPosts(); });
+
+loadPosts();
+</script>
+</body>
+</html>

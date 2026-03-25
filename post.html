@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Публикация — ДЮЦ «Виктория»</title>
+  <meta name="description" id="pageDesc" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/viktoria/css/style.css">
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Manrope',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+    .post-hero { position:relative; width:100%; height:420px; background:var(--surface2); overflow:hidden; display:flex; align-items:flex-end; }
+    .post-hero img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .post-hero-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(20,12,4,0.7) 0%,transparent 60%); }
+    .post-hero-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:80px; opacity:0.15; }
+    .post-hero-content { position:relative; z-index:2; padding:40px 48px; width:100%; max-width:860px; margin:0 auto; }
+    .post-hero-badge { display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:4px 12px; border-radius:6px; margin-bottom:14px; }
+    .badge-news { background:rgba(232,146,26,0.9); color:#fff; }
+    .badge-article { background:rgba(61,138,92,0.9); color:#fff; }
+    .badge-announce { background:rgba(122,88,137,0.9); color:#fff; }
+    .post-hero-title { font-family:'Playfair Display',serif; font-size:clamp(24px,4vw,44px); font-weight:900; line-height:1.15; color:#fff; text-shadow:0 2px 12px rgba(0,0,0,0.4); }
+
+    .post-header-simple { padding:48px 24px 24px; max-width:860px; margin:0 auto; }
+    .post-header-simple .post-hero-title { color:var(--text); text-shadow:none; }
+
+    .post-meta-bar { max-width:860px; margin:0 auto; padding:20px 24px 0; display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:13px; color:var(--muted); }
+    .post-meta-bar .dot { width:3px; height:3px; border-radius:50%; background:var(--border); }
+
+    .post-body { max-width:860px; margin:0 auto; padding:32px 24px 80px; }
+
+    .back-link { display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--muted); text-decoration:none; padding:8px 14px; border-radius:10px; border:1px solid var(--border); transition:all 0.15s; margin-bottom:28px; }
+    .back-link:hover { color:var(--text); border-color:rgba(60,40,10,0.2); }
+
+    .post-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:32px; }
+    .post-tag { font-size:12px; font-weight:600; padding:5px 12px; background:var(--surface2); border:1px solid var(--border); border-radius:100px; color:var(--muted); }
+
+    /* Markdown */
+    .post-content { font-size:16px; line-height:1.85; }
+    .post-content h2 { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; margin:40px 0 14px; }
+    .post-content h3 { font-size:20px; font-weight:700; margin:28px 0 10px; }
+    .post-content p { margin-bottom:18px; }
+    .post-content ul, .post-content ol { margin:0 0 18px 24px; }
+    .post-content li { margin-bottom:6px; }
+    .post-content strong { font-weight:700; }
+    .post-content em { font-style:italic; }
+    .post-content a { color:var(--accent); text-decoration:underline; text-underline-offset:3px; }
+    .post-content blockquote { border-left:3px solid var(--accent); padding:12px 20px; margin:24px 0; background:rgba(232,146,26,0.05); border-radius:0 8px 8px 0; color:var(--muted); font-style:italic; }
+    .post-content img { max-width:100%; border-radius:12px; margin:20px 0; display:block; }
+    .post-content hr { border:none; border-top:1px solid var(--border); margin:32px 0; }
+
+    .share-bar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:24px 0; border-top:1px solid var(--border); margin-top:40px; }
+    .share-label { font-size:13px; font-weight:600; color:var(--muted); margin-right:4px; }
+    .share-btn { display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:10px; border:1px solid var(--border); background:var(--surface); font-family:'Manrope',sans-serif; font-size:13px; font-weight:600; color:var(--text); cursor:pointer; text-decoration:none; transition:all 0.15s; }
+    .share-btn:hover { border-color:rgba(232,146,26,0.3); color:var(--accent); }
+
+    .skel { border-radius:8px; background:linear-gradient(90deg,var(--surface2) 25%,#ede8e0 50%,var(--surface2) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+    .loading-wrap { max-width:860px; margin:40px auto; padding:0 24px; display:flex; flex-direction:column; gap:16px; }
+
+    .error-wrap { max-width:860px; margin:80px auto; padding:0 24px; text-align:center; color:var(--muted); }
+    .error-wrap h2 { font-size:24px; font-weight:700; color:var(--text); margin-bottom:12px; }
+
+    .footer { background:#fff; border-top:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    .footer-left { display:flex; align-items:center; gap:12px; }
+    .footer-left img { height:36px; opacity:0.7; }
+    .footer-org { font-size:12px; font-weight:600; color:var(--muted); line-height:1.4; }
+    .footer-copy { font-size:11px; color:var(--muted); opacity:0.6; }
+
+    @media (max-width:768px) {
+      .post-hero { height:260px; }
+      .post-hero-content { padding:20px; }
+      .post-meta-bar, .post-body, .post-header-simple { padding-left:16px; padding-right:16px; }
+      .footer { padding:20px 16px; flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+<script src="/viktoria/header.js"></script>
+
+<div id="loadingWrap" class="loading-wrap">
+  <div class="skel" style="height:420px;border-radius:0;margin:0 -24px"></div>
+  <div class="skel" style="height:13px;width:30%"></div>
+  <div class="skel" style="height:36px;width:80%"></div>
+  <div class="skel" style="height:13px;width:45%"></div>
+  <div class="skel" style="height:180px"></div>
+  <div class="skel" style="height:180px"></div>
+</div>
+
+<div id="postWrap" style="display:none"></div>
+
+<footer class="footer">
+  <div class="footer-left">
+    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
+    <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br><span style="font-weight:400;opacity:0.7;">г. Москва</span></div>
+  </div>
+  <div class="footer-copy">© 2025 Детско-юношеский центр «Виктория»</div>
+</footer>
+
+<script>
+function mdToHtml(md) {
+  if (!md) return '';
+  let html = md
+    .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+    .replace(/^# (.+)$/gm,'<h2>$1</h2>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>')
+    .replace(/^---$/gm,'<hr>')
+    .replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/^- (.+)$/gm,'<li>$1</li>');
+  html = html.replace(/(<li>[\s\S]+?<\/li>)/g,'<ul>$1</ul>');
+  html = html.split(/\n\n+/).map(block => {
+    block = block.trim();
+    if (!block) return '';
+    if (block.startsWith('<')) return block;
+    return `<p>${block}</p>`;
+  }).join('\n');
+  return html;
+}
+
+function parseFrontmatter(text) {
+  const m = text.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+  if (!m) return null;
+  const data = {};
+  m[1].split('\n').forEach(line => {
+    const ci = line.indexOf(':');
+    if (ci < 1) return;
+    let k = line.slice(0,ci).trim();
+    let v = line.slice(ci+1).trim();
+    if ((v.startsWith('"')&&v.endsWith('"'))||(v.startsWith("'")&&v.endsWith("'"))) v=v.slice(1,-1);
+    if (v.startsWith('[')) { try{data[k]=JSON.parse(v.replace(/'/g,'"'));}catch{data[k]=[];} }
+    else data[k]=v;
+  });
+  data.body = m[2].trim();
+  return data;
+}
+
+function formatDate(str) {
+  if (!str) return '';
+  const parts = str.split(' ')[0];
+  if (parts.includes('.')) {
+    const [d,mo,y] = parts.split('.');
+    const months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+    return `${parseInt(d)} ${months[parseInt(mo)-1]} ${y}`;
+  }
+  return str;
+}
+
+const TYPE_MAP = {
+  'Новость': {cls:'badge-news', icon:'📰'},
+  'Статья':  {cls:'badge-article', icon:'📝'},
+  'Анонс':   {cls:'badge-announce', icon:'📣'},
+};
+
+async function loadPost() {
+  const slug = new URLSearchParams(window.location.search).get('slug');
+  if (!slug) { showError('Публикация не найдена'); return; }
+
+  try {
+    const res = await fetch(`https://raw.githubusercontent.com/agbox77/viktoria/main/_posts/${encodeURIComponent(slug)}.md`);
+    if (!res.ok) throw new Error();
+    const text = await res.text();
+    const post = parseFrontmatter(text);
+    if (!post) throw new Error();
+
+    document.getElementById('pageTitle').textContent = (post.seo_title||post.title) + ' — ДЮЦ «Виктория»';
+    if (post.excerpt) document.getElementById('pageDesc').setAttribute('content', post.excerpt);
+
+    const type = post.type || 'Новость';
+    const tm = TYPE_MAP[type] || TYPE_MAP['Новость'];
+    const tagsArr = Array.isArray(post.tags) ? post.tags : (post.tags ? post.tags.split(',') : []);
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(post.title);
+
+    const heroHtml = post.image ? `
+      <div class="post-hero">
+        <img src="${post.image}" alt="${post.title}">
+        <div class="post-hero-overlay"></div>
+        <div class="post-hero-content">
+          <div class="post-hero-badge ${tm.cls}">${type}</div>
+          <h1 class="post-hero-title">${post.title}</h1>
+        </div>
+      </div>
+      <div class="post-meta-bar">
+        <span>${formatDate(post.date)}</span>
+        ${post.author?`<span class="dot"></span><span>${post.author}</span>`:''}
+      </div>` : `
+      <div class="post-header-simple">
+        <a class="back-link" href="/viktoria/blog.html">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Все публикации
+        </a>
+        <div class="post-hero-badge ${tm.cls}" style="margin-bottom:16px">${type}</div>
+        <h1 class="post-hero-title">${post.title}</h1>
+        <div style="margin-top:14px;font-size:13px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap">
+          <span>${formatDate(post.date)}</span>
+          ${post.author?`<span>·</span><span>${post.author}</span>`:''}
+        </div>
+      </div>`;
+
+    const bodyHtml = `
+      <div class="post-body">
+        ${post.image?`<a class="back-link" href="/viktoria/blog.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>Все публикации</a>`:''}
+        ${tagsArr.length?`<div class="post-tags">${tagsArr.map(t=>`<span class="post-tag">${t.trim()}</span>`).join('')}</div>`:''}
+        <div class="post-content">${mdToHtml(post.body)}</div>
+        <div class="share-bar">
+          <span class="share-label">Поделиться:</span>
+          <a class="share-btn" href="https://vk.com/share.php?url=${pageUrl}" target="_blank" rel="noopener">ВКонтакте</a>
+          <a class="share-btn" href="https://t.me/share/url?url=${pageUrl}&text=${pageTitle}" target="_blank" rel="noopener">Telegram</a>
+          <button class="share-btn" onclick="navigator.clipboard.writeText(window.location.href).then(()=>{this.textContent='✓ Скопировано!'})">Скопировать ссылку</button>
+        </div>
+      </div>`;
+
+    document.getElementById('loadingWrap').style.display='none';
+    const wrap = document.getElementById('postWrap');
+    wrap.style.display='block';
+    wrap.innerHTML = heroHtml + bodyHtml;
+  } catch(e) {
+    showError('Публикация не найдена или была удалена.');
+  }
+}
+
+function showError(msg) {
+  document.getElementById('loadingWrap').style.display='none';
+  const wrap = document.getElementById('postWrap');
+  wrap.style.display='block';
+  wrap.innerHTML=`<div class="error-wrap"><div style="font-size:48px;margin-bottom:16px">😕</div><h2>Упс!</h2><p style="margin-bottom:24px">${msg}</p><a class="back-link" href="/viktoria/blog.html" style="display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>Вернуться к публикациям</a></div>`;
+}
+
+loadPost();
+</script>
+</body>
+</html>
