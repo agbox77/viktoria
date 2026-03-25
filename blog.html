@@ -171,8 +171,10 @@ function renderCard(post, idx) {
   const type = post.type || 'Новость';
   const tm = TYPE_MAP[type] || TYPE_MAP['Новость'];
   const imageHtml = post.image
-    ? `<img src="${post.image}" alt="${post.title}" loading="lazy">`
-    : `<div class="card-image-placeholder">${tm.icon}</div>`;
+  ? `<img src="${post.image}" alt="${post.title}" loading="lazy" 
+       onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+    + `<div class="card-image-placeholder" style="display:none">${tm.icon}</div>`
+  : `<div class="card-image-placeholder">${tm.icon}</div>`;
   const tagsArr = Array.isArray(post.tags) ? post.tags : (post.tags ? post.tags.split(',') : []);
   const tagsHtml = tagsArr.length ? `<div class="card-tags">${tagsArr.map(t=>`<span class="card-tag">${t.trim()}</span>`).join('')}</div>` : '';
 
