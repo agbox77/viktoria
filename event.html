@@ -12,22 +12,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-    .topbar { background:#fff; border-bottom:1px solid var(--border); padding:0 32px; display:flex; align-items:center; justify-content:space-between; height:72px; position:sticky; top:0; z-index:100; }
-    .topbar-logo { display:flex; align-items:center; gap:14px; text-decoration:none; }
-    .topbar-logo img { height:48px; }
-    .topbar-name strong { font-size:15px; font-weight:700; font-family:'Playfair Display',serif; }
-    .topbar-name span { font-size:11px; color:var(--muted); }
-    .nav-links { display:flex; gap:24px; }
-    .nav-link { text-decoration:none; font-size:14px; font-weight:600; color:var(--muted); transition:color 0.15s; }
-    .nav-link:hover { color:var(--accent); }
-    .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--muted); text-decoration:none; margin:24px 32px 0; font-size:14px; font-weight:500; }
+    .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--muted); text-decoration:none; margin:24px 32px 0; font-size:14px; font-weight:500; transition:color 0.15s; }
+    .back-link:hover { color:var(--accent); }
 
     .event-container { max-width:900px; margin:0 auto; padding:32px 24px 80px; }
     .event-card { background:var(--surface); border-radius:32px; overflow:hidden; border:1px solid var(--border); }
     .event-image { height:280px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; position:relative; background: linear-gradient(135deg, #e8921a, #c96d10); }
-    .event-image-icon { font-size:80px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2)); }
-    .event-image-category { font-size:16px; font-weight:600; background:rgba(255,255,255,0.9); padding:6px 18px; border-radius:40px; color:var(--accent2); }
-    .event-badge { position:absolute; top:20px; right:20px; background:rgba(0,0,0,0.7); color:white; padding:6px 14px; border-radius:30px; font-size:13px; font-weight:600; }
+    .event-image img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .event-image-icon { font-size:80px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2)); position:relative; z-index:1; }
+    .event-image-category { font-size:16px; font-weight:600; background:rgba(255,255,255,0.9); padding:6px 18px; border-radius:40px; color:var(--accent2); position:relative; z-index:1; }
+    .event-badge { position:absolute; top:20px; right:20px; background:rgba(0,0,0,0.7); color:white; padding:6px 14px; border-radius:30px; font-size:13px; font-weight:600; z-index:2; }
     .event-badge.cancelled { background:#c96d10; }
     .event-badge.completed { background:var(--muted); }
     .event-content { padding:32px; }
@@ -45,22 +39,22 @@
     .btn-secondary { background:var(--surface2); color:var(--text); border:1px solid var(--border); border-radius:12px; padding:14px 28px; font-size:16px; font-weight:600; cursor:pointer; text-decoration:none; transition:all 0.15s; }
     .btn-secondary:hover { background:var(--border); }
 
-    .vk-widget-container { margin: 32px 0 24px; padding-top: 16px; border-top: 1px solid var(--border); }
-    .vk-widget-title { font-size: 14px; font-weight: 600; color: var(--muted); margin-bottom: 16px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .vk-widget-container { margin:32px 0 24px; padding-top:16px; border-top:1px solid var(--border); }
+    .vk-widget-title { font-size:14px; font-weight:600; color:var(--muted); margin-bottom:16px; letter-spacing:0.05em; text-transform:uppercase; }
 
-    .footer { background:#fff; border-top:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-top:40px; }
+    .footer { background:#fff; border-top:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-top:40px; gap:12px; }
     .footer-left { display:flex; align-items:center; gap:12px; }
     .footer-left img { height:36px; opacity:0.7; }
     .footer-org { font-size:12px; font-weight:600; color:var(--muted); }
     .footer-copy { font-size:11px; color:var(--muted); opacity:0.6; }
 
     @media (max-width:768px) {
-      .topbar { padding:0 16px; }
+      .back-link { margin:16px 16px 0; }
       .event-title { font-size:26px; }
       .event-content { padding:20px; }
       .event-meta-grid { grid-template-columns:1fr; }
       .event-actions { flex-direction:column; }
-      .footer { flex-direction:column; align-items:flex-start; }
+      .footer { flex-direction:column; align-items:flex-start; padding:20px 16px; }
       .event-image { height:220px; }
       .event-image-icon { font-size:56px; }
     }
@@ -69,7 +63,7 @@
 <body>
 <script src="/viktoria/header.js"></script>
 
-<a href="./events.html" class="back-link">← Все мастер-классы</a>
+<a href="/viktoria/events.html" class="back-link">← Все мастер-классы</a>
 
 <div class="event-container" id="eventContainer">
   <div class="event-card">
@@ -79,13 +73,12 @@
       <div class="event-meta-grid" id="eventMeta"></div>
       <div class="event-price" id="eventPrice"></div>
       <div class="event-description" id="eventDescription"></div>
-      
-      <!-- Контейнер для VK-виджета -->
-      <div id="vkWidgetContainer" class="vk-widget-container" style="display: none;">
+
+      <div id="vkWidgetContainer" class="vk-widget-container" style="display:none;">
         <div class="vk-widget-title">📱 Анонс в соцсетях</div>
         <div id="vk_post"></div>
       </div>
-      
+
       <div class="event-actions" id="eventActions"></div>
     </div>
   </div>
@@ -93,6 +86,7 @@
 
 <footer class="footer">
   <div class="footer-left">
+    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
     <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br>Детско-юношеский центр</div>
   </div>
   <div class="footer-copy">© 2025 ГБОУ ДО ДЮЦ «Виктория»</div>
@@ -135,20 +129,15 @@ function parsePostLink(link) {
   if (!link) return null;
   const vkRegex = /vk\.com\/wall(-?\d+)_(\d+)/;
   const match = link.match(vkRegex);
-  if (match) {
-    return { ownerId: match[1], postId: match[2] };
-  }
+  if (match) return { ownerId: match[1], postId: match[2] };
   return null;
 }
 
 function loadVKWidget(ownerId, postId) {
   const container = document.getElementById('vkWidgetContainer');
   const vkPostDiv = document.getElementById('vk_post');
-  
   if (!ownerId || !postId) return;
-  
   container.style.display = 'block';
-  
   const script = document.createElement('script');
   script.src = 'https://vk.com/js/api/openapi.js?173';
   script.async = true;
@@ -165,27 +154,27 @@ function loadVKWidget(ownerId, postId) {
 async function loadEvent() {
   const urlParams = new URLSearchParams(window.location.search);
   const slug = urlParams.get('slug');
-  
+
   if (!slug) {
     document.getElementById('eventTitle').textContent = 'Мастер-класс не найден';
     return;
   }
-  
+
   try {
     const apiUrl = `https://api.github.com/repos/agbox77/viktoria/contents/_events`;
     const response = await fetch(apiUrl);
     const files = await response.json();
     const mdFiles = files.filter(f => f.name.endsWith('.md'));
-    
+
     let foundEvent = null;
-    
+
     for (const file of mdFiles) {
       const contentRes = await fetch(file.download_url);
       const content = await contentRes.text();
-      
+
       const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
       if (!frontmatterMatch) continue;
-      
+
       const yaml = frontmatterMatch[1];
       const data = {};
       yaml.split('\n').forEach(line => {
@@ -198,60 +187,64 @@ async function loadEvent() {
           data[key] = value;
         }
       });
-      
+
       const eventSlug = data.title.toLowerCase().replace(/[^а-яёa-z0-9\s]/gi, '').replace(/\s+/g, '-');
       if (eventSlug === slug) {
         foundEvent = data;
         break;
       }
     }
-    
+
     if (!foundEvent) {
       document.getElementById('eventTitle').textContent = 'Мастер-класс не найден';
       return;
     }
-    
+
     document.title = `${foundEvent.title} — Виктория`;
     document.getElementById('eventTitle').textContent = foundEvent.title || 'Мастер-класс';
-    
+
     const icon = getEventIcon(foundEvent.title, foundEvent.category);
     const gradient = getEventGradient(foundEvent.title);
     const imageDiv = document.getElementById('eventImage');
     imageDiv.style.background = gradient;
-    imageDiv.innerHTML = `
-      <div class="event-image-icon">${icon}</div>
-      <div class="event-image-category">${foundEvent.category || 'Мастер-класс'}</div>
+
+    let imageContent = '';
+    if (foundEvent.image) {
+      imageContent = `<img src="${foundEvent.image}" alt="${foundEvent.title}" onerror="this.style.display='none'">`;
+    }
+    imageContent += `
+      <div class="event-image-icon" style="position:relative;z-index:1">${icon}</div>
+      <div class="event-image-category" style="position:relative;z-index:1">${foundEvent.category || 'Мастер-класс'}</div>
       ${foundEvent.status !== 'active' ? `<span class="event-badge ${foundEvent.status}">${foundEvent.status === 'completed' ? 'Прошедший' : 'Отменён'}</span>` : ''}
     `;
-    
+    imageDiv.innerHTML = imageContent;
+
     let metaHtml = '';
     if (foundEvent.date) metaHtml += `<div class="meta-item"><div class="meta-icon">📅</div><div class="meta-text"><strong>Дата и время</strong><div>${foundEvent.date}</div></div></div>`;
     if (foundEvent.age) metaHtml += `<div class="meta-item"><div class="meta-icon">👥</div><div class="meta-text"><strong>Возраст</strong><div>${foundEvent.age} лет</div></div></div>`;
     if (foundEvent.address) metaHtml += `<div class="meta-item"><div class="meta-icon">📍</div><div class="meta-text"><strong>Адрес</strong><div>${foundEvent.address}</div></div></div>`;
     if (foundEvent.teacher) metaHtml += `<div class="meta-item"><div class="meta-icon">👩‍🏫</div><div class="meta-text"><strong>Педагог</strong><div>${foundEvent.teacher}</div></div></div>`;
     document.getElementById('eventMeta').innerHTML = metaHtml;
-    
+
     document.getElementById('eventPrice').textContent = foundEvent.price || 'Бесплатно';
     document.getElementById('eventDescription').textContent = foundEvent.description || 'Описание мастер-класса появится позже. Следите за обновлениями!';
-    
+
     let actionsHtml = '';
     if (foundEvent.status === 'active') {
       if (foundEvent.post_link) {
         actionsHtml += `<a href="${foundEvent.post_link}" target="_blank" class="btn-primary">📱 Подробнее и запись</a>`;
       }
-      actionsHtml += `<a href="./events.html" class="btn-secondary">Все мастер-классы</a>`;
+      actionsHtml += `<a href="/viktoria/events.html" class="btn-secondary">Все мастер-классы</a>`;
     } else {
-      actionsHtml += `<a href="./events.html" class="btn-primary">Смотреть актуальные мастер-классы</a>`;
+      actionsHtml += `<a href="/viktoria/events.html" class="btn-primary">Смотреть актуальные мастер-классы</a>`;
     }
     document.getElementById('eventActions').innerHTML = actionsHtml;
-    
+
     if (foundEvent.post_link) {
       const vkData = parsePostLink(foundEvent.post_link);
-      if (vkData) {
-        loadVKWidget(vkData.ownerId, vkData.postId);
-      }
+      if (vkData) loadVKWidget(vkData.ownerId, vkData.postId);
     }
-    
+
   } catch (error) {
     console.error('Ошибка загрузки:', error);
     document.getElementById('eventTitle').textContent = 'Ошибка загрузки';
