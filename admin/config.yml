@@ -54,19 +54,20 @@ collections:
       - { name: author, label: Автор, widget: string }
       - { name: date, label: Дата, widget: datetime, date_format: DD.MM.YYYY, time_format: HH:mm, format: DD.MM.YYYY HH:mm }
       - { name: image, label: Обложка, widget: image, required: false, media_folder: "static/images/posts", public_folder: "/static/images/posts" }
-      - { name: excerpt, label: Краткое описание, widget: text, hint: "Показывается в карточке и в SEO" }
+      - { name: excerpt, label: Краткое описание, widget: text }
       - { name: body, label: Текст, widget: markdown }
       - { name: tags, label: Теги, widget: list, required: false }
       - { name: seo_title, label: SEO заголовок, widget: string, required: false }
-- name: promo
+
+  - name: promo
     label: Спецпредложение
     files:
       - name: promo
-        label: Баннер спецпредложения
+        label: Баннер на главной
         file: _data/promo.md
         fields:
           - { name: active, label: Показывать, widget: boolean, default: true }
-          - { name: tag, label: Ярлык (например "🎁 Акция"), widget: string }
+          - { name: tag, label: Ярлык, widget: string, default: "🎁 Спецпредложение" }
           - { name: title, label: Заголовок, widget: string }
           - { name: description, label: Описание, widget: text }
           - { name: btn_text, label: Текст кнопки, widget: string }
