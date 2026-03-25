@@ -12,16 +12,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-    /* TOPBAR */
-    .topbar { background:#fff; border-bottom:1px solid var(--border); padding:0 32px; display:flex; align-items:center; justify-content:space-between; height:72px; position:sticky; top:0; z-index:100; }
-    .topbar-logo { display:flex; align-items:center; gap:14px; text-decoration:none; }
-    .topbar-logo img { height:48px; width:auto; }
-    .topbar-name strong { font-size:15px; font-weight:700; color:var(--text); font-family:'Playfair Display',serif; }
-    .topbar-name span { font-size:11px; color:var(--muted); }
-    .nav-links { display:flex; gap:24px; align-items:center; }
-    .nav-link { text-decoration:none; font-size:14px; font-weight:600; color:var(--muted); transition:color 0.15s; }
-    .nav-link:hover, .nav-link.active { color:var(--accent); }
-
     /* HERO */
     .hero { padding:56px 24px 40px; text-align:center; background: linear-gradient(135deg, rgba(232,146,26,0.08), rgba(90,171,122,0.04)); }
     .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(32px,6vw,48px); font-weight:900; margin-bottom:16px; }
@@ -31,9 +21,9 @@
     /* FILTERS */
     .filters-bar { max-width:1200px; margin:32px auto 0; padding:0 24px; display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center; }
     .search-box { flex:1; min-width:200px; }
-    .search-box input { width:100%; padding:12px 20px; border:1px solid var(--border); border-radius:40px; font-family:'Manrope',sans-serif; background:var(--surface); }
+    .search-box input { width:100%; padding:12px 20px; border:1px solid var(--border); border-radius:40px; font-family:'Manrope',sans-serif; background:var(--surface); outline:none; }
     .status-filter { display:flex; gap:8px; }
-    .status-btn { padding:8px 20px; border-radius:40px; border:1px solid var(--border); background:var(--surface); font-size:13px; font-weight:600; cursor:pointer; transition:all 0.15s; }
+    .status-btn { padding:8px 20px; border-radius:40px; border:1px solid var(--border); background:var(--surface); font-size:13px; font-weight:600; cursor:pointer; transition:all 0.15s; font-family:'Manrope',sans-serif; }
     .status-btn.active { background:var(--accent); border-color:var(--accent); color:white; }
 
     /* EVENTS GRID */
@@ -72,8 +62,6 @@
     @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
     @media (max-width:768px) {
-      .topbar { padding:0 16px; }
-      .nav-links { gap:12px; }
       .filters-bar { flex-direction:column; align-items:stretch; }
       .events-grid { grid-template-columns:1fr; }
       .footer { flex-direction:column; align-items:flex-start; }
@@ -103,7 +91,7 @@
 
 <footer class="footer">
   <div class="footer-left">
-    <img src="./Victoria_logo-02.png" alt="Виктория">
+    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
     <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br>Детско-юношеский центр</div>
   </div>
   <div class="footer-copy">© 2025 ГБОУ ДО ДЮЦ «Виктория»</div>
@@ -151,20 +139,20 @@ async function loadEvents() {
   try {
     const apiUrl = 'https://api.github.com/repos/agbox77/viktoria/contents/_events';
     const response = await fetch(apiUrl);
-    
+
     if (!response.ok) {
       events = [];
     } else {
       const files = await response.json();
       const mdFiles = files.filter(f => f.name.endsWith('.md'));
-      
+
       const eventsPromises = mdFiles.map(async (file) => {
         const contentRes = await fetch(file.download_url);
         const content = await contentRes.text();
-        
+
         const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
         if (!frontmatterMatch) return null;
-        
+
         const yaml = frontmatterMatch[1];
         const data = {};
         yaml.split('\n').forEach(line => {
@@ -177,14 +165,14 @@ async function loadEvents() {
             data[key] = value;
           }
         });
-        
+
         data.slug = data.title.toLowerCase().replace(/[^а-яёa-z0-9\s]/gi, '').replace(/\s+/g, '-');
         return data;
       });
-      
+
       events = (await Promise.all(eventsPromises)).filter(e => e !== null);
     }
-    
+
     renderEvents();
   } catch (error) {
     console.error('Ошибка загрузки:', error);
@@ -222,7 +210,7 @@ function renderEvents() {
     }
     return true;
   });
-  
+
   filtered.sort((a, b) => {
     if (a.status === 'active' && b.status !== 'active') return -1;
     if (a.status !== 'active' && b.status === 'active') return 1;
@@ -230,20 +218,19 @@ function renderEvents() {
     const dateB = b.date ? new Date(b.date.split(' ')[0].split('.').reverse().join('-')) : new Date(0);
     return dateA - dateB;
   });
-  
+
   const grid = document.getElementById('eventsGrid');
-  
+
   if (filtered.length === 0) {
     grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📅</div><h3>Мастер-классов не найдено</h3><p>Попробуйте изменить фильтры</p></div>`;
     return;
   }
-  
+
   grid.innerHTML = filtered.map(e => {
     const icon = getEventIcon(e.title, e.category);
     const gradient = getEventGradient(e.title);
-    
     return `
-      <a href="./event.html?slug=${e.slug}" class="event-card">
+      <a href="/viktoria/event.html?slug=${e.slug}" class="event-card">
         <div class="event-image" style="background: ${gradient};">
           <div class="event-image-icon">${icon}</div>
           <div class="event-image-category">${e.category || 'Мастер-класс'}</div>
