@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: agbox77/viktoria
   branch: main
+  base_url: https://viktoria-dyuts.netlify.app
+  auth_endpoint: auth/github
 
 media_folder: static/images
 public_folder: /static/images
