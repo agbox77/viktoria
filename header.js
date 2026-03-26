@@ -12,7 +12,7 @@ _noscript.innerHTML = '<div><img src="https://mc.yandex.ru/watch/108222837" styl
 document.body.appendChild(_noscript);
 
 // Загрузка хедера
-fetch('/header.html')
+fetch('/viktoria/header.html')
   .then(r => r.text())
   .then(html => {
     document.body.insertAdjacentHTML('afterbegin', html);
