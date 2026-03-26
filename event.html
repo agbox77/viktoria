@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/viktoria/css/style.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
@@ -61,9 +61,9 @@
   </style>
 </head>
 <body>
-<script src="/header.js"></script>
+<script src="/viktoria/header.js"></script>
 
-<a href="/events.html" class="back-link">← Все мастер-классы</a>
+<a href="/viktoria/events.html" class="back-link">← Все мастер-классы</a>
 
 <div class="event-container" id="eventContainer">
   <div class="event-card">
@@ -86,7 +86,7 @@
 
 <footer class="footer">
   <div class="footer-left">
-    <img src="/Victoria_logo-02.png" alt="Виктория">
+    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
     <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br>Детско-юношеский центр</div>
   </div>
   <div class="footer-copy">© 2025 ГБОУ ДО ДЮЦ «Виктория»</div>
@@ -234,9 +234,9 @@ async function loadEvent() {
       if (foundEvent.post_link) {
         actionsHtml += `<a href="${foundEvent.post_link}" target="_blank" class="btn-primary">📱 Подробнее и запись</a>`;
       }
-      actionsHtml += `<a href="/events.html" class="btn-secondary">Все мастер-классы</a>`;
+      actionsHtml += `<a href="/viktoria/events.html" class="btn-secondary">Все мастер-классы</a>`;
     } else {
-      actionsHtml += `<a href="/events.html" class="btn-primary">Смотреть актуальные мастер-классы</a>`;
+      actionsHtml += `<a href="/viktoria/events.html" class="btn-primary">Смотреть актуальные мастер-классы</a>`;
     }
     document.getElementById('eventActions').innerHTML = actionsHtml;
 
