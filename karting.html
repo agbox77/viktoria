@@ -284,7 +284,7 @@ canvas {
         <div class="hchip-val" id="h-fans">👐👐👐</div>
       </div>
       <div id="h-logo">
-        <img src="https://agbox77.github.io/viktoria/Victoria_logo-02.png" alt="Виктория"
+        <img src="https://agbox77.github.io/Victoria_logo-02.png" alt="Виктория"
              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
         <div class="h-logo-text">ДЮЦ<br>ВИКТОРИЯ</div>
       </div>
@@ -311,7 +311,7 @@ canvas {
     <!-- Start screen -->
     <div id="start">
       <div class="s-logo">
-        <img src="https://agbox77.github.io/viktoria/Victoria_logo-02.png" alt="" onerror="this.style.display='none'">
+        <img src="https://agbox77.github.io/Victoria_logo-02.png" alt="" onerror="this.style.display='none'">
         <h1>Картинг</h1>
         <div class="s-sub">ДЮЦ «Виктория» · Racing Simulator</div>
       </div>
@@ -326,7 +326,7 @@ canvas {
         <h2 id="m-title"></h2>
         <p  id="m-text"></p>
         <div id="m-time"></div>
-        <a class="m-cta" href="https://agbox77.github.io/viktoria/index.html" target="_blank"
+        <a class="m-cta" href="https://agbox77.github.io/index.html" target="_blank"
            id="m-cta">ЗАПИСАТЬСЯ НА КАРТИНГ →</a>
         <div id="m-countdown">Переход через <span id="m-cd">5</span> сек…</div>
         <button id="btn-retry">Сыграть ещё раз</button>
@@ -909,7 +909,7 @@ function endGame(won){
   cdTimer=setInterval(function(){
     secs--;
     document.getElementById('m-cd').textContent=secs;
-    if(secs<=0){clearInterval(cdTimer); window.open('https://agbox77.github.io/viktoria/index.html','_blank');}
+    if(secs<=0){clearInterval(cdTimer); window.open('https://agbox77.github.io/index.html','_blank');}
   },1000);
   setTimeout(function(){document.getElementById('modal').style.display='flex';},won?700:350);
 }
