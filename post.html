@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/viktoria/css/style.css">
   <style>
     *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
     body { font-family:'Manrope',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
@@ -79,7 +79,7 @@
   </style>
 </head>
 <body>
-<script src="/header.js"></script>
+<script src="/viktoria/header.js"></script>
 
 <div id="loadingWrap" class="loading-wrap">
   <div class="skel" style="height:420px;border-radius:0;margin:0 -24px"></div>
@@ -94,7 +94,7 @@
 
 <footer class="footer">
   <div class="footer-left">
-    <img src="/Victoria_logo-02.png" alt="Виктория">
+    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
     <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br><span style="font-weight:400;opacity:0.7;">г. Москва</span></div>
   </div>
   <div class="footer-copy">© 2025 Детско-юношеский центр «Виктория»</div>
@@ -186,7 +186,7 @@ async function loadPost() {
   if (!slug) { showError('Публикация не найдена'); return; }
 
   try {
-    const res = await fetch(`https://raw.githubusercontent.com/agbox77/main/_posts/${encodeURIComponent(slug)}.md`);
+    const res = await fetch(`https://raw.githubusercontent.com/agbox77/viktoria/main/_posts/${encodeURIComponent(slug)}.md`);
     if (!res.ok) throw new Error();
     const text = await res.text();
     const post = parseFrontmatter(text);
@@ -215,7 +215,7 @@ async function loadPost() {
         ${post.author?`<span class="dot"></span><span>${post.author}</span>`:''}
       </div>` : `
       <div class="post-header-simple">
-        <a class="back-link" href="/blog.html">
+        <a class="back-link" href="/viktoria/blog.html">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
           Все публикации
         </a>
@@ -229,7 +229,7 @@ async function loadPost() {
 
     const bodyHtml = `
       <div class="post-body">
-        ${post.image?`<a class="back-link" href="/blog.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>Все публикации</a>`:''}
+        ${post.image?`<a class="back-link" href="/viktoria/blog.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>Все публикации</a>`:''}
         ${tagsArr.length?`<div class="post-tags">${tagsArr.map(t=>`<span class="post-tag">${t.trim()}</span>`).join('')}</div>`:''}
         <div class="post-content">${mdToHtml(post.body)}</div>
         <div class="share-bar">
@@ -253,7 +253,7 @@ function showError(msg) {
   document.getElementById('loadingWrap').style.display='none';
   const wrap = document.getElementById('postWrap');
   wrap.style.display='block';
-  wrap.innerHTML=`<div class="error-wrap"><div style="font-size:48px;margin-bottom:16px">😕</div><h2>Упс!</h2><p style="margin-bottom:24px">${msg}</p><a class="back-link" href="/blog.html" style="display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>Вернуться к публикациям</a></div>`;
+  wrap.innerHTML=`<div class="error-wrap"><div style="font-size:48px;margin-bottom:16px">😕</div><h2>Упс!</h2><p style="margin-bottom:24px">${msg}</p><a class="back-link" href="/viktoria/blog.html" style="display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>Вернуться к публикациям</a></div>`;
 }
 
 loadPost();
