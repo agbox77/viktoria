@@ -161,7 +161,7 @@ async function loadEvent() {
   }
 
   try {
-    const apiUrl = `https://api.github.com/repos/agbox77/contents/_events`;
+    const apiUrl = `https://api.github.com/repos/agbox77/viktoria/contents/_events`;
     const response = await fetch(apiUrl);
     const files = await response.json();
     const mdFiles = files.filter(f => f.name.endsWith('.md'));
