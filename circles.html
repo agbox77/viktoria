@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/viktoria/css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -175,7 +175,7 @@
   </style>
 </head>
 <body>
-<script src="/viktoria/header.js"></script>
+<script src="/header.js"></script>
 
 <div class="hero">
   <div class="hero-eyebrow">
@@ -252,7 +252,7 @@
 
 <footer class="footer">
   <div class="footer-left">
-    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
+    <img src="/Victoria_logo-02.png" alt="Виктория">
     <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br>Детско-юношеский центр</div>
   </div>
   <div class="footer-copy">© 2025 ГБОУ ДО ДЮЦ «Виктория». Все права защищены.</div>
@@ -516,7 +516,7 @@ async function loadDataFromCMS() {
   showSkeleton();
   try {
     // Получаем список файлов из папки _data/circles через GitHub API
-    const apiUrl = 'https://api.github.com/repos/agbox77/viktoria/contents/_data/circles';
+    const apiUrl = 'https://api.github.com/repos/agbox77/contents/_data/circles';
     const response = await fetch(apiUrl);
     
     if (!response.ok) {
