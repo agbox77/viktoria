@@ -3,270 +3,474 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Мастер-классы — Детско-юношеский центр «Виктория»</title>
+  <title>Мастер-классы для детей и взрослых в Москве — ДЮЦ «Виктория»</title>
+  <meta name="description" content="Мастер-классы по гончарному делу, рисованию и валянию для детей и взрослых в Москве. ДЮЦ «Виктория» — 4 площадки. Расписание и запись онлайн.">
+  <link rel="canonical" href="https://agbox77.github.io/viktoria/events.html">
+  <meta property="og:title" content="Мастер-классы для детей и взрослых — ДЮЦ «Виктория»">
+  <meta property="og:description" content="Гончарное дело, рисование, валяние. Для детей и взрослых. 4 площадки в Москве.">
+  <meta property="og:image" content="https://agbox77.github.io/viktoria/Victoria_logo-02.png">
+  <meta property="og:url" content="https://agbox77.github.io/viktoria/events.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="ДЮЦ «Виктория»">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/viktoria/css/style.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Manrope',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+    /* BREADCRUMB */
+    .breadcrumb { max-width:1200px; margin:0 auto; padding:16px 24px 0; display:flex; align-items:center; gap:6px; font-size:12px; color:var(--muted); flex-wrap:wrap; }
+    .breadcrumb a { color:var(--muted); text-decoration:none; transition:color 0.15s; }
+    .breadcrumb a:hover { color:var(--accent); }
+    .breadcrumb-sep { opacity:0.4; }
 
     /* HERO */
-    .hero { padding:56px 24px 40px; text-align:center; background: linear-gradient(135deg, rgba(232,146,26,0.08), rgba(90,171,122,0.04)); }
-    .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(32px,6vw,48px); font-weight:900; margin-bottom:16px; }
+    .hero { padding:40px 24px 0; text-align:center; }
+    .hero-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); background:rgba(232,146,26,0.1); border:1px solid rgba(232,146,26,0.2); border-radius:100px; padding:6px 16px; margin-bottom:20px; }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(32px,6vw,52px); font-weight:900; line-height:1.05; margin-bottom:14px; }
     .hero h1 span { color:var(--accent); }
-    .hero p { color:var(--muted); max-width:600px; margin:0 auto; }
+    .hero-sub { color:var(--muted); max-width:600px; margin:0 auto; font-size:15px; line-height:1.7; }
 
-    /* FILTERS */
-    .filters-bar { max-width:1200px; margin:32px auto 0; padding:0 24px; display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center; }
-    .search-box { flex:1; min-width:200px; }
-    .search-box input { width:100%; padding:12px 20px; border:1px solid var(--border); border-radius:40px; font-family:'Manrope',sans-serif; background:var(--surface); outline:none; }
-    .status-filter { display:flex; gap:8px; }
-    .status-btn { padding:8px 20px; border-radius:40px; border:1px solid var(--border); background:var(--surface); font-size:13px; font-weight:600; cursor:pointer; transition:all 0.15s; font-family:'Manrope',sans-serif; }
-    .status-btn.active { background:var(--accent); border-color:var(--accent); color:white; }
+    /* ПОСТОЯННЫЕ БЛОКИ НАПРАВЛЕНИЙ */
+    .directions-section { max-width:1200px; margin:40px auto 0; padding:0 24px; }
+    .directions-heading { font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
+    .directions { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .direction-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:22px; cursor:pointer; transition:all 0.2s; }
+    .direction-card:hover { border-color:rgba(232,146,26,0.35); transform:translateY(-2px); box-shadow:0 8px 20px rgba(60,40,10,0.07); }
+    .direction-card.active { border-color:rgba(232,146,26,0.5); background:rgba(232,146,26,0.05); }
+    .direction-card-emoji { font-size:32px; margin-bottom:10px; display:block; }
+    .direction-card h2 { font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px; line-height:1.3; }
+    .direction-card p { font-size:12px; color:var(--muted); line-height:1.6; }
+    .direction-card-badge { display:inline-block; font-size:11px; font-weight:700; color:var(--accent); background:rgba(232,146,26,0.1); border-radius:5px; padding:2px 8px; margin-top:8px; }
 
-    /* EVENTS GRID */
-    .events-grid { max-width:1200px; margin:40px auto; padding:0 24px 80px; display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:24px; }
-    .event-card { background:var(--surface); border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); transition:all 0.2s; text-decoration:none; color:inherit; display:block; }
-    .event-card:hover { transform:translateY(-4px); box-shadow:0 12px 28px rgba(60,40,10,0.1); border-color:rgba(232,146,26,0.3); }
-    .event-image { height:180px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; position:relative; }
-    .event-image-icon { font-size:56px; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
-    .event-image-category { font-size:12px; font-weight:600; background:rgba(255,255,255,0.9); padding:4px 12px; border-radius:30px; color:var(--accent2); }
-    .event-badge { position:absolute; top:12px; right:12px; background:rgba(0,0,0,0.7); color:white; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; }
-    .event-badge.cancelled { background:#c96d10; }
-    .event-badge.completed { background:var(--muted); }
-    .event-content { padding:20px; }
-    .event-title { font-size:18px; font-weight:700; margin-bottom:8px; line-height:1.3; }
-    .event-meta { display:flex; flex-wrap:wrap; gap:12px; margin:12px 0; font-size:13px; color:var(--muted); }
-    .event-meta span { display:flex; align-items:center; gap:5px; }
-    .event-price { font-size:20px; font-weight:800; color:var(--accent); margin:12px 0 8px; }
-    .event-desc { font-size:13px; color:var(--muted); line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    /* ФИЛЬТРЫ */
+    .filters-section { max-width:1200px; margin:28px auto 0; padding:0 24px; display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start; }
+    .filter-group { display:flex; flex-direction:column; gap:8px; }
+    .filter-group-label { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
+    .filter-pills { display:flex; gap:8px; flex-wrap:wrap; }
+    .filter-pill { padding:7px 14px; border-radius:100px; border:1px solid var(--border); background:var(--surface); font-size:13px; font-weight:600; cursor:pointer; transition:all 0.15s; font-family:'Manrope',sans-serif; color:var(--muted); }
+    .filter-pill:hover { border-color:rgba(232,146,26,0.3); color:var(--text); }
+    .filter-pill.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .filter-pill.active-loc { background:var(--lilac2,#7a5889); border-color:var(--lilac2,#7a5889); color:#fff; }
+    .filter-pill.active-status { background:var(--green2,#3d8a5c); border-color:var(--green2,#3d8a5c); color:#fff; }
+
+    .search-group { flex:1; min-width:220px; display:flex; flex-direction:column; gap:8px; }
+    .search-box { position:relative; }
+    .search-box svg { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; }
+    .search-box input { width:100%; padding:10px 16px 10px 40px; border:1px solid var(--border); border-radius:40px; font-family:'Manrope',sans-serif; font-size:13px; background:var(--surface); color:var(--text); outline:none; transition:border-color 0.2s; }
+    .search-box input:focus { border-color:rgba(232,146,26,0.4); }
+    .search-box input::placeholder { color:var(--muted); }
+
+    /* СЧЁТЧИК */
+    .events-count { max-width:1200px; margin:20px auto 0; padding:0 24px; font-size:13px; color:var(--muted); }
+    .events-count strong { color:var(--text); font-weight:700; }
+
+    /* НЕТ АКТИВНЫХ */
+    .no-active-notice { max-width:1200px; margin:16px auto 0; padding:0 24px; display:none; }
+    .no-active-notice.visible { display:block; }
+    .no-active-notice-inner { background:rgba(232,146,26,0.06); border:1px solid rgba(232,146,26,0.2); border-radius:12px; padding:18px 24px; display:flex; align-items:center; gap:12px; font-size:13px; color:var(--muted); }
+    .no-active-notice-icon { font-size:20px; flex-shrink:0; }
+
+    /* СЕТКА */
+    .events-grid { max-width:1200px; margin:16px auto 0; padding:0 24px 80px; display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; }
+
+    /* КАРТОЧКА */
+    .event-card { background:var(--surface); border-radius:14px; overflow:hidden; border:1px solid var(--border); transition:all 0.2s; text-decoration:none; color:inherit; display:flex; flex-direction:column; }
+    .event-card:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(60,40,10,0.1); border-color:rgba(232,146,26,0.3); }
+    .event-image { height:150px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; flex-shrink:0; }
+    .event-image img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .event-image-icon { font-size:44px; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.25)); position:relative; z-index:1; }
+    .event-badge { position:absolute; top:10px; right:10px; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; z-index:2; }
+    .event-badge.active    { background:rgba(61,138,92,0.9);  color:#fff; }
+    .event-badge.cancelled { background:rgba(201,109,16,0.9); color:#fff; }
+    .event-badge.completed { background:rgba(80,80,80,0.75);  color:#fff; }
+    .event-content { padding:16px 18px 20px; display:flex; flex-direction:column; flex:1; gap:6px; }
+    .event-theme { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--accent); }
+    .event-title { font-size:15px; font-weight:700; line-height:1.35; color:var(--text); }
+    .event-meta { display:flex; flex-wrap:wrap; gap:8px; font-size:12px; color:var(--muted); }
+    .event-meta span { display:flex; align-items:center; gap:4px; }
+    .event-price { font-size:17px; font-weight:800; color:var(--accent); margin-top:auto; padding-top:8px; }
+    .event-price.free { color:var(--green2,#3d8a5c); }
+    .event-desc { font-size:12px; color:var(--muted); line-height:1.55; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+
+    /* EMPTY / SKELETON */
+    .empty-state { text-align:center; padding:60px 20px; color:var(--muted); grid-column:1/-1; }
+    .empty-state-icon { font-size:52px; margin-bottom:14px; opacity:0.35; display:block; }
+    .skeleton-card { background:var(--surface); border-radius:14px; border:1px solid var(--border); overflow:hidden; }
+    .skel { background:linear-gradient(90deg,var(--surface2) 25%,#ede8e0 50%,var(--surface2) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
     /* FOOTER */
     .footer { background:#fff; border-top:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
     .footer-left { display:flex; align-items:center; gap:12px; }
     .footer-left img { height:36px; opacity:0.7; }
-    .footer-org { font-size:12px; font-weight:600; color:var(--muted); }
+    .footer-org { font-size:12px; font-weight:600; color:var(--muted); line-height:1.4; }
     .footer-copy { font-size:11px; color:var(--muted); opacity:0.6; }
 
-    /* EMPTY */
-    .empty-state { text-align:center; padding:80px 20px; color:var(--muted); }
-    .empty-state-icon { font-size:64px; margin-bottom:16px; opacity:0.4; }
-
-    /* SKELETON */
-    .skeleton-card { background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); overflow:hidden; }
-    .skel-image { height:180px; background:linear-gradient(90deg,var(--surface2) 25%,#ede8e0 50%,var(--surface2) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; }
-    .skel-content { padding:20px; }
-    .skel-line { height:16px; background:linear-gradient(90deg,var(--surface2) 25%,#ede8e0 50%,var(--surface2) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:8px; margin-bottom:12px; }
-    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-
-    @media (max-width:768px) {
-      .filters-bar { flex-direction:column; align-items:stretch; }
+    @media (max-width:900px) { .directions { grid-template-columns:1fr 1fr; } }
+    @media (max-width:600px) {
+      .directions { grid-template-columns:1fr; }
       .events-grid { grid-template-columns:1fr; }
-      .footer { flex-direction:column; align-items:flex-start; }
+      .footer { flex-direction:column; align-items:flex-start; padding:20px 16px; }
     }
   </style>
 </head>
 <body>
 <script src="/viktoria/header.js"></script>
 
+<nav class="breadcrumb" aria-label="Хлебные крошки">
+  <a href="/viktoria/">Главная</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>Мастер-классы</span>
+</nav>
+
 <div class="hero">
+  <div class="hero-eyebrow">🎨 Разовые занятия</div>
   <h1>Мастер-классы <span>в Виктории</span></h1>
-  <p>Творческие, спортивные и научные мастер-классы для детей и взрослых. Расписание обновляется каждую неделю.</p>
+  <p class="hero-sub">Творческие занятия для детей и взрослых без записи на курс. Приходите попробовать — и вы останетесь.</p>
 </div>
 
-<div class="filters-bar">
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="🔍 Поиск по названию или педагогу..." autocomplete="off">
+<!-- ═══ ПОСТОЯННЫЕ БЛОКИ НАПРАВЛЕНИЙ (видны Яндексу круглый год) ═══ -->
+<section class="directions-section" aria-labelledby="directions-heading">
+  <div class="directions-heading" id="directions-heading">Направления</div>
+  <div class="directions" role="list">
+
+    <article class="direction-card" role="listitem" data-theme="goncharnoe"
+             onclick="filterByTheme('goncharnoe', this)">
+      <span class="direction-card-emoji" aria-hidden="true">🏺</span>
+      <h2>Гончарное дело</h2>
+      <p>Лепим из глины на гончарном круге: тарелки, кружки, вазы. Подходит взрослым и детям от 6 лет. Работы обжигаем и покрываем глазурью.</p>
+      <span class="direction-card-badge">Для всех возрастов</span>
+    </article>
+
+    <article class="direction-card" role="listitem" data-theme="risovanie"
+             onclick="filterByTheme('risovanie', this)">
+      <span class="direction-card-emoji" aria-hidden="true">🎨</span>
+      <h2>Рисование и ИЗО</h2>
+      <p>Акварель, гуашь, пастель, цветные карандаши. Учимся видеть цвет и форму. Тематические занятия по временам года и праздникам.</p>
+      <span class="direction-card-badge">От 5 лет</span>
+    </article>
+
+    <article class="direction-card" role="listitem" data-theme="valyanie"
+             onclick="filterByTheme('valyanie', this)">
+      <span class="direction-card-emoji" aria-hidden="true">🧶</span>
+      <h2>Валяние и рукоделие</h2>
+      <p>Валяем из шерсти игрушки, украшения и картины. Также: вышивка, декупаж, создание украшений. Уютные мастер-классы для взрослых.</p>
+      <span class="direction-card-badge">От 8 лет / взрослые</span>
+    </article>
+
   </div>
-  <div class="status-filter" id="statusFilter">
-    <button class="status-btn active" data-status="active">Актуальные</button>
-    <button class="status-btn" data-status="all">Все</button>
-    <button class="status-btn" data-status="completed">Прошедшие</button>
+</section>
+
+<!-- ═══ ФИЛЬТРЫ ═══ -->
+<div class="filters-section" role="search" aria-label="Фильтрация мастер-классов">
+
+  <div class="filter-group">
+    <div class="filter-group-label">Тема</div>
+    <div class="filter-pills" id="themePills">
+      <button class="filter-pill active" data-theme="">Все темы</button>
+      <button class="filter-pill" data-theme="goncharnoe">Гончарное дело</button>
+      <button class="filter-pill" data-theme="risovanie">Рисование</button>
+      <button class="filter-pill" data-theme="valyanie">Валяние</button>
+      <button class="filter-pill" data-theme="other">Другое</button>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <div class="filter-group-label">Площадка</div>
+    <div class="filter-pills" id="subdivPills">
+      <button class="filter-pill active" data-subdiv="">Все</button>
+      <button class="filter-pill" data-subdiv="gazoprovod">Газопровод</button>
+      <button class="filter-pill" data-subdiv="nagatinskaya">Нагатинская</button>
+      <button class="filter-pill" data-subdiv="annino">Аннино</button>
+      <button class="filter-pill" data-subdiv="shcherbinka">Щербинка</button>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <div class="filter-group-label">Статус</div>
+    <div class="filter-pills" id="statusPills">
+      <button class="filter-pill active-status active" data-status="active">Открыта запись</button>
+      <button class="filter-pill" data-status="all">Все</button>
+      <button class="filter-pill" data-status="completed">Прошедшие</button>
+    </div>
+  </div>
+
+  <div class="search-group">
+    <div class="filter-group-label">Поиск</div>
+    <div class="search-box">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="По названию или педагогу…" autocomplete="off" aria-label="Поиск мастер-классов">
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ СЧЁТЧИК ═══ -->
+<div class="events-count" id="eventsCount"></div>
+
+<!-- ═══ УВЕДОМЛЕНИЕ ═══ -->
+<div class="no-active-notice" id="noActiveNotice">
+  <div class="no-active-notice-inner">
+    <span class="no-active-notice-icon">📅</span>
+    <span>Сейчас нет активных мастер-классов по этому направлению. Скоро появятся новые — следите за обновлениями в <a href="https://t.me/dyutsvictory" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600">Telegram</a>.</span>
   </div>
 </div>
 
-<div class="events-grid" id="eventsGrid"></div>
+<!-- ═══ СЕТКА ═══ -->
+<div class="events-grid" id="eventsGrid" role="list" aria-label="Список мастер-классов"></div>
 
 <footer class="footer">
   <div class="footer-left">
-    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
-    <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br>Детско-юношеский центр</div>
+    <img src="/viktoria/Victoria_logo-02.png" alt="Логотип ДЮЦ «Виктория»" width="36" height="36">
+    <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br><span style="font-weight:400;opacity:0.7;">г. Москва</span></div>
   </div>
-  <div class="footer-copy">© 2025 ГБОУ ДО ДЮЦ «Виктория»</div>
+  <div class="footer-copy">© 2026 Детско-юношеский центр «Виктория»</div>
 </footer>
 
 <script>
+// ─────────────────────────────────────────────────────────────
+// СПРАВОЧНИКИ
+// ─────────────────────────────────────────────────────────────
+const THEME_LABELS = {
+  goncharnoe: 'Гончарное дело',
+  risovanie:  'Рисование и ИЗО',
+  valyanie:   'Валяние и рукоделие',
+  other:      'Другое',
+};
+const THEME_EMOJI = {
+  goncharnoe: '🏺',
+  risovanie:  '🎨',
+  valyanie:   '🧶',
+  other:      '✨',
+};
+const THEME_GRADIENTS = {
+  goncharnoe: 'linear-gradient(135deg,#e8921a,#c96d10)',
+  risovanie:  'linear-gradient(135deg,#3d8a5c,#2a5f3f)',
+  valyanie:   'linear-gradient(135deg,#7a5889,#5a3c69)',
+  other:      'linear-gradient(135deg,#2c7da0,#1f5e7a)',
+};
+const SUBDIV_LABELS = {
+  gazoprovod:   'Газопровод',
+  nagatinskaya: 'Нагатинская',
+  annino:       'Аннино',
+  shcherbinka:  'Щербинка',
+};
+
+// ─────────────────────────────────────────────────────────────
+// СОСТОЯНИЕ
+// ─────────────────────────────────────────────────────────────
 let events = [];
-let currentStatus = 'active';
-let searchQuery = '';
+let state = { theme: '', subdiv: '', status: 'active', search: '' };
 
-function getEventIcon(title, category) {
-  const icons = {
-    'керамик': '🏺', 'глин': '🏺', 'рисова': '🎨', 'живопис': '🖌️',
-    'лепк': '✋', 'скульпт': '🗿', 'робот': '🤖', 'программ': '💻',
-    'шахмат': '♟️', 'английск': '🇬🇧', 'немецк': '🇩🇪', 'танц': '💃',
-    'музык': '🎵', 'вокал': '🎤', 'гитар': '🎸', 'театр': '🎭',
-    'спорт': '⚽', 'фитнес': '🤸', 'гимнастик': '🤸', 'бокс': '🥊',
-    'айкидо': '🥋', 'цирк': '🎪'
-  };
-  const searchText = (title + ' ' + (category || '')).toLowerCase();
-  for (const [key, icon] of Object.entries(icons)) {
-    if (searchText.includes(key)) return icon;
-  }
-  return '✨';
-}
+// ─────────────────────────────────────────────────────────────
+// РЕНДЕР
+// ─────────────────────────────────────────────────────────────
+function renderCard(e) {
+  const theme    = e.mk_category || 'other';
+  const emoji    = THEME_EMOJI[theme]    || '✨';
+  const gradient = THEME_GRADIENTS[theme] || THEME_GRADIENTS.other;
+  const label    = THEME_LABELS[theme]   || 'Мастер-класс';
+  const subdiv   = SUBDIV_LABELS[e.subdivision] || e.address || '';
+  const isFree   = !e.price || e.price.toLowerCase() === 'бесплатно';
+  const statusLabels = { active:'Открыта запись', cancelled:'Отменён', completed:'Прошедший' };
+  const statusBadge  = e.status !== 'active'
+    ? `<span class="event-badge ${e.status}">${statusLabels[e.status] || e.status}</span>` : '';
 
-function getEventGradient(title) {
-  const gradients = [
-    'linear-gradient(135deg, #e8921a, #c96d10)',
-    'linear-gradient(135deg, #3d8a5c, #2a5f3f)',
-    'linear-gradient(135deg, #7a5889, #5a3c69)',
-    'linear-gradient(135deg, #e65c1a, #b8430c)',
-    'linear-gradient(135deg, #2c7da0, #1f5e7a)'
-  ];
-  let hash = 0;
-  for (let i = 0; i < title.length; i++) {
-    hash = ((hash << 5) - hash) + title.charCodeAt(i);
-    hash |= 0;
-  }
-  return gradients[Math.abs(hash) % gradients.length];
-}
+  const imageBlock = e.image
+    ? `<div class="event-image" style="background:${gradient}">
+         <img src="${e.image}" alt="${e.title||''}" loading="lazy"
+              onerror="this.remove()">
+         ${statusBadge}
+       </div>`
+    : `<div class="event-image" style="background:${gradient}">
+         <span class="event-image-icon" aria-hidden="true">${emoji}</span>
+         ${statusBadge}
+       </div>`;
 
-async function loadEvents() {
-  showSkeletons();
-  try {
-    const apiUrl = 'https://api.github.com/repos/agbox77/viktoria/contents/_events';
-    const response = await fetch(apiUrl);
-
-    if (!response.ok) {
-      events = [];
-    } else {
-      const files = await response.json();
-      const mdFiles = files.filter(f => f.name.endsWith('.md'));
-
-      const eventsPromises = mdFiles.map(async (file) => {
-        const contentRes = await fetch(file.download_url);
-        const content = await contentRes.text();
-
-        const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
-        if (!frontmatterMatch) return null;
-
-        const yaml = frontmatterMatch[1];
-        const data = {};
-        yaml.split('\n').forEach(line => {
-          const colonIndex = line.indexOf(':');
-          if (colonIndex > 0) {
-            let key = line.slice(0, colonIndex).trim();
-            let value = line.slice(colonIndex + 1).trim();
-            if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
-            if (value.startsWith("'") && value.endsWith("'")) value = value.slice(1, -1);
-            data[key] = value;
-          }
-        });
-
-        data.slug = data.title.toLowerCase().replace(/[^а-яёa-z0-9\s]/gi, '').replace(/\s+/g, '-');
-        return data;
-      });
-
-      events = (await Promise.all(eventsPromises)).filter(e => e !== null);
-    }
-
-    renderEvents();
-  } catch (error) {
-    console.error('Ошибка загрузки:', error);
-    document.getElementById('eventsGrid').innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><h3>Не удалось загрузить мастер-классы</h3><p>Попробуйте обновить страницу</p></div>`;
-  }
+  return `<article class="event-card" role="listitem">
+    ${imageBlock}
+    <div class="event-content">
+      <div class="event-theme">${label}</div>
+      <div class="event-title">${e.title || 'Мастер-класс'}</div>
+      <div class="event-meta">
+        ${e.date  ? `<span>📅 ${e.date.split(' ')[0]}</span>` : ''}
+        ${e.age   ? `<span>👥 ${e.age}</span>` : ''}
+        ${subdiv  ? `<span>📍 ${subdiv}</span>` : ''}
+        ${e.teacher ? `<span>👤 ${e.teacher}</span>` : ''}
+      </div>
+      ${e.description ? `<div class="event-desc">${e.description}</div>` : ''}
+      <div class="event-price ${isFree ? 'free' : ''}">${isFree ? 'Бесплатно' : e.price}</div>
+    </div>
+  </article>`;
 }
 
 function showSkeletons() {
-  const grid = document.getElementById('eventsGrid');
-  grid.innerHTML = Array(3).fill().map(() => `
+  document.getElementById('eventsGrid').innerHTML = Array(3).fill(`
     <div class="skeleton-card">
-      <div class="skel-image"></div>
-      <div class="skel-content">
-        <div class="skel-line" style="width:70%"></div>
-        <div class="skel-line" style="width:40%"></div>
-        <div class="skel-line" style="width:50%"></div>
+      <div class="skel" style="height:150px;border-radius:0"></div>
+      <div style="padding:18px;display:flex;flex-direction:column;gap:10px">
+        <div class="skel" style="height:11px;width:35%"></div>
+        <div class="skel" style="height:16px;width:75%"></div>
+        <div class="skel" style="height:11px;width:55%"></div>
+        <div class="skel" style="height:20px;width:40%;margin-top:8px"></div>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function formatDate(dateStr) {
-  if (!dateStr) return '';
-  return dateStr;
-}
-
-function renderEvents() {
+function applyFilters() {
+  const q = state.search.toLowerCase().trim();
   let filtered = events.filter(e => {
-    if (currentStatus !== 'all' && e.status !== currentStatus) return false;
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      const title = (e.title || '').toLowerCase();
-      const teacher = (e.teacher || '').toLowerCase();
-      if (!title.includes(q) && !teacher.includes(q)) return false;
+    if (state.status !== 'all' && e.status !== state.status) return false;
+    if (state.theme  && (e.mk_category || 'other') !== state.theme)  return false;
+    if (state.subdiv && e.subdivision !== state.subdiv) return false;
+    if (q) {
+      const hay = [(e.title || ''), (e.teacher || ''), (e.description || '')].join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
     }
     return true;
   });
 
+  // Сортировка: активные сначала, потом по дате
   filtered.sort((a, b) => {
     if (a.status === 'active' && b.status !== 'active') return -1;
     if (a.status !== 'active' && b.status === 'active') return 1;
-    const dateA = a.date ? new Date(a.date.split(' ')[0].split('.').reverse().join('-')) : new Date(0);
-    const dateB = b.date ? new Date(b.date.split(' ')[0].split('.').reverse().join('-')) : new Date(0);
-    return dateA - dateB;
+    const da = a.date ? new Date(a.date.split(' ')[0].split('.').reverse().join('-')) : new Date(0);
+    const db = b.date ? new Date(b.date.split(' ')[0].split('.').reverse().join('-')) : new Date(0);
+    return da - db;
   });
 
-  const grid = document.getElementById('eventsGrid');
+  const grid  = document.getElementById('eventsGrid');
+  const count = document.getElementById('eventsCount');
+  const notice = document.getElementById('noActiveNotice');
 
-  if (filtered.length === 0) {
-    grid.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📅</div><h3>Мастер-классов не найдено</h3><p>Попробуйте изменить фильтры</p></div>`;
+  // Показываем уведомление если фильтр активен, но активных нет
+  const hasActive = filtered.some(e => e.status === 'active');
+  notice.classList.toggle('visible', state.status === 'active' && !hasActive && events.length > 0);
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty-state">
+      <span class="empty-state-icon" aria-hidden="true">📅</span>
+      <h3 style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px">Ничего не найдено</h3>
+      <p>Попробуйте изменить фильтры</p>
+    </div>`;
+    count.innerHTML = '';
     return;
   }
 
-  grid.innerHTML = filtered.map(e => {
-    const icon = getEventIcon(e.title, e.category);
-    const gradient = getEventGradient(e.title);
-    return `
-      <a href="/viktoria/event.html?slug=${e.slug}" class="event-card">
-        <div class="event-image" style="background: ${gradient};">
-          <div class="event-image-icon">${icon}</div>
-          <div class="event-image-category">${e.category || 'Мастер-класс'}</div>
-          ${e.status !== 'active' ? `<span class="event-badge ${e.status}">${e.status === 'completed' ? 'Прошедший' : 'Отменён'}</span>` : ''}
-        </div>
-        <div class="event-content">
-          <h3 class="event-title">${e.title || 'Мастер-класс'}</h3>
-          <div class="event-meta">
-            ${e.date ? `<span>📅 ${formatDate(e.date)}</span>` : ''}
-            ${e.age ? `<span>👥 ${e.age} лет</span>` : ''}
-          </div>
-          <div class="event-price">${e.price || 'Бесплатно'}</div>
-          <div class="event-desc">${(e.description || '').slice(0, 100)}${(e.description || '').length > 100 ? '...' : ''}</div>
-          <div class="event-meta">
-            ${e.address ? `<span>📍 ${e.address.slice(0, 40)}${e.address.length > 40 ? '...' : ''}</span>` : ''}
-          </div>
-        </div>
-      </a>
-    `;
-  }).join('');
+  count.innerHTML = `<strong>${filtered.length}</strong> мастер-класс${filtered.length === 1 ? '' : filtered.length < 5 ? 'а' : 'ов'}`;
+  grid.innerHTML = filtered.map(e => renderCard(e)).join('');
 }
 
-document.getElementById('searchInput').addEventListener('input', e => {
-  searchQuery = e.target.value;
-  renderEvents();
-});
-
-document.querySelectorAll('.status-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentStatus = btn.dataset.status;
-    renderEvents();
+// ─────────────────────────────────────────────────────────────
+// ФИЛЬТР ПО НАПРАВЛЕНИЮ (из блоков и пилюль)
+// ─────────────────────────────────────────────────────────────
+function filterByTheme(theme, cardEl) {
+  state.theme = state.theme === theme ? '' : theme;
+  // Синхронизируем карточки направлений
+  document.querySelectorAll('.direction-card').forEach(c => {
+    c.classList.toggle('active', c.dataset.theme === state.theme);
   });
+  // Синхронизируем пилюли
+  document.querySelectorAll('#themePills .filter-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.theme === state.theme);
+  });
+  applyFilters();
+}
+
+// ─────────────────────────────────────────────────────────────
+// ЗАГРУЗКА
+// ─────────────────────────────────────────────────────────────
+async function loadEvents() {
+  showSkeletons();
+  try {
+    const res = await fetch('https://api.github.com/repos/agbox77/viktoria/contents/_events');
+    if (!res.ok) throw new Error();
+    const files = await res.json();
+    const mdFiles = files.filter(f => f.name.endsWith('.md'));
+
+    const parsed = await Promise.all(mdFiles.map(async file => {
+      const r = await fetch(file.download_url);
+      const text = await r.text();
+      const m = text.match(/^---\n([\s\S]*?)\n---/);
+      if (!m) return null;
+      const data = {};
+      m[1].split('\n').forEach(line => {
+        const ci = line.indexOf(':');
+        if (ci < 1) return;
+        let k = line.slice(0, ci).trim();
+        let v = line.slice(ci + 1).trim();
+        if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1,-1);
+        data[k] = v;
+      });
+      return data;
+    }));
+
+    events = parsed.filter(Boolean);
+    applyFilters();
+
+  } catch(err) {
+    document.getElementById('eventsGrid').innerHTML = `
+      <div class="empty-state">
+        <span class="empty-state-icon" aria-hidden="true">⚠️</span>
+        <h3 style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px">Не удалось загрузить</h3>
+        <p>Попробуйте обновить страницу</p>
+      </div>`;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// СОБЫТИЯ
+// ─────────────────────────────────────────────────────────────
+document.getElementById('searchInput').addEventListener('input', e => {
+  state.search = e.target.value;
+  applyFilters();
 });
 
+document.getElementById('themePills').addEventListener('click', e => {
+  const pill = e.target.closest('.filter-pill');
+  if (!pill) return;
+  state.theme = state.theme === pill.dataset.theme ? '' : pill.dataset.theme;
+  document.querySelectorAll('#themePills .filter-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.theme === state.theme);
+  });
+  // Синхронизируем карточки
+  document.querySelectorAll('.direction-card').forEach(c => {
+    c.classList.toggle('active', c.dataset.theme === state.theme);
+  });
+  applyFilters();
+});
+
+document.getElementById('subdivPills').addEventListener('click', e => {
+  const pill = e.target.closest('.filter-pill');
+  if (!pill) return;
+  state.subdiv = state.subdiv === pill.dataset.subdiv ? '' : pill.dataset.subdiv;
+  document.querySelectorAll('#subdivPills .filter-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.subdiv === state.subdiv);
+    if (p.dataset.subdiv && state.subdiv === p.dataset.subdiv) p.classList.add('active-loc');
+    else p.classList.remove('active-loc');
+  });
+  applyFilters();
+});
+
+document.getElementById('statusPills').addEventListener('click', e => {
+  const pill = e.target.closest('.filter-pill');
+  if (!pill) return;
+  state.status = pill.dataset.status;
+  document.querySelectorAll('#statusPills .filter-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.status === state.status);
+    if (p.dataset.status === state.status && p.dataset.status !== 'all') p.classList.add('active-status');
+    else p.classList.remove('active-status');
+  });
+  applyFilters();
+});
+
+// ─────────────────────────────────────────────────────────────
+// СТАРТ
+// ─────────────────────────────────────────────────────────────
 loadEvents();
 </script>
 </body>
