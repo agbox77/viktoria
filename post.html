@@ -4,7 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="pageTitle">Публикация — ДЮЦ «Виктория»</title>
-  <meta name="description" id="pageDesc" content="">
+  <meta name="description" id="pageDesc" content="Новости и статьи ДЮЦ «Виктория» — детского центра в Москве.">
+  <link rel="canonical" id="pageCanonical" href="https://agbox77.github.io/viktoria/post.html">
+  <meta property="og:title" id="ogTitle" content="Публикация — ДЮЦ «Виктория»">
+  <meta property="og:description" id="ogDesc" content="">
+  <meta property="og:image" id="ogImage" content="https://agbox77.github.io/viktoria/Victoria_logo-02.png">
+  <meta property="og:url" id="ogUrl" content="">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="ДЮЦ «Виктория»">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -64,6 +72,22 @@
     .error-wrap { max-width:860px; margin:80px auto; padding:0 24px; text-align:center; color:var(--muted); }
     .error-wrap h2 { font-size:24px; font-weight:700; color:var(--text); margin-bottom:12px; }
 
+    /* ХЛЕБНЫЕ КРОШКИ */
+    .breadcrumb { max-width:860px; margin:0 auto; padding:16px 24px 0; display:flex; align-items:center; gap:6px; font-size:12px; color:var(--muted); flex-wrap:wrap; }
+    .breadcrumb a { color:var(--muted); text-decoration:none; transition:color 0.15s; }
+    .breadcrumb a:hover { color:var(--accent); }
+    .breadcrumb-sep { opacity:0.4; }
+
+    /* БЛОК ПЕРЕЛИНКОВКИ */
+    .relations-block { max-width:860px; margin:0 auto; padding:0 24px 40px; display:flex; flex-direction:column; gap:24px; }
+    .relations-section { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 24px; }
+    .relations-title { font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
+    .relations-list { display:flex; flex-direction:column; gap:8px; }
+    .relation-item { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-size:14px; font-weight:500; padding:8px 12px; border-radius:8px; border:1px solid var(--border); transition:all 0.15s; }
+    .relation-item:hover { border-color:rgba(232,146,26,0.3); color:var(--accent); background:rgba(232,146,26,0.04); }
+    .relation-item-emoji { font-size:16px; flex-shrink:0; }
+    .relation-item-arrow { margin-left:auto; opacity:0.4; font-size:12px; }
+
     .footer { background:#fff; border-top:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
     .footer-left { display:flex; align-items:center; gap:12px; }
     .footer-left img { height:36px; opacity:0.7; }
@@ -81,6 +105,14 @@
 <body>
 <script src="/viktoria/header.js"></script>
 
+<nav class="breadcrumb" id="breadcrumb" aria-label="Хлебные крошки" style="display:none">
+  <a href="/viktoria/">Главная</a>
+  <span class="breadcrumb-sep">›</span>
+  <a href="/viktoria/blog.html">Новости</a>
+  <span class="breadcrumb-sep">›</span>
+  <span id="breadcrumbCurrent"></span>
+</nav>
+
 <div id="loadingWrap" class="loading-wrap">
   <div class="skel" style="height:420px;border-radius:0;margin:0 -24px"></div>
   <div class="skel" style="height:13px;width:30%"></div>
@@ -91,13 +123,14 @@
 </div>
 
 <div id="postWrap" style="display:none"></div>
+<div id="relationsWrap"></div>
 
 <footer class="footer">
   <div class="footer-left">
     <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
     <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br><span style="font-weight:400;opacity:0.7;">г. Москва</span></div>
   </div>
-  <div class="footer-copy">© 2025 Детско-юношеский центр «Виктория»</div>
+  <div class="footer-copy">© 2026 Детско-юношеский центр «Виктория»</div>
 </footer>
 
 <script>
@@ -181,9 +214,192 @@ const TYPE_MAP = {
   'Анонс':   {cls:'badge-announce', icon:'📣'},
 };
 
+const CAT_LABELS = {
+  karting:'Картинг и автоспорт', keramika:'Керамика и гончарное дело',
+  tvorchestvo:'Художественное творчество', tancy:'Танцы и хореография',
+  robototekhnika:'Робототехника', teatr:'Театр и актёрство',
+  cirk:'Цирк и акробатика', muzyka:'Музыка', strelkovye:'Стрелковые',
+  sport:'Спортивные секции', shahmaty:'Шахматы', nauka:'Развивающие кружки',
+};
+const CAT_EMOJI = {
+  karting:'🏎️', keramika:'🏺', tvorchestvo:'🎨', tancy:'💃',
+  robototekhnika:'🤖', teatr:'🎭', cirk:'🎪', muzyka:'🎵',
+  strelkovye:'🎯', sport:'🏅', shahmaty:'♟️', nauka:'🔬',
+};
+
+function setMeta(sel, attr, val) {
+  const el = document.querySelector(sel);
+  if (el && val) el.setAttribute(attr, val);
+}
+
+function buildRelationsBlock(post) {
+  const sections = [];
+
+  // Упомянутые кружки / категории
+  const circles = (post.related_circles || (post.relations && post.relations.related_circles) || '');
+  const cats    = (post.related_categories || (post.relations && post.relations.related_categories) || '');
+  const circleList = typeof circles === 'string' ? circles.split(',').map(s=>s.trim()).filter(Boolean) : (Array.isArray(circles) ? circles : []);
+  const catList    = typeof cats === 'string'    ? cats.split(',').map(s=>s.trim()).filter(Boolean) : (Array.isArray(cats) ? cats : []);
+  const allCircles = [...new Set([...catList, ...circleList])];
+
+  if (allCircles.length) {
+    const items = allCircles.map(slug => {
+      const label = CAT_LABELS[slug] || slug;
+      const emoji = CAT_EMOJI[slug] || '✏️';
+      return `<a class="relation-item" href="/viktoria/circles.html?cat=${encodeURIComponent(slug)}">
+        <span class="relation-item-emoji">${emoji}</span>
+        <span>${label}</span>
+        <span class="relation-item-arrow">→</span>
+      </a>`;
+    }).join('');
+    sections.push(`<div class="relations-section">
+      <div class="relations-title">Упомянутые направления</div>
+      <div class="relations-list">${items}</div>
+    </div>`);
+  }
+
+  // Упомянутые педагоги
+  const teachers = (post.related_teachers || (post.relations && post.relations.related_teachers) || '');
+  const teacherList = typeof teachers === 'string' ? teachers.split(',').map(s=>s.trim()).filter(Boolean) : (Array.isArray(teachers) ? teachers : []);
+  if (teacherList.length) {
+    const items = teacherList.map(slug => {
+      const name = slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      return `<a class="relation-item" href="/viktoria/blog.html?teacher=${encodeURIComponent(slug)}">
+        <span class="relation-item-emoji">👤</span>
+        <span>${name}</span>
+        <span class="relation-item-arrow">→</span>
+      </a>`;
+    }).join('');
+    sections.push(`<div class="relations-section">
+      <div class="relations-title">Упомянутые педагоги</div>
+      <div class="relations-list">${items}</div>
+    </div>`);
+  }
+
+  // Филиал
+  const subdiv = post.related_subdivision || (post.relations && post.relations.related_subdivision) || '';
+  const SUBDIV_LABELS = { gazoprovod:'Газопровод', nagatinskaya:'Нагатинская', annino:'Аннино', shcherbinka:'Щербинка' };
+  if (subdiv && SUBDIV_LABELS[subdiv]) {
+    sections.push(`<div class="relations-section">
+      <div class="relations-title">Площадка</div>
+      <div class="relations-list">
+        <a class="relation-item" href="/viktoria/circles.html?loc=${encodeURIComponent(subdiv)}">
+          <span class="relation-item-emoji">📍</span>
+          <span>${SUBDIV_LABELS[subdiv]}</span>
+          <span class="relation-item-arrow">→</span>
+        </a>
+      </div>
+    </div>`);
+  }
+
+  if (!sections.length) return;
+  document.getElementById('relationsWrap').innerHTML =
+    '<div class="relations-block">' + sections.join('') + '</div>';
+}
+
 async function loadPost() {
   const slug = new URLSearchParams(window.location.search).get('slug');
   if (!slug) { showError('Публикация не найдена'); return; }
+
+  try {
+    const res = await fetch(`https://raw.githubusercontent.com/agbox77/viktoria/main/_posts/${encodeURIComponent(slug)}.md`);
+    if (!res.ok) throw new Error();
+    const text = await res.text();
+    const post = parseFrontmatter(text);
+    if (!post) throw new Error();
+
+    // SEO мета-теги
+    const seoTitle = (post.seo && post.seo.seo_title) || post.seo_title || post.title;
+    const seoDesc  = (post.seo && post.seo.seo_description) || post.excerpt || '';
+    const pageUrl  = window.location.href;
+
+    document.getElementById('pageTitle').textContent = seoTitle + ' — ДЮЦ «Виктория»';
+    setMeta('#pageDesc', 'content', seoDesc);
+    setMeta('#pageCanonical', 'href', pageUrl);
+    setMeta('#ogTitle', 'content', seoTitle + ' — ДЮЦ «Виктория»');
+    setMeta('#ogDesc', 'content', seoDesc);
+    setMeta('#ogUrl', 'content', pageUrl);
+    if (post.image) setMeta('#ogImage', 'content', post.image);
+
+    // Хлебные крошки
+    const bc = document.getElementById('breadcrumb');
+    document.getElementById('breadcrumbCurrent').textContent = post.title || '';
+    bc.style.display = 'flex';
+
+    const type = post.type || 'Новость';
+    const tm = TYPE_MAP[type] || TYPE_MAP['Новость'];
+    const tagsArr = Array.isArray(post.tags) ? post.tags : (post.tags ? String(post.tags).split(',') : []);
+    const pageUrlEncoded = encodeURIComponent(pageUrl);
+    const pageTitleEncoded = encodeURIComponent(post.title||'');
+
+    const heroHtml = post.image ? `
+      <div class="post-hero">
+        <img src="${post.image}" alt="${post.title||''}" loading="eager">
+        <div class="post-hero-overlay"></div>
+        <div class="post-hero-placeholder">${tm.icon}</div>
+        <div class="post-hero-content">
+          <div class="post-hero-badge ${tm.cls}">${type}</div>
+          <h1 class="post-hero-title">${post.title||''}</h1>
+        </div>
+      </div>
+      <div class="post-meta-bar">
+        <span>${formatDate(post.date)}</span>
+        ${post.author ? `<span class="dot"></span><span>${post.author}</span>` : ''}
+      </div>` : `
+      <div class="post-header-simple">
+        <a class="back-link" href="/viktoria/blog.html">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Все публикации
+        </a>
+        <div class="post-hero-badge ${tm.cls}" style="margin-bottom:16px">${type}</div>
+        <h1 class="post-hero-title">${post.title||''}</h1>
+        <div style="margin-top:14px;font-size:13px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap">
+          <span>${formatDate(post.date)}</span>
+          ${post.author ? `<span>·</span><span>${post.author}</span>` : ''}
+        </div>
+      </div>`;
+
+    const bodyHtml = `
+      <div class="post-body">
+        ${post.image ? `<a class="back-link" href="/viktoria/blog.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>Все публикации</a>` : ''}
+        ${tagsArr.length ? `<div class="post-tags">${tagsArr.map(t=>`<span class="post-tag">${t.trim()}</span>`).join('')}</div>` : ''}
+        <div class="post-content">${mdToHtml(post.body)}</div>
+        <div class="share-bar">
+          <span class="share-label">Поделиться:</span>
+          <a class="share-btn" href="https://vk.com/share.php?url=${pageUrlEncoded}" target="_blank" rel="noopener noreferrer">ВКонтакте</a>
+          <a class="share-btn" href="https://t.me/share/url?url=${pageUrlEncoded}&text=${pageTitleEncoded}" target="_blank" rel="noopener noreferrer">Telegram</a>
+          <button class="share-btn" onclick="navigator.clipboard.writeText(window.location.href).then(()=>{this.textContent='✓ Скопировано!'})">Скопировать ссылку</button>
+        </div>
+      </div>`;
+
+    document.getElementById('loadingWrap').style.display = 'none';
+    const wrap = document.getElementById('postWrap');
+    wrap.style.display = 'block';
+    wrap.innerHTML = heroHtml + bodyHtml;
+
+    // Блок перелинковки
+    buildRelationsBlock(post);
+
+    // Schema.org BlogPosting
+    const schema = {
+      '@context': 'https://schema.org',
+      '@type': post.type === 'Статья' ? 'Article' : 'NewsArticle',
+      'headline': post.title || '',
+      'description': seoDesc,
+      'datePublished': post.date || '',
+      'author': { '@type': 'Organization', 'name': 'ДЮЦ «Виктория»' },
+      'publisher': { '@type': 'Organization', 'name': 'ДЮЦ «Виктория»', 'url': 'https://agbox77.github.io/viktoria/' },
+    };
+    if (post.image) schema.image = post.image;
+    const sd = document.createElement('script');
+    sd.type = 'application/ld+json';
+    sd.textContent = JSON.stringify(schema);
+    document.head.appendChild(sd);
+
+  } catch(e) {
+    showError('Публикация не найдена или была удалена.');
+  }
+}
 
   try {
     const res = await fetch(`https://raw.githubusercontent.com/agbox77/viktoria/main/_posts/${encodeURIComponent(slug)}.md`);
