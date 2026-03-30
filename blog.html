@@ -3,8 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Новости и статьи — ДЮЦ «Виктория»</title>
-  <meta name="description" content="Новости, статьи и анонсы Детско-юношеского центра «Виктория». Полезные материалы для родителей и детей.">
+  <title>Новости и статьи — ДЮЦ «Виктория» Москва</title>
+  <meta name="description" content="Новости, статьи и анонсы Детско-юношеского центра «Виктория». Полезные материалы для родителей, репортажи, анонсы кружков.">
+  <link rel="canonical" href="https://agbox77.github.io/viktoria/blog.html">
+  <meta property="og:title" content="Новости и статьи — ДЮЦ «Виктория»">
+  <meta property="og:description" content="Новости, статьи и анонсы центра «Виктория». Полезные материалы для родителей.">
+  <meta property="og:image" content="https://agbox77.github.io/viktoria/Victoria_logo-02.png">
+  <meta property="og:url" content="https://agbox77.github.io/viktoria/blog.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="ДЮЦ «Виктория»">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -72,6 +80,14 @@
     .empty-state-icon { font-size:48px; margin-bottom:16px; opacity:0.3; }
     .empty-state h3 { font-size:18px; font-weight:700; color:var(--text); margin-bottom:8px; }
 
+    /* КАТЕГОРИЯ-ФИЛЬТР */
+    .cat-filter-bar { max-width:1100px; margin:0 auto; padding:0 24px 24px; display:none; align-items:center; gap:8px; }
+    .cat-filter-bar.visible { display:flex; }
+    .cat-filter-label { font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; flex-shrink:0; }
+    .cat-filter-chip { display:inline-flex; align-items:center; gap:6px; padding:5px 12px 5px 10px; border-radius:100px; font-size:12px; font-weight:600; background:rgba(232,146,26,0.1); border:1px solid rgba(232,146,26,0.25); color:var(--accent); }
+    .cat-filter-remove { background:none; border:none; cursor:pointer; color:var(--accent); padding:0 0 0 4px; font-size:14px; line-height:1; opacity:0.7; }
+    .cat-filter-remove:hover { opacity:1; }
+
     .footer { background:#fff; border-top:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
     .footer-left { display:flex; align-items:center; gap:12px; }
     .footer-left img { height:36px; opacity:0.7; }
@@ -98,8 +114,8 @@
 
 <div class="hero">
   <div class="hero-eyebrow">✍️ Медиа центра</div>
-  <h1 class="hero-title">Новости и<br><span>статьи</span></h1>
-  <p class="hero-sub">Полезные материалы для родителей, новости центра и анонсы предстоящих событий.</p>
+  <h1 class="hero-title" id="pageH1">Новости и<br><span>статьи</span></h1>
+  <p class="hero-sub" id="pageSubtitle">Полезные материалы для родителей, новости центра и анонсы предстоящих событий.</p>
 </div>
 
 <div class="filters-bar">
@@ -113,6 +129,14 @@
   </div>
 </div>
 
+<div class="cat-filter-bar" id="catFilterBar">
+  <span class="cat-filter-label">Фильтр:</span>
+  <span class="cat-filter-chip" id="catFilterChip">
+    <span id="catFilterLabel"></span>
+    <button class="cat-filter-remove" id="catFilterRemove">✕</button>
+  </span>
+</div>
+
 <div class="posts-wrap">
   <div class="posts-count" id="postsCount"></div>
   <div class="posts-grid" id="postsGrid"></div>
@@ -123,7 +147,7 @@
     <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
     <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br><span style="font-weight:400;opacity:0.7;">г. Москва</span></div>
   </div>
-  <div class="footer-copy">© 2025 Детско-юношеский центр «Виктория»</div>
+  <div class="footer-copy">© 2026 Детско-юношеский центр «Виктория»</div>
 </footer>
 
 <script>
@@ -132,6 +156,21 @@ const BRANCH = 'main';
 let allPosts = [];
 let currentType = 'all';
 let searchQuery = '';
+let filterCat = '';       // ?cat=karting  — фильтр по категории кружка
+let filterTeacher = '';   // ?teacher=slug — фильтр по педагогу
+let filterSubdiv = '';    // ?loc=slug     — фильтр по филиалу
+
+const CAT_LABELS = {
+  karting:'Картинг и автоспорт', keramika:'Керамика и гончарное дело',
+  tvorchestvo:'Художественное творчество', tancy:'Танцы и хореография',
+  robototekhnika:'Робототехника', teatr:'Театр и актёрство',
+  cirk:'Цирк и акробатика', muzyka:'Музыка', strelkovye:'Стрелковые',
+  sport:'Спортивные секции', shahmaty:'Шахматы', nauka:'Развивающие кружки',
+};
+const SUBDIV_LABELS = {
+  gazoprovod:'Газопровод', nagatinskaya:'Нагатинская',
+  annino:'Аннино', shcherbinka:'Щербинка',
+};
 
 const TYPE_MAP = {
   'Новость':  { cls:'badge-news',     icon:'📰' },
@@ -139,6 +178,51 @@ const TYPE_MAP = {
   'Анонс':    { cls:'badge-announce', icon:'📣' },
 };
 
+// ── URL ──────────────────────────────────────────────────────
+function readURLParams() {
+  const p = new URLSearchParams(location.search);
+  if (p.get('type'))    currentType    = p.get('type');
+  if (p.get('cat'))     filterCat      = p.get('cat');
+  if (p.get('teacher')) filterTeacher  = p.get('teacher');
+  if (p.get('loc'))     filterSubdiv   = p.get('loc');
+}
+
+function updateCatFilterUI() {
+  const bar = document.getElementById('catFilterBar');
+  let label = '';
+  if (filterCat)     label = CAT_LABELS[filterCat]     || filterCat;
+  if (filterTeacher) label = 'Педагог: ' + filterTeacher;
+  if (filterSubdiv)  label = SUBDIV_LABELS[filterSubdiv] || filterSubdiv;
+  if (label) {
+    document.getElementById('catFilterLabel').textContent = label;
+    bar.classList.add('visible');
+  } else {
+    bar.classList.remove('visible');
+  }
+}
+
+function updatePageTitle() {
+  let title = 'Новости и статьи — ДЮЦ «Виктория»';
+  let h1span = 'статьи';
+  let sub = 'Полезные материалы для родителей, новости центра и анонсы предстоящих событий.';
+  if (filterCat) {
+    const cl = CAT_LABELS[filterCat] || filterCat;
+    title = 'Новости о ' + cl.toLowerCase() + ' — ДЮЦ «Виктория»';
+    h1span = cl;
+    sub = 'Публикации, связанные с направлением «' + cl + '».';
+  } else if (filterTeacher) {
+    title = 'Публикации о педагоге ' + filterTeacher + ' — ДЮЦ «Виктория»';
+  } else if (filterSubdiv) {
+    const sl = SUBDIV_LABELS[filterSubdiv] || filterSubdiv;
+    title = 'Новости площадки ' + sl + ' — ДЮЦ «Виктория»';
+    h1span = 'новости · ' + sl;
+  }
+  document.title = title;
+  document.getElementById('pageH1').innerHTML = 'Новости и<br><span>' + h1span + '</span>';
+  document.getElementById('pageSubtitle').textContent = sub;
+}
+
+// ── Парсинг ───────────────────────────────────────────────────
 function parseFrontmatter(text) {
   const m = text.match(/^---\n([\s\S]*?)\n---/);
   if (!m) return null;
@@ -166,16 +250,17 @@ function formatDate(str) {
   return str;
 }
 
+// ── Рендер карточки ───────────────────────────────────────────
 function renderCard(post, idx) {
   const isFeatured = idx === 0 ? 'featured' : '';
   const type = post.type || 'Новость';
   const tm = TYPE_MAP[type] || TYPE_MAP['Новость'];
   const imageHtml = post.image
-  ? `<img src="${post.image}" alt="${post.title}" loading="lazy" 
-       onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-    + `<div class="card-image-placeholder" style="display:none">${tm.icon}</div>`
-  : `<div class="card-image-placeholder">${tm.icon}</div>`;
-  const tagsArr = Array.isArray(post.tags) ? post.tags : (post.tags ? post.tags.split(',') : []);
+    ? `<img src="${post.image}" alt="${post.title||''}" loading="lazy"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+      + `<div class="card-image-placeholder" style="display:none">${tm.icon}</div>`
+    : `<div class="card-image-placeholder">${tm.icon}</div>`;
+  const tagsArr = Array.isArray(post.tags) ? post.tags : (post.tags ? String(post.tags).split(',') : []);
   const tagsHtml = tagsArr.length ? `<div class="card-tags">${tagsArr.map(t=>`<span class="card-tag">${t.trim()}</span>`).join('')}</div>` : '';
 
   return `
@@ -189,7 +274,7 @@ function renderCard(post, idx) {
           <span>${formatDate(post.date)}</span>
           ${post.author ? `<span class="card-meta-dot"></span><span>${post.author}</span>` : ''}
         </div>
-        <div class="card-title">${post.title}</div>
+        <div class="card-title">${post.title||''}</div>
         ${post.excerpt ? `<div class="card-excerpt">${post.excerpt}</div>` : ''}
         ${tagsHtml}
       </div>
@@ -204,17 +289,30 @@ function showSkeletons() {
         <div class="skel" style="height:11px;width:40%"></div>
         <div class="skel" style="height:18px;width:85%"></div>
         <div class="skel" style="height:13px;width:70%"></div>
-        <div class="skel" style="height:13px;width:55%"></div>
       </div>
     </div>`).join('');
+}
+
+// ── Фильтрация ────────────────────────────────────────────────
+function matchRelated(post, field, slug) {
+  if (!slug) return true;
+  const val = post[field] || (post.relations && post.relations[field]) || '';
+  if (!val) return false;
+  const list = Array.isArray(val) ? val : String(val).split(',').map(s => s.trim());
+  return list.some(s => s === slug || s.includes(slug));
 }
 
 function renderPosts() {
   let filtered = allPosts.filter(p => {
     if (currentType !== 'all' && p.type !== currentType) return false;
+    if (filterCat     && !matchRelated(p, 'related_categories', filterCat) && !matchRelated(p, 'related_circles', filterCat)) return false;
+    if (filterTeacher && !matchRelated(p, 'related_teachers', filterTeacher)) return false;
+    if (filterSubdiv  && !matchRelated(p, 'related_subdivision', filterSubdiv)) return false;
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
-      if (!(p.title||'').toLowerCase().includes(q) && !(p.excerpt||'').toLowerCase().includes(q) && !(p.author||'').toLowerCase().includes(q)) return false;
+      if (!(p.title||'').toLowerCase().includes(q)
+        && !(p.excerpt||'').toLowerCase().includes(q)
+        && !(p.author||'').toLowerCase().includes(q)) return false;
     }
     return true;
   });
@@ -231,6 +329,7 @@ function renderPosts() {
   grid.innerHTML = filtered.map((p,i) => renderCard(p,i)).join('');
 }
 
+// ── Загрузка ──────────────────────────────────────────────────
 async function loadPosts() {
   showSkeletons();
   try {
@@ -263,6 +362,7 @@ async function loadPosts() {
   }
 }
 
+// ── События ───────────────────────────────────────────────────
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -271,8 +371,27 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     renderPosts();
   });
 });
-document.getElementById('searchInput').addEventListener('input', e => { searchQuery = e.target.value; renderPosts(); });
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value; renderPosts();
+});
+document.getElementById('catFilterRemove').addEventListener('click', () => {
+  filterCat = ''; filterTeacher = ''; filterSubdiv = '';
+  history.pushState(null, '', location.pathname);
+  updateCatFilterUI();
+  updatePageTitle();
+  renderPosts();
+});
 
+// ── Старт ─────────────────────────────────────────────────────
+readURLParams();
+updateCatFilterUI();
+updatePageTitle();
+// Синхронизируем кнопку типа с URL
+if (currentType !== 'all') {
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.type === currentType);
+  });
+}
 loadPosts();
 </script>
 </body>
