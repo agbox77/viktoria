@@ -3,7 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Кружки — Детско-юношеский центр «Виктория»</title>
+  <title>Кружки и секции для детей в Москве — ДЮЦ «Виктория»</title>
+  <meta name="description" content="Более 300 кружков и секций для детей в Москве: картинг, керамика, танцы, робототехника, театр. Бесплатные и платные. 4 площадки. Запись онлайн.">
+  <link rel="canonical" href="https://agbox77.github.io/viktoria/circles.html">
+  <meta property="og:title" content="Кружки и секции для детей в Москве — ДЮЦ «Виктория»">
+  <meta property="og:description" content="Более 300 кружков и секций: картинг, керамика, танцы, робототехника. Бесплатные и платные. 4 площадки в Москве.">
+  <meta property="og:image" content="https://agbox77.github.io/viktoria/Victoria_logo-02.png">
+  <meta property="og:url" content="https://agbox77.github.io/viktoria/circles.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="ДЮЦ «Виктория»">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -76,7 +85,26 @@
     .cat-item.active .cat-dot { background:var(--accent); }
     .cat-count { margin-left:auto; font-size:11px; font-weight:700; color:var(--muted); opacity:0.5; }
 
-    /* FAV TOGGLE */
+    /* PRICE PILLS */
+    .price-pills { display:flex; gap:8px; flex-wrap:wrap; }
+    .price-pill { padding:7px 14px; border-radius:100px; font-size:13px; font-weight:600; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all 0.15s; font-family:'Manrope',sans-serif; }
+    .price-pill:hover { border-color:rgba(61,138,92,0.3); color:var(--text); }
+    .price-pill.active { background:var(--green2,#3d8a5c); border-color:var(--green2,#3d8a5c); color:#fff; }
+
+    /* SUBDIVISION PILLS */
+    .subdiv-pills { display:flex; gap:8px; flex-wrap:wrap; }
+    .subdiv-pill { padding:7px 12px; border-radius:100px; font-size:12px; font-weight:600; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all 0.15s; font-family:'Manrope',sans-serif; }
+    .subdiv-pill:hover { border-color:rgba(122,88,137,0.3); color:var(--text); }
+    .subdiv-pill.active { background:var(--lilac2,#7a5889); border-color:var(--lilac2,#7a5889); color:#fff; }
+
+    /* CAT GRID — 12 категорий кнопками */
+    .cat-grid { display:flex; flex-direction:column; gap:2px; }
+    .cat-btn { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; cursor:pointer; transition:background 0.1s; font-size:13px; font-weight:500; color:var(--muted); background:none; border:none; font-family:'Manrope',sans-serif; text-align:left; width:100%; }
+    .cat-btn:hover { background:rgba(60,40,10,0.04); color:var(--text); }
+    .cat-btn.active { color:var(--accent); background:rgba(232,146,26,0.07); }
+    .cat-btn-emoji { font-size:15px; width:20px; text-align:center; flex-shrink:0; }
+    .cat-btn-label { flex:1; }
+    .cat-btn-count { font-size:11px; font-weight:700; color:var(--muted); opacity:0.5; }
     .fav-toggle { width:100%; display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:10px; background:var(--surface2); border:1px solid var(--border); color:var(--muted); font-family:'Manrope',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s; }
     .fav-toggle:hover { border-color:rgba(232,146,26,0.2); color:var(--text); }
     .fav-toggle.active { background:rgba(232,146,26,0.08); border-color:rgba(232,146,26,0.3); color:var(--accent); }
@@ -182,15 +210,8 @@
     <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
     Москва · ГБОУ ДО ДЮЦ «Виктория»
   </div>
-  <h1 class="hero-title">Найди своё<br><span>призвание</span></h1>
-  <p class="hero-sub">Кружки, секции и студии Детско-юношеского центра «Виктория» для детей и взрослых. Спорт, творчество, наука — всё в одном месте.</p>
-  <div class="hero-chips">
-    <span class="hero-chip orange">🏅 Спорт и физкультура</span>
-    <span class="hero-chip green">🎨 Творчество и искусство</span>
-    <span class="hero-chip lilac">🔬 Наука и технологии</span>
-    <span class="hero-chip">🎭 Театр и музыка</span>
-    <span class="hero-chip">🌍 Языки и культура</span>
-  </div>
+  <h1 class="hero-title" id="heroTitle">Кружки и <span id="heroTitleSpan">секции</span></h1>
+  <p class="hero-sub" id="heroSub">Более 300 направлений для детей и взрослых. Спорт, творчество, наука, искусство — на 4 площадках Москвы.</p>
   <div class="search-wrap">
     <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     <input class="search-input" id="search" type="text" placeholder="Поиск по названию, адресу, педагогу..." autocomplete="off" spellcheck="false">
@@ -222,16 +243,33 @@
         <div class="filter-label">Возраст</div>
         <div class="age-pills" id="agePills">
           <button class="age-pill active" data-age="">Любой</button>
-          <button class="age-pill" data-age="3-6">3–6</button>
-          <button class="age-pill" data-age="6-10">6–10</button>
-          <button class="age-pill" data-age="10-14">10–14</button>
+          <button class="age-pill" data-age="3-6">3–6 лет</button>
+          <button class="age-pill" data-age="6-10">6–10 лет</button>
+          <button class="age-pill" data-age="10-14">10–14 лет</button>
           <button class="age-pill" data-age="14+">14+</button>
-          <button class="age-pill" data-age="18+">18+</button>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Стоимость</div>
+        <div class="price-pills" id="pricePills">
+          <button class="price-pill active" data-price="">Все</button>
+          <button class="price-pill" data-price="budget">Бесплатно</button>
+          <button class="price-pill" data-price="paid">Платные</button>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Площадка</div>
+        <div class="subdiv-pills" id="subdivPills">
+          <button class="subdiv-pill active" data-subdiv="">Все</button>
+          <button class="subdiv-pill" data-subdiv="gazoprovod">Газопровод</button>
+          <button class="subdiv-pill" data-subdiv="nagatinskaya">Нагатинская</button>
+          <button class="subdiv-pill" data-subdiv="annino">Аннино</button>
+          <button class="subdiv-pill" data-subdiv="shcherbinka">Щербинка</button>
         </div>
       </div>
       <div class="filter-section">
         <div class="filter-label">Категория</div>
-        <div class="cat-list" id="catList"></div>
+        <div class="cat-grid" id="catList"></div>
       </div>
     </div>
   </aside>
@@ -283,16 +321,33 @@
       <div class="filter-label">Возраст</div>
       <div class="age-pills" id="agePillsDrawer">
         <button class="age-pill active" data-age="">Любой</button>
-        <button class="age-pill" data-age="3-6">3–6</button>
-        <button class="age-pill" data-age="6-10">6–10</button>
-        <button class="age-pill" data-age="10-14">10–14</button>
+        <button class="age-pill" data-age="3-6">3–6 лет</button>
+        <button class="age-pill" data-age="6-10">6–10 лет</button>
+        <button class="age-pill" data-age="10-14">10–14 лет</button>
         <button class="age-pill" data-age="14+">14+</button>
-        <button class="age-pill" data-age="18+">18+</button>
+      </div>
+    </div>
+    <div class="filter-section">
+      <div class="filter-label">Стоимость</div>
+      <div class="price-pills" id="pricePillsDrawer">
+        <button class="price-pill active" data-price="">Все</button>
+        <button class="price-pill" data-price="budget">Бесплатно</button>
+        <button class="price-pill" data-price="paid">Платные</button>
+      </div>
+    </div>
+    <div class="filter-section">
+      <div class="filter-label">Площадка</div>
+      <div class="subdiv-pills" id="subdivPillsDrawer">
+        <button class="subdiv-pill active" data-subdiv="">Все</button>
+        <button class="subdiv-pill" data-subdiv="gazoprovod">Газопровод</button>
+        <button class="subdiv-pill" data-subdiv="nagatinskaya">Нагатинская</button>
+        <button class="subdiv-pill" data-subdiv="annino">Аннино</button>
+        <button class="subdiv-pill" data-subdiv="shcherbinka">Щербинка</button>
       </div>
     </div>
     <div class="filter-section">
       <div class="filter-label">Категория</div>
-      <div class="cat-list" id="catListDrawer"></div>
+      <div class="cat-grid" id="catListDrawer"></div>
     </div>
   </div>
   <div class="drawer-footer">
@@ -302,79 +357,179 @@
 </div>
 
 <script>
-// ============================================================
-// НОВАЯ ВЕРСИЯ: загрузка данных из папки _data/circles/ (админка)
-// ============================================================
+// ─────────────────────────────────────────────────────────────
+// СПРАВОЧНИК 12 КАТЕГОРИЙ
+// ─────────────────────────────────────────────────────────────
+const CATEGORIES = [
+  { value: 'karting',        label: 'Картинг и автоспорт',                   emoji: '🏎️' },
+  { value: 'keramika',       label: 'Керамика и гончарное дело',              emoji: '🏺' },
+  { value: 'tvorchestvo',    label: 'Художественное творчество',              emoji: '🎨' },
+  { value: 'tancy',          label: 'Танцевальные и хореография',             emoji: '💃' },
+  { value: 'robototekhnika', label: 'Робототехника и техническое творчество', emoji: '🤖' },
+  { value: 'teatr',          label: 'Театр и актёрское мастерство',           emoji: '🎭' },
+  { value: 'cirk',           label: 'Цирк, акробатика и гимнастика',          emoji: '🎪' },
+  { value: 'muzyka',         label: 'Музыкальные занятия',                    emoji: '🎵' },
+  { value: 'strelkovye',     label: 'Стрелковые и военно-патриотические',     emoji: '🎯' },
+  { value: 'sport',          label: 'Спортивные секции',                      emoji: '🏅' },
+  { value: 'shahmaty',       label: 'Шахматы',                                emoji: '♟️' },
+  { value: 'nauka',          label: 'Естественно-научные и развивающие',      emoji: '🔬' },
+];
 
+const SUBDIV_LABELS = {
+  gazoprovod:    'Газопровод',
+  nagatinskaya:  'Нагатинская',
+  annino:        'Аннино',
+  shcherbinka:   'Щербинка',
+};
+
+// SEO-тексты для H1/description при выборе категории
+const CAT_SEO = {
+  karting:        { h1: 'Картинг для детей',              desc: 'Картинг и автоспорт для детей в Москве — ДЮЦ «Виктория». Запись онлайн.' },
+  keramika:       { h1: 'Керамика и гончарное дело',      desc: 'Кружки керамики и гончарного дела для детей в Москве — ДЮЦ «Виктория».' },
+  tvorchestvo:    { h1: 'Художественное творчество',      desc: 'Кружки рисования и художественного творчества для детей в Москве.' },
+  tancy:          { h1: 'Танцевальные кружки',            desc: 'Танцы и хореография для детей в Москве — бальные, современные, народные.' },
+  robototekhnika: { h1: 'Робототехника для детей',        desc: 'Кружки робототехники и технического творчества для детей в Москве.' },
+  teatr:          { h1: 'Театральные студии',             desc: 'Театральные кружки и актёрское мастерство для детей в Москве.' },
+  cirk:           { h1: 'Цирк и акробатика для детей',    desc: 'Цирковые кружки, акробатика и гимнастика для детей в Москве.' },
+  muzyka:         { h1: 'Музыкальные кружки',             desc: 'Музыкальные занятия и вокал для детей в Москве — ДЮЦ «Виктория».' },
+  strelkovye:     { h1: 'Стрелковые секции',              desc: 'Стрелковые и военно-патриотические кружки для детей в Москве.' },
+  sport:          { h1: 'Спортивные секции',              desc: 'Спортивные секции для детей в Москве — ДЮЦ «Виктория». Запись онлайн.' },
+  shahmaty:       { h1: 'Шахматы для детей',              desc: 'Кружки шахмат для детей в Москве — ДЮЦ «Виктория». Запись онлайн.' },
+  nauka:          { h1: 'Развивающие кружки',             desc: 'Естественно-научные и развивающие кружки для детей в Москве.' },
+};
+
+// ─────────────────────────────────────────────────────────────
+// СОСТОЯНИЕ
+// ─────────────────────────────────────────────────────────────
 let allData = [];
 let favorites = JSON.parse(localStorage.getItem('krug_fav') || '[]');
-let state = { search: '', age: '', category: '', showFav: false, sort: 'default' };
+let state = { search: '', age: '', category: '', price: '', subdivision: '', showFav: false, sort: 'default' };
 
-// Эмодзи для категорий
-const emojiMap = { 'аэробика':'🤸','хор':'🎵','гимнастика':'🤼','английск':'🇬🇧','математик':'📐','астроном':'🔭','айкидо':'🥋','цирк':'🎪','глин':'🏺','театр':'🎭','рисован':'🎨','танц':'💃','музык':'🎸','плаван':'🏊','футбол':'⚽','шахмат':'♟️','програм':'💻','робот':'🤖','вокал':'🎤','лепк':'🏺','рукодел':'🧵','стретч':'🧘','бокс':'🥊','волейбол':'🏐','баскетбол':'🏀','художеств':'🎨','народн':'🪗' };
-function getEmoji(cat) {
-  if (!cat) return '🌟';
-  const l = cat.toLowerCase();
-  for (const [k,v] of Object.entries(emojiMap)) { if (l.includes(k)) return v; }
-  const pool = ['🌟','🎯','📚','✨','🎓','🌈','⚡','🎠','🌿','🦋'];
-  let h = 0; for (let i=0;i<cat.length;i++) h=(h*31+cat.charCodeAt(i))|0;
-  return pool[Math.abs(h)%pool.length];
+// ─────────────────────────────────────────────────────────────
+// URL ↔ STATE
+// ─────────────────────────────────────────────────────────────
+function readURLParams() {
+  const p = new URLSearchParams(location.search);
+  if (p.get('cat'))    state.category   = p.get('cat');
+  if (p.get('loc'))    state.subdivision = p.get('loc');
+  if (p.get('price'))  state.price       = p.get('price');
+  if (p.get('age'))    state.age         = p.get('age');
 }
 
-// Возрастное соответствие
-function matchAge(itemAge, filter) {
+function pushURL() {
+  const p = new URLSearchParams();
+  if (state.category)   p.set('cat',   state.category);
+  if (state.subdivision) p.set('loc',  state.subdivision);
+  if (state.price)      p.set('price', state.price);
+  if (state.age)        p.set('age',   state.age);
+  const qs = p.toString();
+  const newURL = location.pathname + (qs ? '?' + qs : '');
+  history.pushState(null, '', newURL);
+  updateSEOHead();
+}
+
+function updateSEOHead() {
+  const seo = state.category ? CAT_SEO[state.category] : null;
+  if (seo) {
+    document.title = seo.h1 + ' в Москве — ДЮЦ «Виктория»';
+    const dm = document.querySelector('meta[name="description"]');
+    if (dm) dm.setAttribute('content', seo.desc);
+    document.getElementById('heroTitleSpan').textContent = seo.h1;
+    document.getElementById('heroTitle').innerHTML = '<span id="heroTitleSpan">' + seo.h1 + '</span>';
+    document.getElementById('heroSub').textContent = seo.desc;
+  } else {
+    document.title = 'Кружки и секции для детей в Москве — ДЮЦ «Виктория»';
+    document.getElementById('heroTitle').innerHTML = 'Кружки и <span id="heroTitleSpan">секции</span>';
+    document.getElementById('heroSub').textContent = 'Более 300 направлений для детей и взрослых. Спорт, творчество, наука, искусство — на 4 площадках Москвы.';
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+// ─────────────────────────────────────────────────────────────
+function matchAge(item, filter) {
   if (!filter) return true;
-  if (!itemAge) return false;
-  const nums = itemAge.match(/\d+/g);
-  if (!nums) return false;
-  const mn=+nums[0], mx=nums[1]?+nums[1]:mn;
-  if (filter==='18+') return mn>=18||mx>=18;
-  if (filter==='14+') return mx>=14;
-  if (filter==='3-6')  return mn<=6&&mx>=3;
-  if (filter==='6-10') return mn<=10&&mx>=6;
-  if (filter==='10-14') return mn<=14&&mx>=10;
-  return false;
+  const from = parseInt(item.age_from) || 0;
+  const to   = parseInt(item.age_to)   || 99;
+  if (filter === '3-6')   return from <= 6  && to >= 3;
+  if (filter === '6-10')  return from <= 10 && to >= 6;
+  if (filter === '10-14') return from <= 14 && to >= 10;
+  if (filter === '14+')   return to >= 14;
+  return true;
 }
 
-// Подсветка поиска
 function hl(text, q) {
-  if (!q||!text) return text||'';
-  const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
-  return String(text).replace(re,'<mark class="hl">$1</mark>');
+  if (!q || !text) return text || '';
+  const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return String(text).replace(re, '<mark class="hl">$1</mark>');
 }
 
-// Рендер карточки
+function getCatLabel(value) {
+  return CATEGORIES.find(c => c.value === value)?.label || value;
+}
+function getCatEmoji(value) {
+  return CATEGORIES.find(c => c.value === value)?.emoji || '🌟';
+}
+
+// ─────────────────────────────────────────────────────────────
+// РЕНДЕР КАРТОЧКИ
+// ─────────────────────────────────────────────────────────────
 function renderCard(item, idx) {
-  const id=item.link || item['Ссылка'] || '';
-  const isFav=favorites.includes(id);
-  const q=state.search;
-  const cat=item.category || item['Наименование третьего уровня РБНДО'] || '';
-  const age=item.age || item['Возраст'] || '';
-  const addr=item.address || item['Адрес предоставления услуги'] || '';
-  const teach=item.teacher || item['Педагог'] || '';
-  const title=item.title || item['Наименование детского объединения'] || '';
-  
-  return `<div class="card" style="animation-delay:${Math.min(idx*25,300)}ms">
-    <button class="card-fav ${isFav?'active':''}" onclick="toggleFav('${id.replace(/'/g,"\\'")}')">
-      ${isFav?'★':'☆'}
+  const id   = item.mos_link || item.link || '';
+  const isFav = favorites.includes(item.slug || id);
+  const q    = state.search;
+  const catLabel = getCatLabel(item.category);
+  const catEmoji = getCatEmoji(item.category);
+  const subdivLabel = SUBDIV_LABELS[item.subdivision] || item.address || '';
+  const teachers = item.teachers || item.teacher || '';
+  const ageStr = (item.age_from && item.age_to)
+    ? item.age_from + '–' + item.age_to + ' лет'
+    : (item.age || '');
+  const isFree = item.financing === 'budget';
+  const favKey = item.slug || id;
+
+  return `<div class="card" style="animation-delay:${Math.min(idx*20,280)}ms">
+    <button class="card-fav ${isFav?'active':''}" onclick="toggleFav('${favKey.replace(/'/g,"\\'")}')">
+      ${isFav ? '★' : '☆'}
     </button>
     <div class="card-top">
-      <div class="card-icon">${getEmoji(cat)}</div>
+      <div class="card-icon">${catEmoji}</div>
       <div class="card-info">
-        <div class="card-title">${hl(title,q)}</div>
-        <div class="card-category">${cat}</div>
+        <div class="card-title">${hl(item.title || '',q)}</div>
+        <div class="card-category">${catLabel}</div>
       </div>
     </div>
-    ${age?`<div class="card-meta"><span class="meta-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>${age} лет</span></div>`:''}
-    ${addr?`<div class="card-address"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>${hl(addr,q)}</span></div>`:''}
-    ${teach?`<div class="card-teacher">${hl(teach,q)}</div>`:''}
-    ${id?`<a class="card-link" href="${id}" target="_blank" rel="noopener">Записаться <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>`:''}
+    <div class="card-meta">
+      ${ageStr ? `<span class="meta-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>${ageStr}</span>` : ''}
+      ${isFree ? `<span class="meta-pill" style="color:#3d8a5c;background:rgba(61,138,92,0.08)">Бесплатно</span>` : (item.price_info ? `<span class="meta-pill">${item.price_info}</span>` : '')}
+    </div>
+    ${subdivLabel ? `<div class="card-address"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>${hl(subdivLabel,q)}</span></div>` : ''}
+    ${teachers ? `<div class="card-teacher">${hl(teachers,q)}</div>` : ''}
+    ${id ? `<a class="card-link" href="${id}" target="_blank" rel="noopener noreferrer">Записаться <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>` : ''}
   </div>`;
 }
 
-// Скелетон
+// ─────────────────────────────────────────────────────────────
+// РЕНДЕР СПИСКА И СТАТИСТИКИ
+// ─────────────────────────────────────────────────────────────
+function renderList(items) {
+  document.getElementById('list').innerHTML = items.length
+    ? items.map((item, i) => renderCard(item, i)).join('')
+    : `<div class="empty"><div class="empty-icon">🔍</div><h3>Ничего не найдено</h3><p>Попробуйте изменить фильтры или поисковый запрос</p></div>`;
+}
+
+function updateStats(count) {
+  document.getElementById('statsCount').textContent = count;
+  const parts = [];
+  if (state.category)    parts.push(getCatLabel(state.category));
+  if (state.subdivision) parts.push(SUBDIV_LABELS[state.subdivision]);
+  if (state.price === 'budget') parts.push('бесплатные');
+  if (state.price === 'paid')   parts.push('платные');
+  document.getElementById('statsActive').textContent = parts.length ? '· ' + parts.join(', ') : '';
+}
+
 function showSkeleton() {
-  document.getElementById('list').innerHTML = Array.from({length:6}).map(()=>`
+  document.getElementById('list').innerHTML = Array.from({length: 6}).map(() => `
     <div class="skeleton-card">
       <div style="display:flex;gap:14px;align-items:flex-start">
         <div class="skel" style="width:44px;height:44px;border-radius:12px;flex-shrink:0"></div>
@@ -383,214 +538,295 @@ function showSkeleton() {
           <div class="skel" style="height:11px;width:45%"></div>
         </div>
       </div>
-      <div class="skel" style="height:28px;width:90px"></div>
+      <div class="skel" style="height:28px;width:110px"></div>
       <div class="skel" style="height:38px"></div>
       <div class="skel" style="height:36px;width:130px;border-radius:10px"></div>
     </div>`).join('');
 }
 
-// Активные теги
+// ─────────────────────────────────────────────────────────────
+// ФИЛЬТРАЦИЯ
+// ─────────────────────────────────────────────────────────────
+function applyFilters() {
+  const q = state.search.toLowerCase().trim();
+  let filtered = allData.filter(item => {
+    if (state.category   && item.category   !== state.category)   return false;
+    if (state.subdivision && item.subdivision !== state.subdivision) return false;
+    if (state.price      && item.financing   !== state.price)     return false;
+    if (!matchAge(item, state.age))                                return false;
+    if (state.showFav) {
+      const fk = item.slug || item.mos_link || item.link || '';
+      if (!favorites.includes(fk)) return false;
+    }
+    if (q) {
+      const hay = [item.title, item.teachers, item.teacher, SUBDIV_LABELS[item.subdivision], item.address]
+        .filter(Boolean).join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (state.sort === 'alpha') filtered.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'ru'));
+  else if (state.sort === 'age') filtered.sort((a, b) => (+a.age_from || 99) - (+b.age_from || 99));
+
+  renderList(filtered);
+  updateStats(filtered.length);
+  renderActiveTags();
+  updateResetBtn();
+  updateMobileBadge();
+}
+
+// ─────────────────────────────────────────────────────────────
+// АКТИВНЫЕ ТЕГИ
+// ─────────────────────────────────────────────────────────────
 function renderActiveTags() {
   const tags = [];
-  if (state.age) tags.push({label:`Возраст: ${state.age}`,key:'age'});
-  if (state.category) tags.push({label:state.category,key:'category'});
-  if (state.showFav) tags.push({label:'★ Избранное',key:'fav'});
-  document.getElementById('activeTags').innerHTML = tags.map(t=>`
+  if (state.category)   tags.push({ label: getCatLabel(state.category), key: 'category' });
+  if (state.subdivision) tags.push({ label: SUBDIV_LABELS[state.subdivision], key: 'subdivision' });
+  if (state.price === 'budget') tags.push({ label: 'Бесплатно', key: 'price' });
+  if (state.price === 'paid')   tags.push({ label: 'Платные', key: 'price' });
+  if (state.age)        tags.push({ label: 'Возраст: ' + state.age, key: 'age' });
+  if (state.showFav)    tags.push({ label: '★ Избранное', key: 'fav' });
+  document.getElementById('activeTags').innerHTML = tags.map(t => `
     <span class="filter-tag">${t.label}
       <button class="filter-tag-remove" onclick="removeTag('${t.key}')">✕</button>
     </span>`).join('');
 }
 
 function removeTag(key) {
-  if (key==='age') { state.age=''; document.querySelectorAll('.age-pill').forEach(p=>p.classList.toggle('active',p.dataset.age==='')); }
-  else if (key==='category') { state.category=''; document.querySelectorAll('.cat-item').forEach(i=>i.classList.remove('active')); }
-  else if (key==='fav') {
-    state.showFav=false;
-    ['favToggle','favToggleDrawer'].forEach(id=>{ const el=document.getElementById(id); el.classList.remove('active'); el.innerHTML='<span class="fav-toggle-star">★</span>Показать избранное'; });
-  }
-  updateResetBtn(); updateMobileBadge(); applyFilters();
-}
-
-function plural(n,one,few,many) {
-  const m=n%100; if(m>=11&&m<=14) return many;
-  const r=n%10; if(r===1) return one; if(r>=2&&r<=4) return few; return many;
-}
-
-function renderList(items) {
-  const list = document.getElementById('list');
-  if (!items.length) {
-    list.innerHTML=`<div class="empty"><div class="empty-icon">🔍</div><h3>Ничего не найдено</h3><p>Попробуйте изменить фильтры или поисковый запрос</p></div>`;
-    document.getElementById('toolbarLeft').innerHTML=''; return;
-  }
-  list.innerHTML = items.map((item,i)=>renderCard(item,i)).join('');
-  document.getElementById('toolbarLeft').innerHTML=`<strong>${items.length}</strong> ${plural(items.length,'кружок','кружка','кружков')}`;
-}
-
-function updateStats(count) {
-  document.getElementById('statsCount').textContent=count;
-  const a=[];
-  if(state.search) a.push(`«${state.search}»`);
-  if(state.age) a.push(`возраст ${state.age}`);
-  if(state.category) a.push(state.category);
-  if(state.showFav) a.push('избранное');
-  document.getElementById('statsActive').textContent=a.length?'· '+a.join(', '):'';
-}
-
-function applyFilters() {
-  const text=state.search.toLowerCase();
-  let filtered=allData.filter(item=>{
-    const title = item.title || item['Наименование детского объединения'] || '';
-    const category = item.category || item['Наименование третьего уровня РБНДО'] || '';
-    const address = item.address || item['Адрес предоставления услуги'] || '';
-    const teacher = item.teacher || item['Педагог'] || '';
-    
-    if(text){ const t=[title, category, address, teacher].join(' ').toLowerCase(); if(!t.includes(text)) return false; }
-    if(state.category && category !== state.category) return false;
-    if(!matchAge(item.age || item['Возраст'] || '', state.age)) return false;
-    if(state.showFav && !favorites.includes(item.link || item['Ссылка'] || '')) return false;
-    return true;
-  });
-  if(state.sort==='alpha') filtered.sort((a,b)=>(a.title || a['Наименование детского объединения'] || '').localeCompare(b.title || b['Наименование детского объединения'] || '','ru'));
-  else if(state.sort==='age') filtered.sort((a,b)=>{const an=(a.age || a['Возраст'] || '').match(/\d+/),bn=(b.age || b['Возраст'] || '').match(/\d+/);return(an?+an[0]:99)-(bn?+bn[0]:99);});
-  renderList(filtered);
-  updateStats(filtered.length);
-  renderActiveTags();
-}
-
-function buildCatHTML(targetId, fnName) {
-  const counts={};
-  allData.forEach(item=>{
-    const c = item.category || item['Наименование третьего уровня РБНДО'] || '';
-    if(c) counts[c]=(counts[c]||0)+1;
-  });
-  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  document.getElementById(targetId).innerHTML=sorted.map(([cat,cnt])=>`
-    <div class="cat-item" data-cat="${cat.replace(/"/g,'&quot;')}" onclick="${fnName}(this)">
-      <span class="cat-dot"></span><span>${cat}</span><span class="cat-count">${cnt}</span>
-    </div>`).join('');
-}
-
-function selectCategory(el) {
-  state.category = state.category===el.dataset.cat ? '' : el.dataset.cat;
-  document.querySelectorAll('.cat-item').forEach(i=>i.classList.toggle('active',i.dataset.cat===state.category));
-  updateResetBtn(); updateMobileBadge(); applyFilters();
-}
-function selectCategoryDrawer(el) { selectCategory(el); }
-
-function toggleFav(id) {
-  favorites=favorites.includes(id)?favorites.filter(f=>f!==id):[...favorites,id];
-  localStorage.setItem('krug_fav',JSON.stringify(favorites));
+  if (key === 'age')         { state.age = '';          syncAgePills(); }
+  if (key === 'category')    { state.category = '';     syncCatBtns(); pushURL(); }
+  if (key === 'price')       { state.price = '';        syncPricePills(); }
+  if (key === 'subdivision') { state.subdivision = '';  syncSubdivPills(); pushURL(); }
+  if (key === 'fav')         { state.showFav = false;   syncFavBtn(); }
   applyFilters();
 }
 
+// ─────────────────────────────────────────────────────────────
+// СИНХРОНИЗАЦИЯ UI ↔ STATE
+// ─────────────────────────────────────────────────────────────
+function syncAgePills() {
+  document.querySelectorAll('.age-pill').forEach(p => p.classList.toggle('active', p.dataset.age === state.age));
+}
+function syncPricePills() {
+  document.querySelectorAll('.price-pill').forEach(p => p.classList.toggle('active', p.dataset.price === state.price));
+}
+function syncSubdivPills() {
+  document.querySelectorAll('.subdiv-pill').forEach(p => p.classList.toggle('active', p.dataset.subdiv === state.subdivision));
+}
+function syncCatBtns() {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === state.category));
+}
+function syncFavBtn() {
+  ['favToggle', 'favToggleDrawer'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.toggle('active', state.showFav);
+    el.innerHTML = state.showFav
+      ? '<span class="fav-toggle-star">★</span>Только избранное'
+      : '<span class="fav-toggle-star">★</span>Показать избранное';
+  });
+}
+function syncDrawerToState() {
+  syncAgePills();
+  syncPricePills();
+  syncSubdivPills();
+  syncCatBtns();
+  syncFavBtn();
+}
+
 function updateResetBtn() {
-  document.getElementById('filterReset').classList.toggle('active',!!(state.search||state.age||state.category||state.showFav));
+  const active = !!(state.search || state.age || state.category || state.price || state.subdivision || state.showFav);
+  document.getElementById('filterReset').classList.toggle('active', active);
 }
 function updateMobileBadge() {
-  const n=[state.age,state.category,state.showFav?'x':'',state.search].filter(Boolean).length;
-  const el=document.getElementById('mobileFilterCount');
-  el.textContent=n; el.style.display=n?'':'none';
+  const n = [state.age, state.category, state.price, state.subdivision, state.showFav ? 'x' : '', state.search].filter(Boolean).length;
+  const el = document.getElementById('mobileFilterCount');
+  el.textContent = n; el.style.display = n ? '' : 'none';
 }
+
 function resetFilters() {
-  state.search=''; state.age=''; state.category=''; state.showFav=false;
-  document.getElementById('search').value='';
+  state.search = ''; state.age = ''; state.category = '';
+  state.price = ''; state.subdivision = ''; state.showFav = false;
+  document.getElementById('search').value = '';
   document.getElementById('searchClear').classList.remove('visible');
-  document.querySelectorAll('.age-pill').forEach(p=>p.classList.toggle('active',p.dataset.age===''));
-  document.querySelectorAll('.cat-item').forEach(i=>i.classList.remove('active'));
-  ['favToggle','favToggleDrawer'].forEach(id=>{ const el=document.getElementById(id); el.classList.remove('active'); el.innerHTML='<span class="fav-toggle-star">★</span>Показать избранное'; });
-  updateResetBtn(); updateMobileBadge(); applyFilters();
+  syncAgePills(); syncPricePills(); syncSubdivPills(); syncCatBtns(); syncFavBtn();
+  pushURL();
+  applyFilters();
+  updateSEOHead();
 }
 
-function syncDrawerToState() {
-  document.querySelectorAll('#agePillsDrawer .age-pill').forEach(p=>p.classList.toggle('active',p.dataset.age===state.age));
-  document.querySelectorAll('#catListDrawer .cat-item').forEach(i=>i.classList.toggle('active',i.dataset.cat===state.category));
-  const fb=document.getElementById('favToggleDrawer');
-  fb.classList.toggle('active',state.showFav);
-  fb.innerHTML=state.showFav?'<span class="fav-toggle-star">★</span>Только избранное':'<span class="fav-toggle-star">★</span>Показать избранное';
+function toggleFav(id) {
+  favorites = favorites.includes(id) ? favorites.filter(f => f !== id) : [...favorites, id];
+  localStorage.setItem('krug_fav', JSON.stringify(favorites));
+  applyFilters();
 }
-function openDrawer() { syncDrawerToState(); document.getElementById('drawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeDrawer() { document.getElementById('drawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('open'); document.body.style.overflow=''; }
 
-// ЗАГРУЗКА ДАННЫХ ИЗ ПАПКИ _data/circles/
+// ─────────────────────────────────────────────────────────────
+// ПОСТРОЕНИЕ СПИСКА КАТЕГОРИЙ С СЧЁТЧИКАМИ
+// ─────────────────────────────────────────────────────────────
+function buildCatBtns(targetId) {
+  const counts = {};
+  allData.forEach(item => { if (item.category) counts[item.category] = (counts[item.category] || 0) + 1; });
+  document.getElementById(targetId).innerHTML = CATEGORIES.map(cat => `
+    <button class="cat-btn ${state.category === cat.value ? 'active' : ''}"
+      data-cat="${cat.value}" onclick="selectCategory(this)">
+      <span class="cat-btn-emoji">${cat.emoji}</span>
+      <span class="cat-btn-label">${cat.label}</span>
+      ${counts[cat.value] ? `<span class="cat-btn-count">${counts[cat.value]}</span>` : ''}
+    </button>`).join('');
+}
+
+function selectCategory(el) {
+  state.category = state.category === el.dataset.cat ? '' : el.dataset.cat;
+  syncCatBtns();
+  pushURL();
+  updateSEOHead();
+  applyFilters();
+}
+
+// ─────────────────────────────────────────────────────────────
+// ЗАГРУЗКА ДАННЫХ
+// ─────────────────────────────────────────────────────────────
 async function loadDataFromCMS() {
   showSkeleton();
   try {
-    // Получаем список файлов из папки _data/circles через GitHub API
     const apiUrl = 'https://api.github.com/repos/agbox77/viktoria/contents/_data/circles';
     const response = await fetch(apiUrl);
-    
+
     if (!response.ok) {
-      // Если папка пуста или не существует, пробуем загрузить из data.json как запасной вариант
-      console.log('Папка _data/circles не найдена, загружаем data.json');
+      // Фолбэк на data.json
       const fallbackRes = await fetch('./data.json');
       const fallbackData = await fallbackRes.json();
       allData = fallbackData;
     } else {
       const files = await response.json();
       const mdFiles = files.filter(f => f.name.endsWith('.md'));
-      
-      // Загружаем содержимое каждого .md файла
-      const circlesPromises = mdFiles.map(async (file) => {
-        const contentRes = await fetch(file.download_url);
-        const content = await contentRes.text();
-        
-        // Парсим frontmatter (YAML между --- и ---)
-        const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
-        if (!frontmatterMatch) return null;
-        
-        const yaml = frontmatterMatch[1];
-        const data = {};
-        // Простой парсинг YAML строк
-        yaml.split('\n').forEach(line => {
-          const colonIndex = line.indexOf(':');
-          if (colonIndex > 0) {
-            let key = line.slice(0, colonIndex).trim();
-            let value = line.slice(colonIndex + 1).trim();
-            // Убираем кавычки, если есть
-            if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
-            if (value.startsWith("'") && value.endsWith("'")) value = value.slice(1, -1);
-            data[key] = value;
-          }
+
+      const parsed = await Promise.all(mdFiles.map(async file => {
+        const r = await fetch(file.download_url);
+        const text = await r.text();
+        const m = text.match(/^---\n([\s\S]*?)\n---/);
+        if (!m) return null;
+        const data = { slug: file.name.replace('.md', '') };
+        m[1].split('\n').forEach(line => {
+          const ci = line.indexOf(':');
+          if (ci < 1) return;
+          let k = line.slice(0, ci).trim();
+          let v = line.slice(ci + 1).trim();
+          if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1, -1);
+          data[k] = v;
         });
         return data;
-      });
-      
-      const circlesData = await Promise.all(circlesPromises);
-      allData = circlesData.filter(c => c !== null);
+      }));
+      allData = parsed.filter(Boolean);
     }
-    
-    // Строим категории и применяем фильтры
-    buildCatHTML('catList', 'selectCategory');
-    buildCatHTML('catListDrawer', 'selectCategoryDrawer');
+
+    buildCatBtns('catList');
+    buildCatBtns('catListDrawer');
     applyFilters();
     updateMobileBadge();
-    
-  } catch (error) {
-    console.error('Ошибка загрузки данных:', error);
-    document.getElementById('list').innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div><h3>Не удалось загрузить данные</h3><p>Проверьте, что папка _data/circles существует и содержит файлы кружков</p></div>`;
+
+  } catch (err) {
+    console.error('Ошибка загрузки данных:', err);
+    document.getElementById('list').innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div><h3>Не удалось загрузить данные</h3><p>Проверьте, что папка _data/circles существует</p></div>`;
   }
 }
 
-// Инициализация событий
-document.getElementById('search').addEventListener('input', e=>{ state.search=e.target.value; document.getElementById('searchClear').classList.toggle('visible',!!e.target.value); updateResetBtn(); updateMobileBadge(); applyFilters(); });
-document.getElementById('searchClear').addEventListener('click', ()=>{ document.getElementById('search').value=''; state.search=''; document.getElementById('searchClear').classList.remove('visible'); updateResetBtn(); updateMobileBadge(); applyFilters(); });
-document.getElementById('agePills').addEventListener('click', e=>{ const p=e.target.closest('.age-pill'); if(!p) return; state.age=p.dataset.age; document.querySelectorAll('.age-pill').forEach(x=>x.classList.toggle('active',x.dataset.age===state.age)); updateResetBtn(); updateMobileBadge(); applyFilters(); });
-document.getElementById('favToggle').addEventListener('click', ()=>{ state.showFav=!state.showFav; const btn=document.getElementById('favToggle'); btn.classList.toggle('active',state.showFav); btn.innerHTML=state.showFav?'<span class="fav-toggle-star">★</span>Только избранное':'<span class="fav-toggle-star">★</span>Показать избранное'; updateResetBtn(); updateMobileBadge(); applyFilters(); });
+// ─────────────────────────────────────────────────────────────
+// СОБЫТИЯ
+// ─────────────────────────────────────────────────────────────
+document.getElementById('search').addEventListener('input', e => {
+  state.search = e.target.value;
+  document.getElementById('searchClear').classList.toggle('visible', !!e.target.value);
+  applyFilters();
+});
+document.getElementById('searchClear').addEventListener('click', () => {
+  document.getElementById('search').value = ''; state.search = '';
+  document.getElementById('searchClear').classList.remove('visible');
+  applyFilters();
+});
+
+// Возраст
+document.getElementById('agePills').addEventListener('click', e => {
+  const p = e.target.closest('.age-pill'); if (!p) return;
+  state.age = p.dataset.age; syncAgePills(); applyFilters();
+});
+document.getElementById('agePillsDrawer').addEventListener('click', e => {
+  const p = e.target.closest('.age-pill'); if (!p) return;
+  state.age = p.dataset.age; syncAgePills(); applyFilters();
+});
+
+// Цена
+document.getElementById('pricePills').addEventListener('click', e => {
+  const p = e.target.closest('.price-pill'); if (!p) return;
+  state.price = state.price === p.dataset.price ? '' : p.dataset.price;
+  syncPricePills(); pushURL(); applyFilters();
+});
+document.getElementById('pricePillsDrawer').addEventListener('click', e => {
+  const p = e.target.closest('.price-pill'); if (!p) return;
+  state.price = state.price === p.dataset.price ? '' : p.dataset.price;
+  syncPricePills(); pushURL(); applyFilters();
+});
+
+// Филиал
+document.getElementById('subdivPills').addEventListener('click', e => {
+  const p = e.target.closest('.subdiv-pill'); if (!p) return;
+  state.subdivision = state.subdivision === p.dataset.subdiv ? '' : p.dataset.subdiv;
+  syncSubdivPills(); pushURL(); applyFilters();
+});
+document.getElementById('subdivPillsDrawer').addEventListener('click', e => {
+  const p = e.target.closest('.subdiv-pill'); if (!p) return;
+  state.subdivision = state.subdivision === p.dataset.subdiv ? '' : p.dataset.subdiv;
+  syncSubdivPills(); pushURL(); applyFilters();
+});
+
+// Избранное
+document.getElementById('favToggle').addEventListener('click', () => {
+  state.showFav = !state.showFav; syncFavBtn(); applyFilters();
+});
+document.getElementById('favToggleDrawer').addEventListener('click', () => {
+  state.showFav = !state.showFav; syncFavBtn(); applyFilters();
+});
+
 document.getElementById('filterReset').addEventListener('click', resetFilters);
-document.getElementById('sortSelect').addEventListener('change', e=>{ state.sort=e.target.value; applyFilters(); });
-document.getElementById('mobileFilterBtn').addEventListener('click', openDrawer);
+document.getElementById('sortSelect').addEventListener('change', e => { state.sort = e.target.value; applyFilters(); });
+
+// Drawer
+document.getElementById('mobileFilterBtn').addEventListener('click', () => {
+  syncDrawerToState();
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
 document.getElementById('drawerClose').addEventListener('click', closeDrawer);
 document.getElementById('drawerOverlay').addEventListener('click', closeDrawer);
 document.getElementById('drawerApplyBtn').addEventListener('click', closeDrawer);
-document.getElementById('drawerResetBtn').addEventListener('click', ()=>{ resetFilters(); syncDrawerToState(); });
-document.getElementById('favToggleDrawer').addEventListener('click', ()=>{ state.showFav=!state.showFav; const btn=document.getElementById('favToggle'); btn.classList.toggle('active',state.showFav); btn.innerHTML=state.showFav?'<span class="fav-toggle-star">★</span>Только избранное':'<span class="fav-toggle-star">★</span>Показать избранное'; updateResetBtn(); updateMobileBadge(); syncDrawerToState(); applyFilters(); });
-document.getElementById('agePillsDrawer').addEventListener('click', e=>{ const p=e.target.closest('.age-pill'); if(!p) return; state.age=p.dataset.age; document.querySelectorAll('.age-pill').forEach(x=>x.classList.toggle('active',x.dataset.age===state.age)); updateResetBtn(); updateMobileBadge(); applyFilters(); });
+document.getElementById('drawerResetBtn').addEventListener('click', () => { resetFilters(); syncDrawerToState(); });
 
-let touchY=0;
-document.getElementById('drawer').addEventListener('touchstart', e=>{ touchY=e.touches[0].clientY; },{passive:true});
-document.getElementById('drawer').addEventListener('touchmove', e=>{ if(e.touches[0].clientY-touchY>60) closeDrawer(); },{passive:true});
+let touchY = 0;
+document.getElementById('drawer').addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, { passive: true });
+document.getElementById('drawer').addEventListener('touchmove', e => { if (e.touches[0].clientY - touchY > 60) closeDrawer(); }, { passive: true });
 
-// Запуск загрузки
+// Кнопка «назад» браузера
+window.addEventListener('popstate', () => {
+  state = { search: '', age: '', category: '', price: '', subdivision: '', showFav: false, sort: state.sort };
+  readURLParams();
+  syncAgePills(); syncPricePills(); syncSubdivPills(); syncCatBtns(); syncFavBtn();
+  updateSEOHead();
+  applyFilters();
+});
+
+// ─────────────────────────────────────────────────────────────
+// СТАРТ
+// ─────────────────────────────────────────────────────────────
+readURLParams();
+updateSEOHead();
 loadDataFromCMS();
 </script>
 </body>
