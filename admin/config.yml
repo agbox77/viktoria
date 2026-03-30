@@ -2,6 +2,10 @@ backend:
   name: github
   repo: agbox77/viktoria
   branch: main
+  # При переезде на Netlify — удалить base_url и auth_endpoint ниже,
+  # Netlify Identity подхватит сам.
+  # При переезде на REG.RU — оставить как есть (требует VPN) или заменить
+  # base_url на адрес нового OAuth-прокси.
   base_url: https://viktoria-cms-auth.sergienkoalvl.workers.dev
   auth_endpoint: auth/github
 
@@ -9,6 +13,10 @@ media_folder: static/images
 public_folder: /static/images
 
 collections:
+
+  # ─────────────────────────────────────────────
+  # КРУЖКИ
+  # ─────────────────────────────────────────────
   - name: circles
     label: Кружки
     label_singular: Кружок
@@ -23,6 +31,32 @@ collections:
       - { name: teacher, label: Педагог, widget: string }
       - { name: link, label: Ссылка на запись, widget: string }
 
+      # ── SEO ──────────────────────────────────
+      - label: "SEO"
+        name: seo
+        widget: object
+        collapsed: true
+        hint: "Заполните для продвижения в поиске. Если не заполнено — используется название кружка."
+        fields:
+          - name: seo_title
+            label: "Заголовок страницы (title)"
+            widget: string
+            required: false
+            hint: "50–60 символов. Пример: «Картинг для детей в Москве — ДЮЦ «Виктория»»"
+          - name: seo_description
+            label: "Описание страницы (meta description)"
+            widget: text
+            required: false
+            hint: "120–160 символов. Отображается в результатах поиска под заголовком."
+          - name: seo_h1
+            label: "Заголовок H1 на странице"
+            widget: string
+            required: false
+            hint: "Если отличается от названия кружка. Пример: «Картинг для детей — запись в секцию»"
+
+  # ─────────────────────────────────────────────
+  # МАСТЕР-КЛАССЫ
+  # ─────────────────────────────────────────────
   - name: events
     label: Мастер-классы
     label_singular: Мастер-класс
@@ -42,6 +76,27 @@ collections:
       - { name: image, label: Изображение, widget: image, required: false, media_folder: "static/images/events", public_folder: "/static/images/events" }
       - { name: status, label: Статус, widget: select, options: ["active", "completed", "cancelled"], default: "active" }
 
+      # ── SEO ──────────────────────────────────
+      - label: "SEO"
+        name: seo
+        widget: object
+        collapsed: true
+        hint: "Заполните для продвижения в поиске."
+        fields:
+          - name: seo_title
+            label: "Заголовок страницы (title)"
+            widget: string
+            required: false
+            hint: "50–60 символов. Пример: «Гончарный мастер-класс в Москве — ДЮЦ «Виктория»»"
+          - name: seo_description
+            label: "Описание страницы (meta description)"
+            widget: text
+            required: false
+            hint: "120–160 символов."
+
+  # ─────────────────────────────────────────────
+  # СТАТЬИ И НОВОСТИ
+  # ─────────────────────────────────────────────
   - name: posts
     label: Статьи и новости
     label_singular: Публикация
@@ -57,8 +112,105 @@ collections:
       - { name: excerpt, label: Краткое описание, widget: text }
       - { name: body, label: Текст, widget: markdown }
       - { name: tags, label: Теги, widget: list, required: false }
-      - { name: seo_title, label: SEO заголовок, widget: string, required: false }
 
+      # ── SEO ──────────────────────────────────
+      - label: "SEO"
+        name: seo
+        widget: object
+        collapsed: true
+        hint: "Заполняется вручную для важных статей. Для новостей можно оставить пустым."
+        fields:
+          - name: seo_title
+            label: "Заголовок страницы (title)"
+            widget: string
+            required: false
+            hint: "50–60 символов. Если пусто — используется поле «Заголовок» выше."
+          - name: seo_description
+            label: "Описание страницы (meta description)"
+            widget: text
+            required: false
+            hint: "120–160 символов. Если пусто — используется «Краткое описание» выше."
+          - name: seo_h1
+            label: "Заголовок H1 (если отличается от заголовка)"
+            widget: string
+            required: false
+          - name: related_circles
+            label: "Упомянутые кружки (slug через запятую)"
+            widget: string
+            required: false
+            hint: "Пример: karting, keramika. Появятся блоком в конце статьи."
+          - name: related_teachers
+            label: "Упомянутые педагоги"
+            widget: string
+            required: false
+            hint: "Пример: ivanova-anna. Появятся блоком в конце статьи."
+          - name: related_subdivision
+            label: "Площадка"
+            widget: select
+            required: false
+            options:
+              - { label: "Газопровод", value: "gazoprovod" }
+              - { label: "Юный техник (Нагатинская)", value: "nagatinskaya" }
+              - { label: "Аннино", value: "annino" }
+              - { label: "Щербинка", value: "shcherbinka" }
+
+  # ─────────────────────────────────────────────
+  # СТРАНИЦЫ САЙТА (SEO главных страниц)
+  # ─────────────────────────────────────────────
+  - name: pages
+    label: Страницы сайта
+    label_singular: Страница
+    files:
+
+      - name: page_home
+        label: "Главная"
+        file: _data/seo/page_home.md
+        fields:
+          - { name: seo_title, label: "Title", widget: string, hint: "50–60 символов" }
+          - { name: seo_description, label: "Meta description", widget: text, hint: "120–160 символов" }
+          - { name: og_image, label: "OG-картинка (ссылка)", widget: string, required: false, hint: "1200×630px. Если пусто — логотип." }
+
+      - name: page_circles
+        label: "Кружки и секции"
+        file: _data/seo/page_circles.md
+        fields:
+          - { name: seo_title, label: "Title", widget: string }
+          - { name: seo_description, label: "Meta description", widget: text }
+          - { name: page_h1, label: "H1 на странице", widget: string, required: false }
+          - { name: page_intro, label: "Вводный текст (под H1)", widget: text, required: false, hint: "2–3 предложения. Влияет на SEO каталога." }
+          - { name: og_image, label: "OG-картинка (ссылка)", widget: string, required: false }
+
+      - name: page_events
+        label: "Мастер-классы"
+        file: _data/seo/page_events.md
+        fields:
+          - { name: seo_title, label: "Title", widget: string }
+          - { name: seo_description, label: "Meta description", widget: text }
+          - { name: page_h1, label: "H1 на странице", widget: string, required: false }
+          - { name: page_intro, label: "Вводный текст (под H1)", widget: text, required: false }
+          - { name: og_image, label: "OG-картинка (ссылка)", widget: string, required: false }
+
+      - name: page_prazdnik
+        label: "Праздники"
+        file: _data/seo/page_prazdnik.md
+        fields:
+          - { name: seo_title, label: "Title", widget: string }
+          - { name: seo_description, label: "Meta description", widget: text }
+          - { name: page_h1, label: "H1 на странице", widget: string, required: false }
+          - { name: page_intro, label: "Вводный текст (под H1)", widget: text, required: false }
+          - { name: og_image, label: "OG-картинка (ссылка)", widget: string, required: false }
+
+      - name: page_blog
+        label: "Новости и статьи"
+        file: _data/seo/page_blog.md
+        fields:
+          - { name: seo_title, label: "Title", widget: string }
+          - { name: seo_description, label: "Meta description", widget: text }
+          - { name: og_image, label: "OG-картинка (ссылка)", widget: string, required: false }
+
+  # ─────────────────────────────────────────────
+  # СПЕЦПРЕДЛОЖЕНИЕ
+  # ─────────────────────────────────────────────
   - name: promo
     label: Спецпредложение
     files:
