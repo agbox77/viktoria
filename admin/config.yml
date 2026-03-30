@@ -2,215 +2,613 @@ backend:
   name: github
   repo: agbox77/viktoria
   branch: main
-  # При переезде на Netlify — удалить base_url и auth_endpoint ниже,
-  # Netlify Identity подхватит сам.
-  # При переезде на REG.RU — оставить как есть (требует VPN) или заменить
-  # base_url на адрес нового OAuth-прокси.
+  # При переезде на Netlify — удалить base_url и auth_endpoint,
+  # Netlify Identity подхватит авторизацию автоматически.
+  # При переезде на REG.RU — оставить как есть (требует VPN).
   base_url: https://viktoria-cms-auth.sergienkoalvl.workers.dev
   auth_endpoint: auth/github
 
 media_folder: static/images
 public_folder: /static/images
 
+# ─────────────────────────────────────────────────────────────
+# СПРАВОЧНИК SLUG'ОВ
+# Категории: karting | keramika | tvorchestvo | tancy |
+#   robototekhnika | teatr | cirk | muzyka |
+#   strelkovye | sport | shahmaty | nauka
+# Филиалы: gazoprovod | nagatinskaya | annino | shcherbinka
+# Педагоги: familiya-imya (ivanova-anna)
+# ─────────────────────────────────────────────────────────────
+
 collections:
 
-  # ─────────────────────────────────────────────
-  # КРУЖКИ
-  # ─────────────────────────────────────────────
+  # ╔══════════════════════════════════════════════════════════╗
+  # ║  1. КРУЖКИ                                               ║
+  # ╚══════════════════════════════════════════════════════════╝
   - name: circles
     label: Кружки
     label_singular: Кружок
     folder: _data/circles
     create: true
     slug: "{{slug}}"
+    summary: "{{title}} — {{category}} — {{subdivision}}"
     fields:
-      - { name: title, label: Название, widget: string }
-      - { name: category, label: Категория, widget: string }
-      - { name: age, label: Возраст, widget: string }
-      - { name: address, label: Адрес, widget: string }
-      - { name: teacher, label: Педагог, widget: string }
-      - { name: link, label: Ссылка на запись, widget: string }
 
-      # ── SEO ──────────────────────────────────
-      - label: "SEO"
+      - name: title
+        label: Название кружка
+        widget: string
+        hint: "Полное название как в ЕСЗ. Например: «Юный водитель»"
+
+      - name: card_type
+        label: Тип карточки
+        widget: select
+        options:
+          - { label: "Направление (общая карточка, напр. Картинг)", value: "direction" }
+          - { label: "Студия / Театр (продвигается отдельно)",       value: "studio" }
+          - { label: "Стандартный кружок",                           value: "default" }
+        default: "default"
+        hint: "direction — для картинга, робототехники. studio — для театров."
+
+      - name: category
+        label: Категория
+        widget: select
+        options:
+          - { label: "Картинг и автоспорт",                    value: "karting" }
+          - { label: "Керамика и гончарное дело",              value: "keramika" }
+          - { label: "Художественное творчество",              value: "tvorchestvo" }
+          - { label: "Танцевальные и хореография",             value: "tancy" }
+          - { label: "Робототехника и техническое творчество", value: "robototekhnika" }
+          - { label: "Театр и актёрское мастерство",           value: "teatr" }
+          - { label: "Цирк, акробатика и гимнастика",          value: "cirk" }
+          - { label: "Музыкальные занятия",                    value: "muzyka" }
+          - { label: "Стрелковые и военно-патриотические",     value: "strelkovye" }
+          - { label: "Спортивные секции",                      value: "sport" }
+          - { label: "Шахматы",                                value: "shahmaty" }
+          - { label: "Естественно-научные и развивающие",      value: "nauka" }
+
+      - name: financing
+        label: Финансирование
+        widget: select
+        options:
+          - { label: "Бюджет (бесплатно)", value: "budget" }
+          - { label: "Платно",             value: "paid" }
+        hint: "Определяет попадание на страницы /besplatnye или /platnye"
+
+      - name: subdivision
+        label: Филиал
+        widget: select
+        options:
+          - { label: "Газопровод (ул. Газопровод, д. 4)",          value: "gazoprovod" }
+          - { label: "Юный техник (ул. Нагатинская, д. 22, к. 2)", value: "nagatinskaya" }
+          - { label: "Аннино (Варшавское ш., д. 145, стр. 1)",     value: "annino" }
+          - { label: "Щербинка (ул. Пушкинская, д. 3А)",           value: "shcherbinka" }
+
+      - name: age_from
+        label: Возраст от (лет)
+        widget: number
+        value_type: int
+        min: 3
+        max: 18
+
+      - name: age_to
+        label: Возраст до (лет)
+        widget: number
+        value_type: int
+        min: 3
+        max: 99
+
+      - name: teachers
+        label: Педагоги (slug'и через запятую)
+        widget: string
+        required: false
+        hint: "Пример: ivanova-anna, petrov-ivan"
+
+      - name: short_description
+        label: Короткое описание (для карточки в каталоге)
+        widget: text
+        required: false
+        hint: "1–2 предложения, до 150 символов."
+
+      - name: description
+        label: Полное описание (SEO-текст)
+        widget: markdown
+        required: false
+        hint: "Минимум 200–300 слов. Что развивает, для кого подходит, чем уникален."
+
+      - name: image
+        label: Фото
+        widget: image
+        required: false
+        media_folder: "static/images/circles"
+        public_folder: "/static/images/circles"
+
+      - name: schedule
+        label: Расписание
+        widget: text
+        required: false
+        hint: "Пример: Пн, Ср 15:00–16:30 | Сб 10:00–11:30"
+
+      - name: price_info
+        label: Стоимость
+        widget: string
+        required: false
+        hint: "Пример: 2 500 ₽/мес или Бесплатно по полису"
+
+      - name: mos_link
+        label: Ссылка на запись (mos.ru)
+        widget: string
+        required: false
+
+      - label: SEO
         name: seo
         widget: object
         collapsed: true
-        hint: "Заполните для продвижения в поиске. Если не заполнено — используется название кружка."
         fields:
-          - name: seo_title
-            label: "Заголовок страницы (title)"
-            widget: string
-            required: false
-            hint: "50–60 символов. Пример: «Картинг для детей в Москве — ДЮЦ «Виктория»»"
-          - name: seo_description
-            label: "Описание страницы (meta description)"
-            widget: text
-            required: false
-            hint: "120–160 символов. Отображается в результатах поиска под заголовком."
-          - name: seo_h1
-            label: "Заголовок H1 на странице"
-            widget: string
-            required: false
-            hint: "Если отличается от названия кружка. Пример: «Картинг для детей — запись в секцию»"
+          - { name: seo_title,       label: "Title страницы",  widget: string, required: false, hint: "50–60 символов" }
+          - { name: seo_description, label: "Meta description", widget: text,   required: false, hint: "120–160 символов" }
+          - { name: seo_h1,          label: "H1 на странице",  widget: string, required: false }
 
-  # ─────────────────────────────────────────────
-  # МАСТЕР-КЛАССЫ
-  # ─────────────────────────────────────────────
+
+  # ╔══════════════════════════════════════════════════════════╗
+  # ║  2. ПЕДАГОГИ                                             ║
+  # ╚══════════════════════════════════════════════════════════╝
+  - name: teachers
+    label: Педагоги
+    label_singular: Педагог
+    folder: _data/teachers
+    create: true
+    slug: "{{slug}}"
+    summary: "{{name}} — {{subdivision}}"
+    fields:
+
+      - name: name
+        label: ФИО
+        widget: string
+        hint: "Полностью. Пример: Иванова Анна Сергеевна"
+
+      - name: photo
+        label: Фото
+        widget: image
+        required: false
+        media_folder: "static/images/teachers"
+        public_folder: "/static/images/teachers"
+
+      - name: subdivision
+        label: Основной филиал
+        widget: select
+        required: false
+        options:
+          - { label: "Газопровод",  value: "gazoprovod" }
+          - { label: "Юный техник", value: "nagatinskaya" }
+          - { label: "Аннино",      value: "annino" }
+          - { label: "Щербинка",    value: "shcherbinka" }
+
+      - name: category
+        label: Направление
+        widget: select
+        required: false
+        options:
+          - { label: "Картинг и автоспорт",                    value: "karting" }
+          - { label: "Керамика и гончарное дело",              value: "keramika" }
+          - { label: "Художественное творчество",              value: "tvorchestvo" }
+          - { label: "Танцевальные и хореография",             value: "tancy" }
+          - { label: "Робототехника и техническое творчество", value: "robototekhnika" }
+          - { label: "Театр и актёрское мастерство",           value: "teatr" }
+          - { label: "Цирк, акробатика и гимнастика",          value: "cirk" }
+          - { label: "Музыкальные занятия",                    value: "muzyka" }
+          - { label: "Стрелковые и военно-патриотические",     value: "strelkovye" }
+          - { label: "Спортивные секции",                      value: "sport" }
+          - { label: "Шахматы",                                value: "shahmaty" }
+          - { label: "Естественно-научные и развивающие",      value: "nauka" }
+
+      - name: experience
+        label: Стаж (лет)
+        widget: number
+        required: false
+
+      - name: education
+        label: Образование
+        widget: text
+        required: false
+
+      - name: bio
+        label: Биография
+        widget: markdown
+        required: false
+        hint: "100–300 слов. Опыт, методика, подход к детям."
+
+      - name: achievements
+        label: Награды и достижения
+        widget: list
+        required: false
+        hint: "Каждая строка — одна награда."
+        field:
+          name: achievement
+          label: Награда
+          widget: string
+
+      - name: circles
+        label: Ведёт кружки (slug'и через запятую)
+        widget: string
+        required: false
+        hint: "Пример: karting-yuniy-voditel, karting-avtokross"
+
+      - label: SEO
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - { name: seo_title,       label: "Title страницы педагога", widget: string, required: false }
+          - { name: seo_description, label: "Meta description",        widget: text,   required: false }
+
+
+  # ╔══════════════════════════════════════════════════════════╗
+  # ║  3. НОВОСТИ / СТАТЬИ / АНОНСЫ                           ║
+  # ╚══════════════════════════════════════════════════════════╝
+  - name: posts
+    label: Новости и статьи
+    label_singular: Публикация
+    folder: _posts
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} [{{type}}] {{date}}"
+    fields:
+
+      - name: title
+        label: Заголовок
+        widget: string
+
+      - name: type
+        label: Тип публикации
+        widget: select
+        options:
+          - { label: "Новость", value: "Новость" }
+          - { label: "Статья",  value: "Статья" }
+          - { label: "Анонс",   value: "Анонс" }
+        default: "Новость"
+
+      - name: author
+        label: Автор
+        widget: string
+        required: false
+
+      - name: date
+        label: Дата
+        widget: datetime
+        date_format: DD.MM.YYYY
+        time_format: HH:mm
+        format: DD.MM.YYYY HH:mm
+
+      - name: image
+        label: "Обложка (ссылка на фото)"
+        widget: string
+        required: false
+        hint: "Прямая ссылка из VK, Telegram или другого источника."
+
+      - name: excerpt
+        label: Краткое описание
+        widget: text
+        hint: "2–3 предложения. Показывается в превью и используется как meta description."
+
+      - name: body
+        label: Текст
+        widget: markdown
+
+      - name: tags
+        label: Теги
+        widget: list
+        required: false
+
+      # ── Связи ───────────────────────────────────────────────
+      - label: "Связи — где появится эта публикация"
+        name: relations
+        widget: object
+        collapsed: false
+        hint: "Заполните — публикация автоматически появится на страницах кружков, педагогов и филиала."
+        fields:
+
+          - name: related_circles
+            label: Упомянутые кружки (slug'и через запятую)
+            widget: string
+            required: false
+            hint: "Пример: karting-yuniy-voditel, keramika-glinyana-fabrika"
+
+          - name: related_teachers
+            label: Упомянутые педагоги (slug'и через запятую)
+            widget: string
+            required: false
+            hint: "Пример: ivanova-anna, petrov-ivan"
+
+          - name: related_subdivision
+            label: Филиал
+            widget: select
+            required: false
+            options:
+              - { label: "Не привязана к филиалу", value: "" }
+              - { label: "Газопровод",              value: "gazoprovod" }
+              - { label: "Юный техник",             value: "nagatinskaya" }
+              - { label: "Аннино",                  value: "annino" }
+              - { label: "Щербинка",                value: "shcherbinka" }
+
+          - name: related_categories
+            label: Категории (если новость про направление целиком)
+            widget: select
+            required: false
+            multiple: true
+            options:
+              - { label: "Картинг",        value: "karting" }
+              - { label: "Керамика",       value: "keramika" }
+              - { label: "Творчество",     value: "tvorchestvo" }
+              - { label: "Танцы",          value: "tancy" }
+              - { label: "Робототехника",  value: "robototekhnika" }
+              - { label: "Театр",          value: "teatr" }
+              - { label: "Цирк",           value: "cirk" }
+              - { label: "Музыка",         value: "muzyka" }
+              - { label: "Стрелковые",     value: "strelkovye" }
+              - { label: "Спорт",          value: "sport" }
+              - { label: "Шахматы",        value: "shahmaty" }
+              - { label: "Наука",          value: "nauka" }
+
+      # ── SEO ─────────────────────────────────────────────────
+      - label: SEO
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - { name: seo_title,       label: "Title", widget: string, required: false, hint: "50–60 символов. Если пусто — используется заголовок." }
+          - { name: seo_description, label: "Meta description", widget: text, required: false, hint: "Если пусто — используется краткое описание." }
+
+
+  # ╔══════════════════════════════════════════════════════════╗
+  # ║  4. СМИ О НАС                                           ║
+  # ╚══════════════════════════════════════════════════════════╝
+  - name: press
+    label: СМИ о нас
+    label_singular: Упоминание в СМИ
+    folder: _data/press
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{source}} — {{title}}"
+    fields:
+
+      - name: title
+        label: Заголовок материала
+        widget: string
+        hint: "Заголовок как в источнике."
+
+      - name: source
+        label: Название источника
+        widget: string
+        hint: "Пример: Российская газета, mos.ru, Вечерняя Москва"
+
+      - name: external_url
+        label: Ссылка на материал
+        widget: string
+        hint: "Полная ссылка на статью / видео / пост."
+
+      - name: date
+        label: Дата публикации
+        widget: datetime
+        date_format: DD.MM.YYYY
+        time_format: false
+        format: DD.MM.YYYY
+
+      - name: excerpt
+        label: Цитата или описание
+        widget: text
+        required: false
+        hint: "Короткая цитата или суть материала. Показывается в блоке «О нас пишут»."
+
+      - name: image
+        label: Скриншот / превью
+        widget: image
+        required: false
+        media_folder: "static/images/press"
+        public_folder: "/static/images/press"
+
+      # ── Связи (те же что у новостей) ────────────────────────
+      - label: "Связи — где появится это упоминание"
+        name: relations
+        widget: object
+        collapsed: false
+        hint: "Упоминание появится на страницах кружков и педагогов автоматически."
+        fields:
+
+          - name: related_circles
+            label: Упомянутые кружки (slug'и через запятую)
+            widget: string
+            required: false
+
+          - name: related_teachers
+            label: Упомянутые педагоги (slug'и через запятую)
+            widget: string
+            required: false
+            hint: "Пример: ivanova-anna. Упоминание появится на странице педагога."
+
+          - name: related_subdivision
+            label: Филиал
+            widget: select
+            required: false
+            options:
+              - { label: "Не привязано",  value: "" }
+              - { label: "Газопровод",    value: "gazoprovod" }
+              - { label: "Юный техник",   value: "nagatinskaya" }
+              - { label: "Аннино",        value: "annino" }
+              - { label: "Щербинка",      value: "shcherbinka" }
+
+          - name: related_categories
+            label: Категории кружков
+            widget: select
+            required: false
+            multiple: true
+            options:
+              - { label: "Картинг",       value: "karting" }
+              - { label: "Керамика",      value: "keramika" }
+              - { label: "Творчество",    value: "tvorchestvo" }
+              - { label: "Танцы",         value: "tancy" }
+              - { label: "Робототехника", value: "robototekhnika" }
+              - { label: "Театр",         value: "teatr" }
+              - { label: "Цирк",          value: "cirk" }
+              - { label: "Музыка",        value: "muzyka" }
+              - { label: "Стрелковые",    value: "strelkovye" }
+              - { label: "Спорт",         value: "sport" }
+              - { label: "Шахматы",       value: "shahmaty" }
+              - { label: "Наука",         value: "nauka" }
+
+
+  # ╔══════════════════════════════════════════════════════════╗
+  # ║  5. МАСТЕР-КЛАССЫ                                       ║
+  # ╚══════════════════════════════════════════════════════════╝
   - name: events
     label: Мастер-классы
     label_singular: Мастер-класс
     folder: _events
     create: true
     slug: "{{slug}}"
+    summary: "{{title}} — {{date}}"
     fields:
-      - { name: title, label: Название, widget: string }
-      - { name: category, label: Категория, widget: string, default: "Мастер-класс" }
-      - { name: date, label: Дата и время, widget: datetime, date_format: DD.MM.YYYY, time_format: HH:mm, format: DD.MM.YYYY HH:mm }
-      - { name: price, label: Стоимость, widget: string, default: "Бесплатно" }
-      - { name: age, label: Возраст, widget: string }
-      - { name: address, label: Адрес, widget: string }
-      - { name: teacher, label: Педагог, widget: string }
-      - { name: post_link, label: Ссылка на пост (VK/Telegram), widget: string, required: false }
-      - { name: description, label: Описание, widget: text, required: false }
-      - { name: image, label: Изображение, widget: image, required: false, media_folder: "static/images/events", public_folder: "/static/images/events" }
-      - { name: status, label: Статус, widget: select, options: ["active", "completed", "cancelled"], default: "active" }
 
-      # ── SEO ──────────────────────────────────
-      - label: "SEO"
-        name: seo
-        widget: object
-        collapsed: true
-        hint: "Заполните для продвижения в поиске."
-        fields:
-          - name: seo_title
-            label: "Заголовок страницы (title)"
-            widget: string
-            required: false
-            hint: "50–60 символов. Пример: «Гончарный мастер-класс в Москве — ДЮЦ «Виктория»»"
-          - name: seo_description
-            label: "Описание страницы (meta description)"
-            widget: text
-            required: false
-            hint: "120–160 символов."
+      - name: title
+        label: Название
+        widget: string
 
-  # ─────────────────────────────────────────────
-  # СТАТЬИ И НОВОСТИ
-  # ─────────────────────────────────────────────
-  - name: posts
-    label: Статьи и новости
-    label_singular: Публикация
-    folder: _posts
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { name: title, label: Заголовок, widget: string }
-      - { name: type, label: Тип, widget: select, options: ["Новость", "Статья", "Анонс"], default: "Новость" }
-      - { name: author, label: Автор, widget: string }
-      - { name: date, label: Дата, widget: datetime, date_format: DD.MM.YYYY, time_format: HH:mm, format: DD.MM.YYYY HH:mm }
-      - { name: image, label: "Обложка (ссылка на фото)", widget: string, required: false, hint: "Вставь прямую ссылку на фото из VK, Telegram или любого источника." }
-      - { name: excerpt, label: Краткое описание, widget: text }
-      - { name: body, label: Текст, widget: markdown }
-      - { name: tags, label: Теги, widget: list, required: false }
+      - name: mk_category
+        label: Тема
+        widget: select
+        options:
+          - { label: "Гончарное дело",      value: "goncharnoe" }
+          - { label: "Рисование и ИЗО",     value: "risovanie" }
+          - { label: "Валяние и рукоделие", value: "valyanie" }
+          - { label: "Другое",              value: "other" }
+        default: "other"
 
-      # ── SEO ──────────────────────────────────
-      - label: "SEO"
-        name: seo
-        widget: object
-        collapsed: true
-        hint: "Заполняется вручную для важных статей. Для новостей можно оставить пустым."
-        fields:
-          - name: seo_title
-            label: "Заголовок страницы (title)"
-            widget: string
-            required: false
-            hint: "50–60 символов. Если пусто — используется поле «Заголовок» выше."
-          - name: seo_description
-            label: "Описание страницы (meta description)"
-            widget: text
-            required: false
-            hint: "120–160 символов. Если пусто — используется «Краткое описание» выше."
-          - name: seo_h1
-            label: "Заголовок H1 (если отличается от заголовка)"
-            widget: string
-            required: false
-          - name: related_circles
-            label: "Упомянутые кружки (slug через запятую)"
-            widget: string
-            required: false
-            hint: "Пример: karting, keramika. Появятся блоком в конце статьи."
-          - name: related_teachers
-            label: "Упомянутые педагоги"
-            widget: string
-            required: false
-            hint: "Пример: ivanova-anna. Появятся блоком в конце статьи."
-          - name: related_subdivision
-            label: "Площадка"
-            widget: select
-            required: false
-            options:
-              - { label: "Газопровод", value: "gazoprovod" }
-              - { label: "Юный техник (Нагатинская)", value: "nagatinskaya" }
-              - { label: "Аннино", value: "annino" }
-              - { label: "Щербинка", value: "shcherbinka" }
+      - name: date
+        label: Дата и время
+        widget: datetime
+        date_format: DD.MM.YYYY
+        time_format: HH:mm
+        format: DD.MM.YYYY HH:mm
 
-  # ─────────────────────────────────────────────
-  # СТРАНИЦЫ САЙТА (SEO главных страниц)
-  # ─────────────────────────────────────────────
+      - name: price
+        label: Стоимость
+        widget: string
+        default: "Бесплатно"
+
+      - name: age
+        label: Возраст участников
+        widget: string
+        hint: "Пример: 6–12 лет или Для взрослых"
+
+      - name: subdivision
+        label: Место проведения
+        widget: select
+        options:
+          - { label: "Газопровод",  value: "gazoprovod" }
+          - { label: "Юный техник", value: "nagatinskaya" }
+          - { label: "Аннино",      value: "annino" }
+          - { label: "Щербинка",    value: "shcherbinka" }
+
+      - name: teacher
+        label: Педагог
+        widget: string
+        required: false
+
+      - name: description
+        label: Описание
+        widget: text
+        required: false
+
+      - name: image
+        label: Изображение
+        widget: image
+        required: false
+        media_folder: "static/images/events"
+        public_folder: "/static/images/events"
+
+      - name: post_link
+        label: Ссылка на пост (VK/Telegram)
+        widget: string
+        required: false
+
+      - name: status
+        label: Статус
+        widget: select
+        options:
+          - { label: "Открыта запись", value: "active" }
+          - { label: "Завершён",       value: "completed" }
+          - { label: "Отменён",        value: "cancelled" }
+        default: "active"
+
+
+  # ╔══════════════════════════════════════════════════════════╗
+  # ║  6. СТРАНИЦЫ САЙТА (SEO)                                ║
+  # ╚══════════════════════════════════════════════════════════╝
   - name: pages
-    label: Страницы сайта
+    label: Страницы сайта (SEO)
     label_singular: Страница
     files:
 
       - name: page_home
-        label: "Главная"
+        label: "Главная (/)"
         file: _data/seo/page_home.md
         fields:
-          - { name: seo_title, label: "Title", widget: string, hint: "50–60 символов" }
-          - { name: seo_description, label: "Meta description", widget: text, hint: "120–160 символов" }
-          - { name: og_image, label: "OG-картинка (ссылка)", widget: string, required: false, hint: "1200×630px. Если пусто — логотип." }
+          - { name: seo_title,       label: "Title",            widget: string, hint: "50–60 символов" }
+          - { name: seo_description, label: "Meta description", widget: text,   hint: "120–160 символов" }
+          - { name: og_image,        label: "OG-картинка (ссылка 1200×630)", widget: string, required: false }
 
       - name: page_circles
-        label: "Кружки и секции"
+        label: "Каталог кружков (/kruzhki-i-sekcii)"
         file: _data/seo/page_circles.md
         fields:
-          - { name: seo_title, label: "Title", widget: string }
+          - { name: seo_title,       label: "Title",           widget: string }
           - { name: seo_description, label: "Meta description", widget: text }
-          - { name: page_h1, label: "H1 на странице", widget: string, required: false }
-          - { name: page_intro, label: "Вводный текст (под H1)", widget: text, required: false, hint: "2–3 предложения. Влияет на SEO каталога." }
-          - { name: og_image, label: "OG-картинка (ссылка)", widget: string, required: false }
+          - { name: page_h1,         label: "H1 на странице",  widget: string, required: false }
+          - { name: page_intro,      label: "Вводный текст под H1", widget: text, required: false, hint: "2–3 предложения. Влияет на SEO." }
+          - { name: og_image,        label: "OG-картинка",     widget: string, required: false }
 
       - name: page_events
-        label: "Мастер-классы"
+        label: "Мастер-классы (/master-klassy)"
         file: _data/seo/page_events.md
         fields:
-          - { name: seo_title, label: "Title", widget: string }
-          - { name: seo_description, label: "Meta description", widget: text }
-          - { name: page_h1, label: "H1 на странице", widget: string, required: false }
-          - { name: page_intro, label: "Вводный текст (под H1)", widget: text, required: false }
-          - { name: og_image, label: "OG-картинка (ссылка)", widget: string, required: false }
+          - { name: seo_title,        label: "Title",           widget: string }
+          - { name: seo_description,  label: "Meta description", widget: text }
+          - { name: page_h1,          label: "H1 на странице",  widget: string, required: false }
+          - { name: block_goncharnoe, label: "Блок: Гончарное дело",      widget: markdown, required: false, hint: "Постоянный текст. Виден Яндексу круглый год." }
+          - { name: block_risovanie,  label: "Блок: Рисование и ИЗО",     widget: markdown, required: false }
+          - { name: block_valyanie,   label: "Блок: Валяние и рукоделие", widget: markdown, required: false }
+          - { name: og_image,         label: "OG-картинка",     widget: string, required: false }
 
       - name: page_prazdnik
-        label: "Праздники"
+        label: "Праздники (/prazdniki)"
         file: _data/seo/page_prazdnik.md
         fields:
-          - { name: seo_title, label: "Title", widget: string }
+          - { name: seo_title,       label: "Title",           widget: string }
           - { name: seo_description, label: "Meta description", widget: text }
-          - { name: page_h1, label: "H1 на странице", widget: string, required: false }
-          - { name: page_intro, label: "Вводный текст (под H1)", widget: text, required: false }
-          - { name: og_image, label: "OG-картинка (ссылка)", widget: string, required: false }
+          - { name: page_h1,         label: "H1 на странице",  widget: string, required: false }
+          - { name: page_intro,      label: "Вводный текст",   widget: text,   required: false }
+          - { name: og_image,        label: "OG-картинка",     widget: string, required: false }
 
       - name: page_blog
-        label: "Новости и статьи"
+        label: "Новости (/blog)"
         file: _data/seo/page_blog.md
         fields:
-          - { name: seo_title, label: "Title", widget: string }
+          - { name: seo_title,       label: "Title",           widget: string }
           - { name: seo_description, label: "Meta description", widget: text }
-          - { name: og_image, label: "OG-картинка (ссылка)", widget: string, required: false }
+          - { name: og_image,        label: "OG-картинка",     widget: string, required: false }
 
-  # ─────────────────────────────────────────────
-  # СПЕЦПРЕДЛОЖЕНИЕ
-  # ─────────────────────────────────────────────
+      - name: page_press
+        label: "СМИ о нас (/smi-o-nas)"
+        file: _data/seo/page_press.md
+        fields:
+          - { name: seo_title,       label: "Title",           widget: string }
+          - { name: seo_description, label: "Meta description", widget: text }
+          - { name: page_h1,         label: "H1 на странице",  widget: string, required: false }
+          - { name: og_image,        label: "OG-картинка",     widget: string, required: false }
+
+
+  # ╔══════════════════════════════════════════════════════════╗
+  # ║  7. СПЕЦПРЕДЛОЖЕНИЕ                                     ║
+  # ╚══════════════════════════════════════════════════════════╝
   - name: promo
     label: Спецпредложение
     files:
@@ -218,9 +616,9 @@ collections:
         label: Баннер на главной
         file: _data/promo.md
         fields:
-          - { name: active, label: Показывать, widget: boolean, default: true }
-          - { name: tag, label: Ярлык, widget: string, default: "🎁 Спецпредложение" }
-          - { name: title, label: Заголовок, widget: string }
-          - { name: description, label: Описание, widget: text }
-          - { name: btn_text, label: Текст кнопки, widget: string }
-          - { name: btn_url, label: Ссылка кнопки, widget: string }
+          - { name: active,      label: Показывать,   widget: boolean, default: true }
+          - { name: tag,         label: Ярлык,        widget: string,  default: "🎁 Спецпредложение" }
+          - { name: title,       label: Заголовок,    widget: string }
+          - { name: description, label: Описание,     widget: text }
+          - { name: btn_text,    label: Текст кнопки, widget: string }
+          - { name: btn_url,     label: Ссылка,       widget: string }
