@@ -1,6 +1,6 @@
-<header class="topbar">
-  <a class="topbar-logo" href="/viktoria/">
-    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
+<header class="topbar" role="banner">
+  <a class="topbar-logo" href="/viktoria/" aria-label="ДЮЦ «Виктория» — на главную">
+    <img src="/viktoria/Victoria_logo-02.png" alt="Логотип ДЮЦ «Виктория»" width="36" height="36" loading="eager">
     <div class="topbar-name">
       <strong>Виктория</strong>
       <span>Детско-юношеский центр</span>
@@ -8,54 +8,68 @@
   </a>
 
   <!-- НАВИГАЦИЯ (десктоп) -->
-  <nav class="topbar-nav">
-    <a href="/viktoria/" class="nav-link">🏠 Главная</a>
-    <a href="/viktoria/blog.html" class="nav-link">📰 Новости</a>
-    <a href="/viktoria/circles.html" class="nav-link">✏️ Кружки</a>
-    <a href="/viktoria/events.html" class="nav-link">💡 Мастер-классы</a>
-    <a href="/viktoria/prazdnik.html" class="nav-link">🎉 Праздники</a>
-    <a href="/viktoria/games.html" class="nav-link">🎮 Игры</a>
+  <nav class="topbar-nav" aria-label="Основная навигация">
+    <a href="/viktoria/" class="nav-link">Главная</a>
+    <a href="/viktoria/blog.html" class="nav-link">Новости</a>
+    <a href="/viktoria/circles.html" class="nav-link">Кружки</a>
+    <a href="/viktoria/events.html" class="nav-link">Мастер-классы</a>
+    <a href="/viktoria/prazdnik.html" class="nav-link">Праздники</a>
+    <a href="/viktoria/games.html" class="nav-link">Игры</a>
   </nav>
 
   <!-- СОЦИАЛЬНЫЕ СЕТИ (десктоп) -->
-  <div class="social-links topbar-social">
-    <a class="social-icon" href="https://t.me/dyutsvictory" target="_blank" rel="noopener" title="Telegram">
-      <img src="/viktoria/static/icons/icon-telegram.png" alt="Telegram">
+  <div class="social-links topbar-social" role="list" aria-label="Социальные сети">
+    <a class="social-icon" href="https://t.me/dyutsvictory" target="_blank" rel="noopener noreferrer" title="Telegram" role="listitem" aria-label="Telegram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.77-1.9 8.96c-.14.62-.51.77-.97.48L12 16.43l-1.04 1c-.12.12-.22.22-.44.22l.15-2.18 4-3.61c.17-.15-.04-.23-.26-.08l-4.93 3.1-2.12-.66c-.46-.14-.47-.46.1-.68l8.27-3.19c.38-.14.72.09.6.67z" fill="currentColor"/>
+      </svg>
     </a>
-    <a class="social-icon" href="https://vk.com/dyutsvictory" target="_blank" rel="noopener" title="ВКонтакте">
-      <img src="/viktoria/static/icons/icon-vk.png" alt="ВКонтакте">
+    <a class="social-icon" href="https://vk.com/dyutsvictory" target="_blank" rel="noopener noreferrer" title="ВКонтакте" role="listitem" aria-label="ВКонтакте">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12.785 16.241s.288-.032.436-.19c.136-.144.131-.414.131-.414s-.019-1.266.567-1.453c.578-.184 1.32 1.224 2.108 1.764.595.41 1.046.32 1.046.32l2.101-.029s1.099-.068.578-1.07c-.042-.08-.303-.64-1.561-1.809-1.317-1.224-1.14-1.026.446-3.143.967-1.288 1.352-2.074 1.231-2.41-.115-.32-.822-.235-.822-.235l-2.363.015s-.175-.024-.305.054c-.127.077-.209.257-.209.257s-.372.995-.869 1.841c-1.048 1.783-1.467 1.878-1.637 1.766-.397-.257-.298-1.038-.298-1.592 0-1.73.262-2.45-.511-2.635-.257-.062-.446-.103-1.103-.11-.843-.009-1.556.003-1.959.2-.269.13-.476.42-.35.436.156.019.51.096.698.352.242.33.233 1.072.233 1.072s.139 2.038-.323 2.29c-.317.173-.751-.18-1.684-1.79-.478-.826-.84-1.74-.84-1.74s-.07-.174-.195-.267c-.151-.113-.362-.149-.362-.149l-2.245.015s-.337.009-.46.156c-.11.131-.009.402-.009.402s1.758 4.115 3.748 6.19c1.826 1.906 3.9 1.781 3.9 1.781h.94z" fill="currentColor"/>
+      </svg>
     </a>
-    <a class="social-icon" href="https://max.ru/id7724732065_gos" target="_blank" rel="noopener" title="Max">
-      <img src="/viktoria/static/icons/icon-max.png" alt="Max">
+    <a class="social-icon" href="https://max.ru/id7724732065_gos" target="_blank" rel="noopener noreferrer" title="Max" role="listitem" aria-label="Max">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="6" fill="currentColor" opacity="0.15"/>
+        <text x="12" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="currentColor" font-family="sans-serif">MAX</text>
+      </svg>
     </a>
   </div>
 
   <!-- БУРГЕР (мобильный) -->
-  <button class="burger" id="burgerBtn" aria-label="Меню">
+  <button class="burger" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
     <span></span><span></span><span></span>
   </button>
 </header>
 
 <!-- МОБИЛЬНОЕ МЕНЮ -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="/viktoria/" class="mobile-nav-link">🏠 Главная</a>
-  <a href="/viktoria/blog.html" class="mobile-nav-link">📰 Новости</a>
-  <a href="/viktoria/circles.html" class="mobile-nav-link">✏️ Кружки</a>
-  <a href="/viktoria/events.html" class="mobile-nav-link">💡 Мастер-классы</a>
-  <a href="/viktoria/prazdnik.html" class="mobile-nav-link">🎉 Праздники</a>
-  <a href="/viktoria/games.html" class="mobile-nav-link">🎮 Игры</a>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Мобильная навигация" aria-hidden="true">
+  <a href="/viktoria/" class="mobile-nav-link">Главная</a>
+  <a href="/viktoria/blog.html" class="mobile-nav-link">Новости</a>
+  <a href="/viktoria/circles.html" class="mobile-nav-link">Кружки</a>
+  <a href="/viktoria/events.html" class="mobile-nav-link">Мастер-классы</a>
+  <a href="/viktoria/prazdnik.html" class="mobile-nav-link">Праздники</a>
+  <a href="/viktoria/games.html" class="mobile-nav-link">Игры</a>
   <div class="mobile-socials">
-    <a href="https://t.me/dyutsvictory" target="_blank" rel="noopener">
-      <img src="/viktoria/static/icons/icon-telegram.png" alt="Telegram">
+    <a href="https://t.me/dyutsvictory" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.93 6.77-1.9 8.96c-.14.62-.51.77-.97.48L12 16.43l-1.04 1c-.12.12-.22.22-.44.22l.15-2.18 4-3.61c.17-.15-.04-.23-.26-.08l-4.93 3.1-2.12-.66c-.46-.14-.47-.46.1-.68l8.27-3.19c.38-.14.72.09.6.67z" fill="currentColor"/>
+      </svg>
     </a>
-    <a href="https://vk.com/dyutsvictory" target="_blank" rel="noopener">
-      <img src="/viktoria/static/icons/icon-vk.png" alt="ВКонтакте">
+    <a href="https://vk.com/dyutsvictory" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12.785 16.241s.288-.032.436-.19c.136-.144.131-.414.131-.414s-.019-1.266.567-1.453c.578-.184 1.32 1.224 2.108 1.764.595.41 1.046.32 1.046.32l2.101-.029s1.099-.068.578-1.07c-.042-.08-.303-.64-1.561-1.809-1.317-1.224-1.14-1.026.446-3.143.967-1.288 1.352-2.074 1.231-2.41-.115-.32-.822-.235-.822-.235l-2.363.015s-.175-.024-.305.054c-.127.077-.209.257-.209.257s-.372.995-.869 1.841c-1.048 1.783-1.467 1.878-1.637 1.766-.397-.257-.298-1.038-.298-1.592 0-1.73.262-2.45-.511-2.635-.257-.062-.446-.103-1.103-.11-.843-.009-1.556.003-1.959.2-.269.13-.476.42-.35.436.156.019.51.096.698.352.242.33.233 1.072.233 1.072s.139 2.038-.323 2.29c-.317.173-.751-.18-1.684-1.79-.478-.826-.84-1.74-.84-1.74s-.07-.174-.195-.267c-.151-.113-.362-.149-.362-.149l-2.245.015s-.337.009-.46.156c-.11.131-.009.402-.009.402s1.758 4.115 3.748 6.19c1.826 1.906 3.9 1.781 3.9 1.781h.94z" fill="currentColor"/>
+      </svg>
     </a>
-    <a href="https://max.ru/id7724732065_gos" target="_blank" rel="noopener">
-      <img src="/viktoria/static/icons/icon-max.png" alt="Max">
+    <a href="https://max.ru/id7724732065_gos" target="_blank" rel="noopener noreferrer" aria-label="Max">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="6" fill="currentColor" opacity="0.15"/>
+        <text x="12" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="currentColor" font-family="sans-serif">MAX</text>
+      </svg>
     </a>
   </div>
-</div>
+</nav>
 
 <style>
   .topbar-nav { display:flex; align-items:center; gap:24px; }
@@ -63,14 +77,17 @@
   .burger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px; }
   .burger span { display:block; width:22px; height:2px; background:var(--text); border-radius:2px; transition:all 0.25s; }
 
+  .social-icon { display:flex; align-items:center; justify-content:center; width:36px; height:36px; color:var(--muted, #888); border-radius:8px; transition:color 0.15s, background 0.15s; }
+  .social-icon:hover { color:var(--accent); background:rgba(232,146,26,0.08); }
+
   .mobile-menu { display:none; position:fixed; top:72px; left:0; right:0; background:#fff; border-bottom:1px solid var(--border); box-shadow:0 8px 24px rgba(60,40,10,0.1); z-index:99; padding:16px 24px 20px; flex-direction:column; gap:4px; }
   .mobile-menu.open { display:flex; }
   .mobile-nav-link { text-decoration:none; font-size:15px; font-weight:600; color:var(--text); padding:12px 0; border-bottom:1px solid var(--border); transition:color 0.15s; }
   .mobile-nav-link:last-of-type { border-bottom:none; }
   .mobile-nav-link:hover { color:var(--accent); }
   .mobile-socials { display:flex; gap:16px; padding-top:16px; }
-  .mobile-socials img { width:32px; height:32px; opacity:0.8; }
-  .mobile-socials a:hover img { opacity:1; }
+  .mobile-socials a { color:var(--muted, #888); display:flex; align-items:center; justify-content:center; transition:color 0.15s; }
+  .mobile-socials a:hover { color:var(--accent); }
 
   @media (max-width:768px) {
     .topbar-nav { display:none; }
