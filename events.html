@@ -267,8 +267,18 @@ let events = [];
 let state = { theme: '', subdiv: '', status: 'active', search: '' };
 
 // ─────────────────────────────────────────────────────────────
-// РЕНДЕР
+// Добавить функцию slugify перед renderCard
 // ─────────────────────────────────────────────────────────────
+  function slugify(title) {
+  return title.toLowerCase().replace(/[^а-яёa-z0-9\s]/gi, '').replace(/\s+/g, '-');
+}
+// ─────────────────────────────────────────────────────────────
+// РЕНДЕР (Изменить renderCard — обернуть в ссылку и передать slug:)
+// ─────────────────────────────────────────────────────────────
+function slugify(title) {
+  return title.toLowerCase().replace(/[^а-яёa-z0-9\s]/gi, '').replace(/\s+/g, '-');
+}
+
 function renderCard(e) {
   const theme    = e.mk_category || 'other';
   const emoji    = THEME_EMOJI[theme]    || '✨';
@@ -280,10 +290,12 @@ function renderCard(e) {
   const statusBadge  = e.status !== 'active'
     ? `<span class="event-badge ${e.status}">${statusLabels[e.status] || e.status}</span>` : '';
 
+  const slug = e.slug || slugify(e.title || '');
+  const href = `/viktoria/event.html?slug=${encodeURIComponent(slug)}`;
+
   const imageBlock = e.image
     ? `<div class="event-image" style="background:${gradient}">
-         <img src="${e.image}" alt="${e.title||''}" loading="lazy"
-              onerror="this.remove()">
+         <img src="${e.image}" alt="${e.title||''}" loading="lazy" onerror="this.remove()">
          ${statusBadge}
        </div>`
     : `<div class="event-image" style="background:${gradient}">
@@ -291,21 +303,21 @@ function renderCard(e) {
          ${statusBadge}
        </div>`;
 
-  return `<article class="event-card" role="listitem">
+  return `<a class="event-card" href="${href}" role="listitem" aria-label="${e.title || 'Мастер-класс'}">
     ${imageBlock}
     <div class="event-content">
       <div class="event-theme">${label}</div>
       <div class="event-title">${e.title || 'Мастер-класс'}</div>
       <div class="event-meta">
-        ${e.date  ? `<span>📅 ${e.date.split(' ')[0]}</span>` : ''}
-        ${e.age   ? `<span>👥 ${e.age}</span>` : ''}
-        ${subdiv  ? `<span>📍 ${subdiv}</span>` : ''}
+        ${e.date    ? `<span>📅 ${e.date.split(' ')[0]}</span>` : ''}
+        ${e.age     ? `<span>👥 ${e.age}</span>` : ''}
+        ${subdiv    ? `<span>📍 ${subdiv}</span>` : ''}
         ${e.teacher ? `<span>👤 ${e.teacher}</span>` : ''}
       </div>
       ${e.description ? `<div class="event-desc">${e.description}</div>` : ''}
       <div class="event-price ${isFree ? 'free' : ''}">${isFree ? 'Бесплатно' : e.price}</div>
     </div>
-  </article>`;
+  </a>`;
 }
 
 function showSkeletons() {
