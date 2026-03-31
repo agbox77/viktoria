@@ -4,29 +4,41 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Админка — Виктория</title>
+
   <style>
-    .admin-topbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
-      background: #1a3a6b; height: 40px;
-      display: flex; align-items: center; padding: 0 16px; gap: 16px;
+    /* Кнопка "На сайт" */
+    .back-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #1a3a6b;
+      color: #f0c060;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      text-decoration: none;
+      font-family: sans-serif;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.2s ease;
+      z-index: 1000;
     }
-    .admin-topbar a {
-      color: #f0c060; font-size: 13px; font-weight: 600;
-      text-decoration: none; font-family: sans-serif;
+
+    .back-button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
     }
-    .admin-topbar a:hover { text-decoration: underline; }
-    .admin-topbar span { color: rgba(255,255,255,0.4); }
-    body { margin-top: 40px; }
   </style>
 </head>
+
 <body>
-  <div class="admin-topbar">
-    <a href="https://agbox77.github.io/viktoria/" target="_blank">← На сайт</a>
-    <span>|</span>
-    <a href="https://agbox77.github.io/viktoria/blog.html" target="_blank">Новости</a>
-    <span>|</span>
-    <a href="https://agbox77.github.io/viktoria/events.html" target="_blank">Мастер-классы</a>
-  </div>
+
+  <!-- Кнопка -->
+  <a class="back-button" href="https://agbox77.github.io/viktoria/" target="_blank">
+    ← На сайт
+  </a>
+
+  <!-- CMS -->
   <script src="https://unpkg.com/@sveltia/cms@latest/dist/sveltia-cms.js"></script>
+
 </body>
 </html>
