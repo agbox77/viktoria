@@ -254,6 +254,33 @@ collections:
     summary: "{{title}} [{{type}}] {{date}}"
     fields:
 
+      - name: emoji
+    label: Эмодзи
+    widget: select
+    required: false
+    options:
+      - { label: "📰 Новость", value: "📰" }
+      - { label: "🔥 Важно", value: "🔥" }
+      - { label: "⭐ Главное", value: "⭐" }
+      - { label: "🎉 Событие", value: "🎉" }
+      - { label: "📢 Объявление", value: "📢" }
+
+      - { label: "🎭 Театр", value: "🎭" }
+      - { label: "🎨 Творчество", value: "🎨" }
+      - { label: "🎶 Музыка", value: "🎶" }
+      - { label: "💃 Танцы", value: "💃" }
+      - { label: "🤖 Робототехника", value: "🤖" }
+      - { label: "🚗 Картинг", value: "🚗" }
+
+      - { label: "🏆 Достижение", value: "🏆" }
+      - { label: "🥇 Победа", value: "🥇" }
+      - { label: "📚 Обучение", value: "📚" }
+      - { label: "🧠 Развитие", value: "🧠" }
+
+      - { label: "✨ Новое", value: "✨" }
+      - { label: "💡 Идея", value: "💡" }
+      - { label: "📌 Важно", value: "📌" }
+
       - name: title
         label: Заголовок
         widget: string
