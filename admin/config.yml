@@ -254,7 +254,7 @@ collections:
     summary: "{{title}} [{{type}}] {{date}}"
     fields:
 
-  - name: emoji
+      - name: emoji
     label: Эмодзи
     widget: select
     required: false
@@ -281,7 +281,7 @@ collections:
       - { label: "💡 Идея", value: "💡" }
       - { label: "📌 Важно", value: "📌" }
 
-  - name: title
+      - name: title
     label: Заголовок
     widget: string
 
