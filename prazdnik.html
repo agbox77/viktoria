@@ -3,7 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Праздник в Виктории — Детско-юношеский центр</title>
+  <title>Праздник для детей — День рождения, выпускной, день класса — ДЮЦ «Виктория»</title>
+  <meta name="description" content="Организуем незабываемые детские праздники: день рождения, выпускной, день класса. Картинг, керамика, лазертаг, симрейсинг, стрельба. Рассчитайте стоимость онлайн.">
+  <link rel="canonical" href="https://agbox77.github.io/viktoria/prazdnik.html">
+  <meta property="og:title" content="Праздник для детей — ДЮЦ «Виктория»">
+  <meta property="og:description" content="Организуем незабываемые детские праздники: день рождения, выпускной, день класса. Картинг, керамика, лазертаг и другие активности.">
+  <meta property="og:image" content="https://agbox77.github.io/viktoria/Victoria_logo-02.png">
+  <meta property="og:url" content="https://agbox77.github.io/viktoria/prazdnik.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="ДЮЦ «Виктория»">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Детские праздники в ДЮЦ «Виктория»",
+    "description": "Организация детских праздников: день рождения, выпускной, день класса. Картинг, керамика, лазертаг, симрейсинг, стрельба.",
+    "organizer": {
+      "@type": "EducationalOrganization",
+      "name": "ГБОУ ДО ДЮЦ «Виктория»",
+      "url": "https://agbox77.github.io/viktoria/",
+      "telephone": ["+74953825938", "+74996160288", "+74953862289", "+74958670537"]
+    },
+    "location": [
+      {
+        "@type": "Place",
+        "name": "Газопровод",
+        "address": { "@type": "PostalAddress", "streetAddress": "ул. Газопровод, д. 4", "addressLocality": "Москва", "addressCountry": "RU" }
+      },
+      {
+        "@type": "Place",
+        "name": "Юный техник",
+        "address": { "@type": "PostalAddress", "streetAddress": "ул. Нагатинская, д. 22, корп. 2", "addressLocality": "Москва", "addressCountry": "RU" }
+      },
+      {
+        "@type": "Place",
+        "name": "Аннино",
+        "address": { "@type": "PostalAddress", "streetAddress": "Варшавское ш., д. 145, стр. 1", "addressLocality": "Москва", "addressCountry": "RU" }
+      },
+      {
+        "@type": "Place",
+        "name": "Щербинка",
+        "address": { "@type": "PostalAddress", "streetAddress": "ул. Пушкинская, д. 3А", "addressLocality": "Щербинка", "addressCountry": "RU" }
+      }
+    ],
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "RUB",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,227 +65,300 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-    .hero { position:relative; padding:64px 24px 48px; text-align:center; overflow:hidden; }
-    .hero::before { content:''; position:absolute; inset:0; pointer-events:none; background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(232,146,26,0.15) 0%,transparent 65%), radial-gradient(ellipse 40% 50% at 10% 90%, rgba(90,171,122,0.1) 0%,transparent 60%), radial-gradient(ellipse 40% 50% at 90% 80%, rgba(155,121,168,0.1) 0%,transparent 60%); }
-    .hero-badge { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); background:rgba(232,146,26,0.1); border:1px solid rgba(232,146,26,0.2); border-radius:100px; padding:6px 16px; margin-bottom:20px; }
-    .hero-title { font-family:'Playfair Display',serif; font-size:clamp(36px,6vw,64px); font-weight:900; line-height:1; letter-spacing:-0.02em; margin-bottom:16px; }
-    .hero-title span { background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .hero-sub { font-size:16px; color:var(--muted); max-width:500px; margin:0 auto 40px; line-height:1.7; }
+    /* Breadcrumb */
+    .breadcrumb { padding: 12px 24px 0; max-width: 1148px; margin: 0 auto; }
+    .breadcrumb ol { list-style: none; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; font-size: 12px; color: var(--muted); }
+    .breadcrumb ol li + li::before { content: '›'; margin-right: 4px; }
+    .breadcrumb ol li a { color: var(--muted); text-decoration: none; }
+    .breadcrumb ol li a:hover { color: var(--accent); }
+    .breadcrumb ol li[aria-current="page"] { color: var(--text); font-weight: 600; }
 
-    .event-tabs { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-bottom:48px; }
-    .event-tab { display:flex; flex-direction:column; align-items:center; gap:8px; padding:18px 28px; border-radius:var(--radius); border:2px solid var(--border); background:var(--surface); cursor:pointer; transition:all 0.2s; min-width:140px; text-align:center; }
-    .event-tab:hover { border-color:rgba(232,146,26,0.3); transform:translateY(-2px); box-shadow:0 8px 24px rgba(60,40,10,0.08); }
-    .event-tab.active { border-color:var(--accent); background:rgba(232,146,26,0.05); box-shadow:0 8px 24px rgba(232,146,26,0.15); transform:translateY(-2px); }
-    .event-tab-icon { font-size:32px; }
-    .event-tab-label { font-size:14px; font-weight:700; color:var(--text); }
-    .event-tab-sub { font-size:11px; color:var(--muted); }
+    .hero { position: relative; padding: 40px 24px 48px; text-align: center; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(232,146,26,0.15) 0%, transparent 65%), radial-gradient(ellipse 40% 50% at 10% 90%, rgba(90,171,122,0.1) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 90% 80%, rgba(155,121,168,0.1) 0%, transparent 60%); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); background: rgba(232,146,26,0.1); border: 1px solid rgba(232,146,26,0.2); border-radius: 100px; padding: 6px 16px; margin-bottom: 20px; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 6vw, 64px); font-weight: 900; line-height: 1; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .hero-title span { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 16px; color: var(--muted); max-width: 500px; margin: 0 auto 40px; line-height: 1.7; }
 
-    .calc-wrap { max-width:1100px; margin:0 auto; padding:0 24px 80px; display:grid; grid-template-columns:1fr 380px; gap:32px; align-items:start; }
-    .section-head { margin-bottom:20px; }
-    .section-title { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; margin-bottom:6px; }
-    .section-hint { font-size:13px; color:var(--muted); }
-    .limit-bar { display:flex; gap:8px; align-items:center; margin-bottom:24px; }
-    .limit-dot { width:10px; height:10px; border-radius:50%; background:var(--border); transition:background 0.2s; }
-    .limit-dot.filled { background:var(--accent); }
-    .limit-text { font-size:12px; font-weight:600; color:var(--muted); margin-left:4px; }
+    .event-tabs { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+    .event-tab { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 18px 28px; border-radius: var(--radius); border: 2px solid var(--border); background: var(--surface); cursor: pointer; transition: all 0.2s; min-width: 140px; text-align: center; }
+    .event-tab:hover { border-color: rgba(232,146,26,0.3); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(60,40,10,0.08); }
+    .event-tab.active { border-color: var(--accent); background: rgba(232,146,26,0.05); box-shadow: 0 8px 24px rgba(232,146,26,0.15); transform: translateY(-2px); }
+    .event-tab[aria-pressed="true"] { border-color: var(--accent); background: rgba(232,146,26,0.05); box-shadow: 0 8px 24px rgba(232,146,26,0.15); transform: translateY(-2px); }
+    .event-tab-icon { font-size: 32px; }
+    .event-tab-label { font-size: 14px; font-weight: 700; color: var(--text); }
+    .event-tab-sub { font-size: 11px; color: var(--muted); }
 
-    .services-list { display:flex; flex-direction:column; gap:12px; }
-    .service-card { background:var(--surface); border:2px solid var(--border); border-radius:var(--radius); padding:20px; display:flex; align-items:center; gap:16px; cursor:pointer; transition:all 0.2s; user-select:none; }
-    .service-card:hover { border-color:rgba(232,146,26,0.25); box-shadow:0 4px 16px rgba(60,40,10,0.06); }
-    .service-card.selected { border-color:var(--accent); background:rgba(232,146,26,0.04); }
-    .service-card.disabled { opacity:0.45; cursor:not-allowed; pointer-events:none; }
-    .service-card.selected.disabled { opacity:1; pointer-events:auto; }
-    .service-checkbox { width:24px; height:24px; border-radius:7px; border:2px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s; background:#fff; }
-    .service-card.selected .service-checkbox { background:var(--accent); border-color:var(--accent); }
-    .service-checkbox svg { display:none; }
-    .service-card.selected .service-checkbox svg { display:block; }
-    .service-icon { font-size:28px; flex-shrink:0; }
-    .service-info { flex:1; min-width:0; }
-    .service-name { font-size:15px; font-weight:700; color:var(--text); margin-bottom:3px; }
-    .service-desc { font-size:12px; color:var(--muted); line-height:1.4; }
-    .service-price-col { text-align:right; flex-shrink:0; }
-    .service-price { font-size:20px; font-weight:800; color:var(--accent); line-height:1; }
-    .service-price-sub { font-size:11px; color:var(--muted); margin-top:2px; }
-    .service-price-old { font-size:12px; color:var(--muted); text-decoration:line-through; }
-    .service-price-save { font-size:11px; font-weight:700; color:var(--green2); background:rgba(90,171,122,0.1); border-radius:4px; padding:2px 6px; display:inline-block; margin-top:3px; }
+    .calc-wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; }
+    .section-head { margin-bottom: 20px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+    .section-hint { font-size: 13px; color: var(--muted); }
+    .limit-bar { display: flex; gap: 8px; align-items: center; margin-bottom: 24px; }
+    .limit-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); transition: background 0.2s; }
+    .limit-dot.filled { background: var(--accent); }
+    .limit-text { font-size: 12px; font-weight: 600; color: var(--muted); margin-left: 4px; }
 
-    .guests-section { margin-top:32px; }
-    .guests-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
-    .guests-label { font-size:14px; font-weight:700; }
-    .guests-value { font-size:28px; font-weight:900; color:var(--accent); font-family:'Playfair Display',serif; }
-    .guests-value span { font-size:14px; font-weight:600; color:var(--muted); font-family:'Manrope',sans-serif; }
-    .slider-wrap { position:relative; padding:10px 0; }
-    input[type=range] { -webkit-appearance:none; appearance:none; width:100%; height:6px; border-radius:100px; background:var(--border); outline:none; cursor:pointer; }
-    input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:var(--accent); border:3px solid #fff; box-shadow:0 2px 8px rgba(232,146,26,0.4); cursor:pointer; transition:transform 0.15s; }
-    input[type=range]::-webkit-slider-thumb:hover { transform:scale(1.15); }
-    input[type=range]::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:var(--accent); border:3px solid #fff; box-shadow:0 2px 8px rgba(232,146,26,0.4); cursor:pointer; }
-    .slider-labels { display:flex; justify-content:space-between; margin-top:8px; font-size:11px; color:var(--muted); font-weight:600; }
+    .services-list { display: flex; flex-direction: column; gap: 12px; }
+    .service-card { background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius); padding: 20px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: all 0.2s; user-select: none; }
+    .service-card:hover { border-color: rgba(232,146,26,0.25); box-shadow: 0 4px 16px rgba(60,40,10,0.06); }
+    .service-card.selected { border-color: var(--accent); background: rgba(232,146,26,0.04); }
+    .service-card.disabled { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+    .service-card.selected.disabled { opacity: 1; pointer-events: auto; }
+    .service-checkbox { width: 24px; height: 24px; border-radius: 7px; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; background: #fff; }
+    .service-card.selected .service-checkbox { background: var(--accent); border-color: var(--accent); }
+    .service-checkbox svg { display: none; }
+    .service-card.selected .service-checkbox svg { display: block; }
+    .service-icon { font-size: 28px; flex-shrink: 0; }
+    .service-info { flex: 1; min-width: 0; }
+    .service-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .service-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+    .service-price-col { text-align: right; flex-shrink: 0; }
+    .service-price { font-size: 20px; font-weight: 800; color: var(--accent); line-height: 1; }
+    .service-price-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .service-price-old { font-size: 12px; color: var(--muted); text-decoration: line-through; }
+    .service-price-save { font-size: 11px; font-weight: 700; color: var(--green2); background: rgba(90,171,122,0.1); border-radius: 4px; padding: 2px 6px; display: inline-block; margin-top: 3px; }
 
-    .summary-panel { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:28px; position:sticky; top:88px; box-shadow:0 4px 24px rgba(60,40,10,0.07); }
-    .summary-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
-    .summary-event-badge { font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--accent); background:rgba(232,146,26,0.1); border-radius:6px; padding:3px 8px; }
-    .summary-empty { text-align:center; padding:32px 0; color:var(--muted); }
-    .summary-empty-icon { font-size:40px; margin-bottom:12px; opacity:0.4; }
-    .summary-empty p { font-size:13px; line-height:1.6; }
-    .summary-items { display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
-    .summary-item { display:flex; align-items:center; gap:10px; padding:12px 14px; background:var(--surface2); border-radius:10px; }
-    .summary-item-icon { font-size:18px; }
-    .summary-item-name { flex:1; font-size:13px; font-weight:600; }
-    .summary-item-price { font-size:14px; font-weight:800; color:var(--accent); }
-    .summary-divider { height:1px; background:var(--border); margin:16px 0; }
-    .summary-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-size:13px; color:var(--muted); }
-    .summary-row strong { color:var(--text); font-weight:700; }
-    .summary-total-block { background:linear-gradient(135deg,rgba(232,146,26,0.1),rgba(200,109,16,0.06)); border:1px solid rgba(232,146,26,0.2); border-radius:14px; padding:18px; margin-top:16px; }
-    .summary-total-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:6px; }
-    .summary-total-price { font-size:36px; font-weight:900; color:var(--accent); font-family:'Playfair Display',serif; line-height:1; }
-    .summary-total-sub { font-size:12px; color:var(--muted); margin-top:4px; }
-    .summary-saving { display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:var(--green2); background:rgba(90,171,122,0.1); border-radius:6px; padding:4px 10px; margin-top:8px; }
-    .summary-cta { width:100%; margin-top:20px; background:var(--accent); color:#fff; border:none; border-radius:12px; padding:16px; font-family:'Manrope',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:background 0.15s,transform 0.1s; display:flex; align-items:center; justify-content:center; gap:8px; }
-    .summary-cta:hover { background:var(--accent2); transform:translateY(-1px); }
-    .summary-cta:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
-    .summary-note { font-size:11px; color:var(--muted); text-align:center; margin-top:12px; line-height:1.5; }
+    .guests-section { margin-top: 32px; }
+    .guests-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .guests-label { font-size: 14px; font-weight: 700; }
+    .guests-value { font-size: 28px; font-weight: 900; color: var(--accent); font-family: 'Playfair Display', serif; }
+    .guests-value span { font-size: 14px; font-weight: 600; color: var(--muted); font-family: 'Manrope', sans-serif; }
+    .slider-wrap { position: relative; padding: 10px 0; }
+    input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 100px; background: var(--border); outline: none; cursor: pointer; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(232,146,26,0.4); cursor: pointer; transition: transform 0.15s; }
+    input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+    input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(232,146,26,0.4); cursor: pointer; }
+    .slider-labels { display: flex; justify-content: space-between; margin-top: 8px; font-size: 11px; color: var(--muted); font-weight: 600; }
 
-    .discount-hint { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
-    .disc-badge { display:flex; align-items:center; gap:5px; padding:5px 12px; border-radius:100px; font-size:12px; font-weight:600; border:1px solid var(--border); background:var(--surface); color:var(--muted); transition:all 0.2s; }
-    .disc-badge.active-1 { border-color:rgba(232,146,26,0.3); color:var(--accent); background:rgba(232,146,26,0.06); }
-    .disc-badge.active-2 { border-color:rgba(90,171,122,0.3); color:var(--green2); background:rgba(90,171,122,0.06); }
-    .disc-badge.active-3 { border-color:rgba(122,88,137,0.3); color:var(--lilac2); background:rgba(122,88,137,0.06); }
+    .summary-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 28px; position: sticky; top: 88px; box-shadow: 0 4px 24px rgba(60,40,10,0.07); }
+    .summary-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .summary-event-badge { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); background: rgba(232,146,26,0.1); border-radius: 6px; padding: 3px 8px; }
+    .summary-empty { text-align: center; padding: 32px 0; color: var(--muted); }
+    .summary-empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.4; }
+    .summary-empty p { font-size: 13px; line-height: 1.6; }
+    .summary-items { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .summary-item { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--surface2); border-radius: 10px; }
+    .summary-item-icon { font-size: 18px; }
+    .summary-item-name { flex: 1; font-size: 13px; font-weight: 600; }
+    .summary-item-price { font-size: 14px; font-weight: 800; color: var(--accent); }
+    .summary-divider { height: 1px; background: var(--border); margin: 16px 0; }
+    .summary-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13px; color: var(--muted); }
+    .summary-row strong { color: var(--text); font-weight: 700; }
+    .summary-total-block { background: linear-gradient(135deg, rgba(232,146,26,0.1), rgba(200,109,16,0.06)); border: 1px solid rgba(232,146,26,0.2); border-radius: 14px; padding: 18px; margin-top: 16px; }
+    .summary-total-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 6px; }
+    .summary-total-price { font-size: 36px; font-weight: 900; color: var(--accent); font-family: 'Playfair Display', serif; line-height: 1; }
+    .summary-total-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .summary-saving { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--green2); background: rgba(90,171,122,0.1); border-radius: 6px; padding: 4px 10px; margin-top: 8px; }
+    .summary-cta { width: 100%; margin-top: 20px; background: var(--accent); color: #fff; border: none; border-radius: 12px; padding: 16px; font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.15s, transform 0.1s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .summary-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+    .summary-cta:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .summary-note { font-size: 11px; color: var(--muted); text-align: center; margin-top: 12px; line-height: 1.5; }
 
-    .footer { background:#fff; border-top:1px solid var(--border); padding:24px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
-    .footer-left { display:flex; align-items:center; gap:12px; }
-    .footer-left img { height:32px; opacity:0.65; }
-    .footer-org { font-size:12px; font-weight:600; color:var(--muted); line-height:1.4; }
-    .footer-copy { font-size:11px; color:var(--muted); opacity:0.6; }
+    .discount-hint { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+    .disc-badge { display: flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; border: 1px solid var(--border); background: var(--surface); color: var(--muted); transition: all 0.2s; }
+    .disc-badge.active-1 { border-color: rgba(232,146,26,0.3); color: var(--accent); background: rgba(232,146,26,0.06); }
+    .disc-badge.active-2 { border-color: rgba(90,171,122,0.3); color: var(--green2); background: rgba(90,171,122,0.06); }
+    .disc-badge.active-3 { border-color: rgba(122,88,137,0.3); color: var(--lilac2); background: rgba(122,88,137,0.06); }
 
-    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(30,20,10,0.55); backdrop-filter:blur(4px); z-index:500; align-items:center; justify-content:center; padding:20px; }
-    .modal-overlay.open { display:flex; }
-    .modal { background:var(--surface); border-radius:24px; max-width:480px; width:100%; padding:36px; box-shadow:0 24px 80px rgba(60,40,10,0.2); animation:modalIn 0.25s ease; }
-    @keyframes modalIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-    .modal-icon { font-size:48px; margin-bottom:16px; }
-    .modal-title { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; margin-bottom:8px; }
-    .modal-sub { font-size:14px; color:var(--muted); margin-bottom:24px; line-height:1.6; }
-    .modal-summary { background:var(--surface2); border-radius:12px; padding:16px; margin-bottom:24px; font-size:13px; color:var(--text); line-height:1.8; }
-    .modal-actions { display:flex; gap:10px; }
-    .modal-btn-primary { flex:1; background:var(--accent); color:#fff; border:none; border-radius:12px; padding:14px; font-family:'Manrope',sans-serif; font-size:14px; font-weight:700; cursor:pointer; }
-    .modal-btn-secondary { background:var(--surface2); color:var(--muted); border:1px solid var(--border); border-radius:12px; padding:14px 18px; font-family:'Manrope',sans-serif; font-size:14px; font-weight:600; cursor:pointer; }
+    /* Footer */
+    .site-footer { background: #fff; border-top: 1px solid var(--border); padding: 24px 32px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-left { display: flex; align-items: center; gap: 12px; }
+    .footer-left img { height: 32px; width: auto; opacity: 0.65; }
+    .footer-org { font-size: 12px; font-weight: 600; color: var(--muted); line-height: 1.4; }
+    .footer-contacts { font-size: 12px; color: var(--muted); line-height: 1.8; }
+    .footer-contacts a { color: var(--muted); text-decoration: none; }
+    .footer-contacts a:hover { color: var(--accent); }
+    .footer-copy { font-size: 11px; color: var(--muted); opacity: 0.6; }
 
-    @media (max-width:768px) {
-      .calc-wrap { grid-template-columns:1fr; }
-      .summary-panel { position:static; }
-      .hero { padding:40px 16px 36px; }
-      .calc-wrap { padding:0 16px 80px; }
-      .event-tabs { gap:8px; }
-      .event-tab { min-width:120px; padding:14px 18px; }
-      .footer { padding:20px 16px; flex-direction:column; align-items:flex-start; }
+    /* Modal */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(30,20,10,0.55); backdrop-filter: blur(4px); z-index: 500; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--surface); border-radius: 24px; max-width: 480px; width: 100%; padding: 36px; box-shadow: 0 24px 80px rgba(60,40,10,0.2); animation: modalIn 0.25s ease; }
+    @keyframes modalIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-icon { font-size: 48px; margin-bottom: 16px; }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .modal-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+    .modal-summary { background: var(--surface2); border-radius: 12px; padding: 16px; margin-bottom: 24px; font-size: 13px; color: var(--text); line-height: 1.8; }
+    .modal-actions { display: flex; gap: 10px; }
+    .modal-btn-primary { flex: 1; background: var(--accent); color: #fff; border: none; border-radius: 12px; padding: 14px; font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .modal-btn-secondary { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+    @media (max-width: 768px) {
+      .calc-wrap { grid-template-columns: 1fr; }
+      .summary-panel { position: static; }
+      .hero { padding: 28px 16px 32px; }
+      .calc-wrap { padding: 0 16px 80px; }
+      .event-tabs { gap: 8px; }
+      .event-tab { min-width: 120px; padding: 14px 18px; }
+      .site-footer .footer-inner { flex-direction: column; align-items: flex-start; }
+      .site-footer { padding: 20px 16px; }
+      .breadcrumb { padding: 10px 16px 0; }
     }
   </style>
 </head>
 <body>
 <script src="/viktoria/header.js"></script>
 
-<div class="hero">
-  <div class="hero-badge">🎉 Праздник в Виктории</div>
-  <h1 class="hero-title">Незабываемый<br><span>праздник</span> для вашего<br>ребёнка</h1>
-  <p class="hero-sub">Выберите формат события и соберите программу из наших активностей. Чем больше модулей — тем выгоднее цена.</p>
-</div>
+<nav class="breadcrumb" aria-label="Хлебные крошки">
+  <ol>
+    <li><a href="/viktoria/">Главная</a></li>
+    <li aria-current="page">Праздники</li>
+  </ol>
+</nav>
 
-<div style="padding:0 24px">
-  <div class="event-tabs" id="eventTabs">
-    <div class="event-tab active" data-event="birthday"><div class="event-tab-icon">🎂</div><div class="event-tab-label">День рождения</div><div class="event-tab-sub">Именинник — герой дня</div></div>
-    <div class="event-tab" data-event="graduation"><div class="event-tab-icon">🎓</div><div class="event-tab-label">Выпускной</div><div class="event-tab-sub">Праздник окончания</div></div>
-    <div class="event-tab" data-event="classday"><div class="event-tab-icon">🏫</div><div class="event-tab-label">День класса</div><div class="event-tab-sub">Совместный отдых</div></div>
-    <div class="event-tab" data-event="other"><div class="event-tab-icon">✨</div><div class="event-tab-label">Другое событие</div><div class="event-tab-sub">Любой повод</div></div>
-  </div>
-</div>
+<main>
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-badge" aria-hidden="true">🎉 Праздник в Виктории</div>
+    <h1 class="hero-title" id="hero-heading">Незабываемый<br><span>праздник</span> для вашего<br>ребёнка</h1>
+    <p class="hero-sub">Выберите формат события и соберите программу из наших активностей. Чем больше модулей — тем выгоднее цена.</p>
+  </section>
 
-<div class="calc-wrap">
-  <div>
-    <div class="discount-hint" id="discountHint">
-      <div class="disc-badge active-1" id="disc1">1 модуль — базовая цена</div>
-      <div class="disc-badge" id="disc2">🏷️ 2 модуля — скидка ~6%</div>
-      <div class="disc-badge" id="disc3">🏷️ 3 модуля — максимальная выгода</div>
-    </div>
-    <div class="section-head">
-      <div class="section-title">Выберите активности</div>
-      <div class="section-hint">Можно выбрать от 1 до 3 модулей</div>
-    </div>
-    <div class="limit-bar">
-      <div class="limit-dot" id="dot0"></div>
-      <div class="limit-dot" id="dot1"></div>
-      <div class="limit-dot" id="dot2"></div>
-      <div class="limit-text" id="limitText">Выбрано: 0 из 3</div>
-    </div>
-    <div class="services-list" id="servicesList"></div>
-    <div class="guests-section">
-      <div class="guests-header">
-        <div class="guests-label">Количество гостей</div>
-        <div class="guests-value" id="guestsDisplay">10 <span>чел.</span></div>
-      </div>
-      <div class="slider-wrap">
-        <input type="range" id="guestsSlider" min="5" max="40" value="10" step="1">
-        <div class="slider-labels"><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span><span>35</span><span>40</span></div>
+  <section aria-labelledby="format-heading">
+    <h2 class="sr-only" id="format-heading">Формат праздника</h2>
+    <div style="padding: 0 24px;">
+      <div class="event-tabs" id="eventTabs" role="group" aria-label="Выберите формат праздника">
+        <button class="event-tab active" data-event="birthday" aria-pressed="true" type="button">
+          <span class="event-tab-icon" aria-hidden="true">🎂</span>
+          <span class="event-tab-label">День рождения</span>
+          <span class="event-tab-sub">Именинник — герой дня</span>
+        </button>
+        <button class="event-tab" data-event="graduation" aria-pressed="false" type="button">
+          <span class="event-tab-icon" aria-hidden="true">🎓</span>
+          <span class="event-tab-label">Выпускной</span>
+          <span class="event-tab-sub">Праздник окончания</span>
+        </button>
+        <button class="event-tab" data-event="classday" aria-pressed="false" type="button">
+          <span class="event-tab-icon" aria-hidden="true">🏫</span>
+          <span class="event-tab-label">День класса</span>
+          <span class="event-tab-sub">Совместный отдых</span>
+        </button>
+        <button class="event-tab" data-event="other" aria-pressed="false" type="button">
+          <span class="event-tab-icon" aria-hidden="true">✨</span>
+          <span class="event-tab-label">Другое событие</span>
+          <span class="event-tab-sub">Любой повод</span>
+        </button>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="summary-panel">
-    <div class="summary-title">Ваш праздник <span class="summary-event-badge" id="summaryEventBadge">День рождения</span></div>
-    <div id="summaryEmpty" class="summary-empty">
-      <div class="summary-empty-icon">🎈</div>
-      <p>Выберите хотя бы одну активность, чтобы увидеть расчёт стоимости</p>
-    </div>
-    <div id="summaryContent" style="display:none">
-      <div class="summary-items" id="summaryItems"></div>
-      <div class="summary-divider"></div>
-      <div class="summary-row"><span>Гостей</span><strong id="sumGuests">10 чел.</strong></div>
-      <div class="summary-row"><span>Модулей</span><strong id="sumModules">—</strong></div>
-      <div class="summary-row" id="sumDiscRow" style="display:none"><span>Скидка за пакет</span><strong style="color:var(--green2)" id="sumDisc">—</strong></div>
-      <div class="summary-total-block">
-        <div class="summary-total-label">Итого за всех гостей</div>
-        <div class="summary-total-price" id="sumTotal">0 ₽</div>
-        <div class="summary-total-sub" id="sumPerPerson">— ₽ с человека</div>
-        <div class="summary-saving" id="sumSaving" style="display:none"></div>
+  <div class="calc-wrap">
+    <section aria-labelledby="activities-heading">
+      <h2 class="sr-only" id="activities-heading">Выбор активностей и расчёт стоимости</h2>
+
+      <div class="discount-hint" aria-live="polite" aria-label="Текущая скидка">
+        <div class="disc-badge active-1" id="disc1">1 модуль — базовая цена</div>
+        <div class="disc-badge" id="disc2">🏷️ 2 модуля — скидка ~6%</div>
+        <div class="disc-badge" id="disc3">🏷️ 3 модуля — максимальная выгода</div>
       </div>
-      <button class="summary-cta" onclick="openModal()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.59 3.42 2 2 0 0 1 3.56 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.72a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
-        Записаться на праздник
-      </button>
-      <div class="summary-note">Минимальная группа — 5 человек. Стоимость рассчитана на всю группу.</div>
-    </div>
-  </div>
-</div>
 
-<footer class="footer">
-  <div class="footer-left">
-    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
-    <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br>Детско-юношеский центр</div>
+      <div class="section-head">
+        <div class="section-title">Выберите активности</div>
+        <div class="section-hint">Можно выбрать от 1 до 3 модулей</div>
+      </div>
+      <div class="limit-bar" aria-live="polite">
+        <div class="limit-dot" id="dot0" aria-hidden="true"></div>
+        <div class="limit-dot" id="dot1" aria-hidden="true"></div>
+        <div class="limit-dot" id="dot2" aria-hidden="true"></div>
+        <div class="limit-text" id="limitText">Выбрано: 0 из 3</div>
+      </div>
+      <div class="services-list" id="servicesList" role="group" aria-label="Список активностей"></div>
+
+      <div class="guests-section">
+        <div class="guests-header">
+          <label class="guests-label" for="guestsSlider">Количество гостей</label>
+          <div class="guests-value" id="guestsDisplay" aria-live="polite">10 <span>чел.</span></div>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" id="guestsSlider" min="5" max="40" value="10" step="1"
+                 aria-label="Количество гостей" aria-valuemin="5" aria-valuemax="40" aria-valuenow="10">
+          <div class="slider-labels" aria-hidden="true">
+            <span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span><span>35</span><span>40</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside aria-labelledby="summary-heading">
+      <div class="summary-panel">
+        <h2 class="summary-title" id="summary-heading">Ваш праздник <span class="summary-event-badge" id="summaryEventBadge">День рождения</span></h2>
+        <div id="summaryEmpty" class="summary-empty" aria-live="polite">
+          <div class="summary-empty-icon" aria-hidden="true">🎈</div>
+          <p>Выберите хотя бы одну активность, чтобы увидеть расчёт стоимости</p>
+        </div>
+        <div id="summaryContent" style="display:none" aria-live="polite">
+          <div class="summary-items" id="summaryItems"></div>
+          <div class="summary-divider" aria-hidden="true"></div>
+          <div class="summary-row"><span>Гостей</span><strong id="sumGuests">10 чел.</strong></div>
+          <div class="summary-row"><span>Модулей</span><strong id="sumModules">—</strong></div>
+          <div class="summary-row" id="sumDiscRow" style="display:none"><span>Скидка за пакет</span><strong style="color:var(--green2)" id="sumDisc">—</strong></div>
+          <div class="summary-total-block">
+            <div class="summary-total-label">Итого за всех гостей</div>
+            <div class="summary-total-price" id="sumTotal">0 ₽</div>
+            <div class="summary-total-sub" id="sumPerPerson">— ₽ с человека</div>
+            <div class="summary-saving" id="sumSaving" style="display:none"></div>
+          </div>
+          <button class="summary-cta" onclick="openModal()" type="button" aria-label="Записаться на праздник">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.59 3.42 2 2 0 0 1 3.56 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.72a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
+            Записаться на праздник
+          </button>
+          <div class="summary-note">Минимальная группа — 5 человек. Стоимость рассчитана на всю группу.</div>
+        </div>
+      </div>
+    </aside>
   </div>
-  <div class="footer-copy">© 2025 ГБОУ ДО ДЮЦ «Виктория»</div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img src="/viktoria/Victoria_logo-02.png" alt="Логотип ДЮЦ «Виктория»" width="64" height="32">
+      <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br>Детско-юношеский центр</div>
+    </div>
+    <address class="footer-contacts">
+      <a href="tel:+74953825938">+7 (495) 382-59-38</a> — Газопровод<br>
+      <a href="tel:+74996160288">+7 (499) 616-02-88</a> — Юный техник<br>
+      <a href="tel:+74953862289">+7 (495) 386-22-89</a> — Аннино<br>
+      <a href="tel:+74958670537">+7 (495) 867-05-37</a> — Щербинка
+    </address>
+    <div class="footer-copy">© 2026 ГБОУ ДО ДЮЦ «Виктория»</div>
+  </div>
 </footer>
 
-<div class="modal-overlay" id="modalOverlay">
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal">
-    <div class="modal-icon">🎉</div>
-    <div class="modal-title" id="modalTitle">Отличный выбор!</div>
-    <div class="modal-sub">Ваша программа праздника сформирована. Свяжитесь с нами, чтобы забронировать дату.</div>
+    <div class="modal-icon" aria-hidden="true">🎉</div>
+    <h2 class="modal-title" id="modalTitle">Отличный выбор!</h2>
+    <p class="modal-sub">Ваша программа праздника сформирована. Свяжитесь с нами, чтобы забронировать дату.</p>
     <div class="modal-summary" id="modalSummary"></div>
     <div class="modal-actions">
-      <button class="modal-btn-primary" onclick="closeModal()">Позвонить нам</button>
-      <button class="modal-btn-secondary" onclick="closeModal()">Закрыть</button>
+      <button class="modal-btn-primary" onclick="closeModal()" type="button">Позвонить нам</button>
+      <button class="modal-btn-secondary" onclick="closeModal()" type="button">Закрыть</button>
     </div>
   </div>
 </div>
+
+<style>
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+</style>
 
 <script>
 const SERVICES = [
-  { id:'karting',  name:'Картинг',              icon:'🏎️', desc:'Гонки на настоящих карт-машинах по треку', prices:[2200,2100,2000] },
-  { id:'simracing',name:'Симрейсинг',            icon:'🕹️', desc:'Профессиональные гоночные симуляторы',     prices:[1600,1500,1400] },
-  { id:'shooting', name:'Практическая стрельба', icon:'🎯', desc:'Стрельба под руководством инструктора',     prices:[1600,1500,1400] },
-  { id:'lasertag', name:'Лазертаг',              icon:'🔫', desc:'Командная игра с лазерным оружием',         prices:[1600,1500,1400] },
-  { id:'ceramics', name:'Керамика',              icon:'🏺', desc:'Лепка и роспись на гончарном круге',        prices:[1600,1500,1400] },
-  { id:'toy',      name:'Мягкая игрушка',        icon:'🧸', desc:'Мастер-класс по пошиву мягкой игрушки',    prices:[1300,1200,1100] },
+  { id:'karting',   name:'Картинг',              icon:'🏎️', desc:'Гонки на настоящих карт-машинах по треку', prices:[2200,2100,2000] },
+  { id:'simracing', name:'Симрейсинг',            icon:'🕹️', desc:'Профессиональные гоночные симуляторы',     prices:[1600,1500,1400] },
+  { id:'shooting',  name:'Практическая стрельба', icon:'🎯', desc:'Стрельба под руководством инструктора',     prices:[1600,1500,1400] },
+  { id:'lasertag',  name:'Лазертаг',              icon:'🔫', desc:'Командная игра с лазерным оружием',         prices:[1600,1500,1400] },
+  { id:'ceramics',  name:'Керамика',              icon:'🏺', desc:'Лепка и роспись на гончарном круге',        prices:[1600,1500,1400] },
+  { id:'toy',       name:'Мягкая игрушка',        icon:'🧸', desc:'Мастер-класс по пошиву мягкой игрушки',    prices:[1300,1200,1100] },
 ];
-const EVENT_NAMES = { birthday:'День рождения', graduation:'Выпускной', classday:'День класса', other:'Другое событие' };
+
+const EVENT_NAMES = {
+  birthday:'День рождения',
+  graduation:'Выпускной',
+  classday:'День класса',
+  other:'Другое событие'
+};
+
 let selected = [], guests = 10, currentEvent = 'birthday';
 
 function renderServices() {
@@ -241,84 +366,151 @@ function renderServices() {
   document.getElementById('servicesList').innerHTML = SERVICES.map(s => {
     const isSel = selected.includes(s.id);
     const isDis = !isSel && n >= 3;
-    const price = isSel ? s.prices[n-1] : s.prices[Math.min(n,2)];
+    const price = isSel ? s.prices[n - 1] : s.prices[Math.min(n, 2)];
     const saving = s.prices[0] - price;
-    return `<div class="service-card${isSel?' selected':''}${isDis?' disabled':''}" onclick="toggleService('${s.id}')">
-      <div class="service-checkbox"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <div class="service-icon">${s.icon}</div>
-      <div class="service-info"><div class="service-name">${s.name}</div><div class="service-desc">${s.desc}</div></div>
+    return `<div class="service-card${isSel ? ' selected' : ''}${isDis ? ' disabled' : ''}"
+                 onclick="toggleService('${s.id}')"
+                 role="checkbox"
+                 aria-checked="${isSel}"
+                 aria-disabled="${isDis}"
+                 tabindex="${isDis ? '-1' : '0'}"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){toggleService('${s.id}');event.preventDefault();}">
+      <div class="service-checkbox" aria-hidden="true">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="service-icon" aria-hidden="true">${s.icon}</div>
+      <div class="service-info">
+        <div class="service-name">${s.name}</div>
+        <div class="service-desc">${s.desc}</div>
+      </div>
       <div class="service-price-col">
         <div class="service-price">${price.toLocaleString('ru')} ₽</div>
         <div class="service-price-sub">с человека</div>
-        ${saving>0?`<div class="service-price-old">${s.prices[0].toLocaleString('ru')} ₽</div><div class="service-price-save">−${saving} ₽</div>`:''}
+        ${saving > 0
+          ? `<div class="service-price-old">${s.prices[0].toLocaleString('ru')} ₽</div>
+             <div class="service-price-save">−${saving} ₽</div>`
+          : ''}
       </div>
     </div>`;
   }).join('');
 }
 
 function toggleService(id) {
-  selected.includes(id) ? selected=selected.filter(s=>s!==id) : selected.length<3&&selected.push(id);
+  if (selected.includes(id)) {
+    selected = selected.filter(s => s !== id);
+  } else if (selected.length < 3) {
+    selected.push(id);
+  }
   update();
 }
 
 function update() {
   const n = selected.length;
-  for(let i=0;i<3;i++) document.getElementById('dot'+i).classList.toggle('filled',i<n);
-  document.getElementById('limitText').textContent=`Выбрано: ${n} из 3`;
-  ['disc1','disc2','disc3'].forEach((id,i)=>{ document.getElementById(id).className='disc-badge'+(n===i+1?` active-${i+1}`:''); });
+
+  for (let i = 0; i < 3; i++) {
+    document.getElementById('dot' + i).classList.toggle('filled', i < n);
+  }
+  document.getElementById('limitText').textContent = `Выбрано: ${n} из 3`;
+
+  ['disc1', 'disc2', 'disc3'].forEach((id, i) => {
+    document.getElementById(id).className = 'disc-badge' + (n === i + 1 ? ` active-${i + 1}` : '');
+  });
+
   renderServices();
-  const empty=document.getElementById('summaryEmpty'), content=document.getElementById('summaryContent');
-  if(n===0){empty.style.display='';content.style.display='none';return;}
-  empty.style.display='none';content.style.display='';
-  const svc=SERVICES.filter(s=>selected.includes(s.id));
-  const pi=n-1;
-  document.getElementById('summaryItems').innerHTML=svc.map(s=>`<div class="summary-item"><div class="summary-item-icon">${s.icon}</div><div class="summary-item-name">${s.name}</div><div class="summary-item-price">${(s.prices[pi]*guests).toLocaleString('ru')} ₽</div></div>`).join('');
-  const tpp=svc.reduce((a,s)=>a+s.prices[pi],0);
-  const total=tpp*guests;
-  const saving=svc.reduce((a,s)=>a+s.prices[0],0)*guests-total;
-  document.getElementById('sumGuests').textContent=`${guests} чел.`;
-  document.getElementById('sumModules').textContent=`${n} ${n===1?'модуль':n<5?'модуля':'модулей'}`;
-  document.getElementById('sumTotal').textContent=total.toLocaleString('ru')+' ₽';
-  document.getElementById('sumPerPerson').textContent=`${tpp.toLocaleString('ru')} ₽ с человека`;
-  if(saving>0){
-    document.getElementById('sumDiscRow').style.display='';
-    document.getElementById('sumDisc').textContent=`−${saving.toLocaleString('ru')} ₽`;
-    document.getElementById('sumSaving').style.display='inline-flex';
-    document.getElementById('sumSaving').innerHTML=`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Экономия ${saving.toLocaleString('ru')} ₽`;
+
+  const empty = document.getElementById('summaryEmpty');
+  const content = document.getElementById('summaryContent');
+  if (n === 0) { empty.style.display = ''; content.style.display = 'none'; return; }
+  empty.style.display = 'none';
+  content.style.display = '';
+
+  const svc = SERVICES.filter(s => selected.includes(s.id));
+  const pi = n - 1;
+
+  document.getElementById('summaryItems').innerHTML = svc.map(s =>
+    `<div class="summary-item">
+      <div class="summary-item-icon" aria-hidden="true">${s.icon}</div>
+      <div class="summary-item-name">${s.name}</div>
+      <div class="summary-item-price">${(s.prices[pi] * guests).toLocaleString('ru')} ₽</div>
+    </div>`
+  ).join('');
+
+  const tpp = svc.reduce((a, s) => a + s.prices[pi], 0);
+  const total = tpp * guests;
+  const saving = svc.reduce((a, s) => a + s.prices[0], 0) * guests - total;
+
+  document.getElementById('sumGuests').textContent = `${guests} чел.`;
+  document.getElementById('sumModules').textContent = `${n} ${n === 1 ? 'модуль' : n < 5 ? 'модуля' : 'модулей'}`;
+  document.getElementById('sumTotal').textContent = total.toLocaleString('ru') + ' ₽';
+  document.getElementById('sumPerPerson').textContent = `${tpp.toLocaleString('ru')} ₽ с человека`;
+
+  if (saving > 0) {
+    document.getElementById('sumDiscRow').style.display = '';
+    document.getElementById('sumDisc').textContent = `−${saving.toLocaleString('ru')} ₽`;
+    document.getElementById('sumSaving').style.display = 'inline-flex';
+    document.getElementById('sumSaving').innerHTML =
+      `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+       Экономия ${saving.toLocaleString('ru')} ₽`;
   } else {
-    document.getElementById('sumDiscRow').style.display='none';
-    document.getElementById('sumSaving').style.display='none';
+    document.getElementById('sumDiscRow').style.display = 'none';
+    document.getElementById('sumSaving').style.display = 'none';
   }
 }
 
-const slider=document.getElementById('guestsSlider');
-slider.addEventListener('input',e=>{
-  guests=+e.target.value;
-  document.getElementById('guestsDisplay').innerHTML=`${guests} <span>чел.</span>`;
-  const pct=((guests-5)/(40-5))*100;
-  slider.style.background=`linear-gradient(to right,var(--accent) ${pct}%,var(--border) ${pct}%)`;
+// Slider
+const slider = document.getElementById('guestsSlider');
+function updateSliderFill() {
+  const pct = ((guests - 5) / (40 - 5)) * 100;
+  slider.style.background = `linear-gradient(to right, var(--accent) ${pct}%, var(--border) ${pct}%)`;
+}
+slider.addEventListener('input', e => {
+  guests = +e.target.value;
+  slider.setAttribute('aria-valuenow', guests);
+  document.getElementById('guestsDisplay').innerHTML = `${guests} <span>чел.</span>`;
+  updateSliderFill();
   update();
 });
-(function(){const pct=((10-5)/(40-5))*100;slider.style.background=`linear-gradient(to right,var(--accent) ${pct}%,var(--border) ${pct}%)`;})();
+updateSliderFill();
 
-document.getElementById('eventTabs').addEventListener('click',e=>{
-  const tab=e.target.closest('.event-tab');if(!tab)return;
-  document.querySelectorAll('.event-tab').forEach(t=>t.classList.remove('active'));
-  tab.classList.add('active');currentEvent=tab.dataset.event;
-  document.getElementById('summaryEventBadge').textContent=EVENT_NAMES[currentEvent];
+// Event tabs
+document.getElementById('eventTabs').addEventListener('click', e => {
+  const tab = e.target.closest('.event-tab');
+  if (!tab) return;
+  document.querySelectorAll('.event-tab').forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-pressed', 'false');
+  });
+  tab.classList.add('active');
+  tab.setAttribute('aria-pressed', 'true');
+  currentEvent = tab.dataset.event;
+  document.getElementById('summaryEventBadge').textContent = EVENT_NAMES[currentEvent];
 });
 
-function openModal(){
-  if(!selected.length)return;
-  const svc=SERVICES.filter(s=>selected.includes(s.id));
-  const pi=selected.length-1;
-  const tpp=svc.reduce((a,s)=>a+s.prices[pi],0);
-  document.getElementById('modalTitle').textContent=`${EVENT_NAMES[currentEvent]} в Виктории`;
-  document.getElementById('modalSummary').innerHTML=`<b>Формат:</b> ${EVENT_NAMES[currentEvent]}<br><b>Гостей:</b> ${guests} человек<br><b>Программа:</b> ${svc.map(s=>s.icon+' '+s.name).join(', ')}<br><b>Итого:</b> ${(tpp*guests).toLocaleString('ru')} ₽ (${tpp.toLocaleString('ru')} ₽/чел.)`;
-  document.getElementById('modalOverlay').classList.add('open');
+// Modal
+function openModal() {
+  if (!selected.length) return;
+  const svc = SERVICES.filter(s => selected.includes(s.id));
+  const pi = selected.length - 1;
+  const tpp = svc.reduce((a, s) => a + s.prices[pi], 0);
+  document.getElementById('modalTitle').textContent = `${EVENT_NAMES[currentEvent]} в Виктории`;
+  document.getElementById('modalSummary').innerHTML =
+    `<b>Формат:</b> ${EVENT_NAMES[currentEvent]}<br>
+     <b>Гостей:</b> ${guests} человек<br>
+     <b>Программа:</b> ${svc.map(s => s.icon + ' ' + s.name).join(', ')}<br>
+     <b>Итого:</b> ${(tpp * guests).toLocaleString('ru')} ₽ (${tpp.toLocaleString('ru')} ₽/чел.)`;
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.add('open');
+  overlay.querySelector('.modal-btn-primary').focus();
 }
-function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
-document.getElementById('modalOverlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
 
 renderServices();
 update();
