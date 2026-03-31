@@ -125,9 +125,9 @@
 <div id="postWrap" style="display:none"></div>
 <div id="relationsWrap"></div>
 
-<footer class="footer">
+<footer class="footer" role="contentinfo">
   <div class="footer-left">
-    <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
+    <img src="/viktoria/Victoria_logo-02.png" alt="Логотип ДЮЦ «Виктория»" width="44" height="44">
     <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br><span style="font-weight:400;opacity:0.7;">г. Москва</span></div>
   </div>
   <div class="footer-copy">© 2026 Детско-юношеский центр «Виктория»</div>
@@ -216,10 +216,11 @@ const TYPE_MAP = {
 
 const CAT_LABELS = {
   karting:'Картинг и автоспорт', keramika:'Керамика и гончарное дело',
-  tvorchestvo:'Художественное творчество', tancy:'Танцы и хореография',
-  robototekhnika:'Робототехника', teatr:'Театр и актёрство',
-  cirk:'Цирк и акробатика', muzyka:'Музыка', strelkovye:'Стрелковые',
-  sport:'Спортивные секции', shahmaty:'Шахматы', nauka:'Развивающие кружки',
+  tvorchestvo:'Художественное творчество', tancy:'Танцевальные и хореография',
+  robototekhnika:'Робототехника и техн. творчество', teatr:'Театр и актёрское мастерство',
+  cirk:'Цирк, акробатика и гимнастика', muzyka:'Музыкальные занятия',
+  strelkovye:'Стрелковые и военно-патриотические', sport:'Спортивные секции',
+  shahmaty:'Шахматы', nauka:'Естественно-научные и развивающие',
 };
 const CAT_EMOJI = {
   karting:'🏎️', keramika:'🏺', tvorchestvo:'🎨', tancy:'💃',
@@ -278,7 +279,7 @@ function buildRelationsBlock(post) {
 
   // Филиал
   const subdiv = post.related_subdivision || (post.relations && post.relations.related_subdivision) || '';
-  const SUBDIV_LABELS = { gazoprovod:'Газопровод', nagatinskaya:'Нагатинская', annino:'Аннино', shcherbinka:'Щербинка' };
+  const SUBDIV_LABELS = { gazoprovod:'Газопровод', nagatinskaya:'Юный техник', annino:'Аннино', shcherbinka:'Щербинка' };
   if (subdiv && SUBDIV_LABELS[subdiv]) {
     sections.push(`<div class="relations-section">
       <div class="relations-title">Площадка</div>
@@ -299,11 +300,15 @@ function buildRelationsBlock(post) {
 
 async function loadPost() {
   const slug = new URLSearchParams(window.location.search).get('slug');
-  if (!slug) { showError('Публикация не найдена'); return; }
+  if (!slug) { showError('Публикация не найдена. Возможно, ссылка устарела.', false); return; }
 
   try {
     const res = await fetch(`https://raw.githubusercontent.com/agbox77/viktoria/main/_posts/${encodeURIComponent(slug)}.md`);
-    if (!res.ok) throw new Error();
+    if (res.status === 404) {
+      showError('Такая публикация не найдена или была удалена.', false);
+      return;
+    }
+    if (!res.ok) throw new Error('fetch_error');
     const text = await res.text();
     const post = parseFrontmatter(text);
     if (!post) throw new Error();
@@ -397,79 +402,28 @@ async function loadPost() {
     document.head.appendChild(sd);
 
   } catch(e) {
-    showError('Публикация не найдена или была удалена.');
+    if (e.message === 'fetch_error') {
+      showError('Не удалось загрузить публикацию. Проверьте соединение и попробуйте снова.', false);
+    } else {
+      showError('Публикация не найдена или была удалена.', false);
+    }
   }
 }
 
-  try {
-    const res = await fetch(`https://raw.githubusercontent.com/agbox77/viktoria/main/_posts/${encodeURIComponent(slug)}.md`);
-    if (!res.ok) throw new Error();
-    const text = await res.text();
-    const post = parseFrontmatter(text);
-    if (!post) throw new Error();
-
-    document.getElementById('pageTitle').textContent = (post.seo_title||post.title) + ' — ДЮЦ «Виктория»';
-    if (post.excerpt) document.getElementById('pageDesc').setAttribute('content', post.excerpt);
-
-    const type = post.type || 'Новость';
-    const tm = TYPE_MAP[type] || TYPE_MAP['Новость'];
-    const tagsArr = Array.isArray(post.tags) ? post.tags : (post.tags ? post.tags.split(',') : []);
-    const pageUrl = encodeURIComponent(window.location.href);
-    const pageTitle = encodeURIComponent(post.title);
-
-    const heroHtml = post.image ? `
-      <div class="post-hero">
-        <img src="${post.image}" alt="${post.title}">
-        <div class="post-hero-overlay"></div>
-        <div class="post-hero-content">
-          <div class="post-hero-badge ${tm.cls}">${type}</div>
-          <h1 class="post-hero-title">${post.title}</h1>
-        </div>
-      </div>
-      <div class="post-meta-bar">
-        <span>${formatDate(post.date)}</span>
-        ${post.author?`<span class="dot"></span><span>${post.author}</span>`:''}
-      </div>` : `
-      <div class="post-header-simple">
-        <a class="back-link" href="/viktoria/blog.html">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-          Все публикации
-        </a>
-        <div class="post-hero-badge ${tm.cls}" style="margin-bottom:16px">${type}</div>
-        <h1 class="post-hero-title">${post.title}</h1>
-        <div style="margin-top:14px;font-size:13px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap">
-          <span>${formatDate(post.date)}</span>
-          ${post.author?`<span>·</span><span>${post.author}</span>`:''}
-        </div>
-      </div>`;
-
-    const bodyHtml = `
-      <div class="post-body">
-        ${post.image?`<a class="back-link" href="/viktoria/blog.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>Все публикации</a>`:''}
-        ${tagsArr.length?`<div class="post-tags">${tagsArr.map(t=>`<span class="post-tag">${t.trim()}</span>`).join('')}</div>`:''}
-        <div class="post-content">${mdToHtml(post.body)}</div>
-        <div class="share-bar">
-          <span class="share-label">Поделиться:</span>
-          <a class="share-btn" href="https://vk.com/share.php?url=${pageUrl}" target="_blank" rel="noopener">ВКонтакте</a>
-          <a class="share-btn" href="https://t.me/share/url?url=${pageUrl}&text=${pageTitle}" target="_blank" rel="noopener">Telegram</a>
-          <button class="share-btn" onclick="navigator.clipboard.writeText(window.location.href).then(()=>{this.textContent='✓ Скопировано!'})">Скопировать ссылку</button>
-        </div>
-      </div>`;
-
-    document.getElementById('loadingWrap').style.display='none';
-    const wrap = document.getElementById('postWrap');
-    wrap.style.display='block';
-    wrap.innerHTML = heroHtml + bodyHtml;
-  } catch(e) {
-    showError('Публикация не найдена или была удалена.');
-  }
-}
-
-function showError(msg) {
+function showError(msg, isNotFound) {
   document.getElementById('loadingWrap').style.display='none';
   const wrap = document.getElementById('postWrap');
   wrap.style.display='block';
-  wrap.innerHTML=`<div class="error-wrap"><div style="font-size:48px;margin-bottom:16px">😕</div><h2>Упс!</h2><p style="margin-bottom:24px">${msg}</p><a class="back-link" href="/viktoria/blog.html" style="display:inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>Вернуться к публикациям</a></div>`;
+  wrap.innerHTML=`
+    <div class="error-wrap">
+      <div style="font-size:48px;margin-bottom:16px">${isNotFound ? '📭' : '😕'}</div>
+      <h2>${isNotFound ? 'Публикаций пока нет' : 'Упс!'}</h2>
+      <p style="margin-bottom:24px">${msg}</p>
+      <a class="back-link" href="/viktoria/blog.html" style="display:inline-flex">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Вернуться к публикациям
+      </a>
+    </div>`;
 }
 
 loadPost();
