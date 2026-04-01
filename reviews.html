@@ -5,716 +5,567 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Отзывы родителей и учеников — ДЮЦ «Виктория»</title>
   <meta name="description" content="Отзывы родителей и учеников о кружках, мастер-классах и праздниках ДЮЦ «Виктория». Читайте, что говорят о нас, и оставьте свой отзыв.">
-  <link rel="canonical" href="https://agbox77.github.io/viktoria/reviews">
+  <link rel="canonical" href="https://agbox77.github.io/viktoria/reviews.html">
   <meta property="og:title" content="Отзывы — ДЮЦ «Виктория»">
   <meta property="og:description" content="Отзывы родителей и учеников о кружках, мастер-классах и праздниках ДЮЦ «Виктория».">
   <meta property="og:image" content="https://agbox77.github.io/viktoria/Victoria_logo-02.png">
-  <meta property="og:url" content="https://agbox77.github.io/viktoria/reviews">
+  <meta property="og:url" content="https://agbox77.github.io/viktoria/reviews.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:site_name" content="ДЮЦ «Виктория»">
 
-  <!-- Schema.org: ItemList of Reviews -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Отзывы о ДЮЦ «Виктория»",
     "description": "Отзывы родителей и учеников о кружках, мастер-классах и праздниках",
-    "url": "https://agbox77.github.io/viktoria/reviews"
+    "url": "https://agbox77.github.io/viktoria/reviews.html"
   }
   </script>
 
-  <link rel="stylesheet" href="/viktoria/assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/viktoria/css/style.css">
   <style>
-    /* ── Страница отзывов ── */
-    .reviews-page { padding: 2rem 0 4rem; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Manrope',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
 
-    /* Фильтры */
-    .reviews-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .75rem;
-      margin-bottom: 2.5rem;
-      align-items: center;
-    }
-    .reviews-filters label {
-      font-size: .85rem;
-      font-weight: 600;
-      color: var(--color-text-muted, #6b7280);
-      margin-right: .25rem;
-    }
-    .filter-group { display: flex; gap: .5rem; flex-wrap: wrap; }
-    .filter-btn {
-      padding: .4rem 1rem;
-      border: 1.5px solid var(--color-border, #e5e7eb);
-      border-radius: 2rem;
-      background: transparent;
-      font-size: .875rem;
-      cursor: pointer;
-      transition: all .2s;
-      color: var(--color-text, #111);
-    }
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: var(--color-accent, #e63946);
-      color: #fff;
-      border-color: var(--color-accent, #e63946);
-    }
-    .filter-sep {
-      width: 1px;
-      height: 2rem;
-      background: var(--color-border, #e5e7eb);
-      margin: 0 .25rem;
-    }
+    /* BREADCRUMB */
+    .breadcrumb { max-width:1200px; margin:0 auto; padding:16px 24px 0; display:flex; align-items:center; gap:6px; font-size:12px; color:var(--muted); flex-wrap:wrap; }
+    .breadcrumb a { color:var(--muted); text-decoration:none; transition:color 0.15s; }
+    .breadcrumb a:hover { color:var(--accent); }
+    .breadcrumb-sep { opacity:0.4; }
 
-    /* Счётчик результатов */
-    .reviews-count {
-      font-size: .875rem;
-      color: var(--color-text-muted, #6b7280);
-      margin-bottom: 1.5rem;
-    }
+    /* HERO */
+    .hero { padding:40px 24px 0; text-align:center; }
+    .hero-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); background:rgba(232,146,26,0.1); border:1px solid rgba(232,146,26,0.2); border-radius:100px; padding:6px 16px; margin-bottom:20px; }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:clamp(32px,6vw,52px); font-weight:900; line-height:1.05; margin-bottom:14px; }
+    .hero h1 span { color:var(--accent); }
+    .hero-sub { color:var(--muted); max-width:600px; margin:0 auto; font-size:15px; line-height:1.7; }
 
-    /* ── ТЕКСТОВЫЕ ОТЗЫВЫ ── */
-    .section-reviews { margin-bottom: 3.5rem; }
-    .section-reviews h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-    }
+    /* SUMMARY STATS */
+    .stats-section { max-width:1200px; margin:36px auto 0; padding:0 24px; }
+    .stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .stat-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; text-align:center; }
+    .stat-card-value { font-family:'Playfair Display',serif; font-size:32px; font-weight:900; color:var(--accent); line-height:1; }
+    .stat-card-label { font-size:12px; color:var(--muted); margin-top:6px; font-weight:600; }
+    .stat-card-stars { font-size:18px; margin-top:4px; }
 
-    .text-reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
-    }
+    /* ФИЛЬТРЫ */
+    .filters-section { max-width:1200px; margin:28px auto 0; padding:0 24px; display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start; }
+    .filter-group { display:flex; flex-direction:column; gap:8px; }
+    .filter-group-label { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
+    .filter-pills { display:flex; gap:8px; flex-wrap:wrap; }
+    .filter-pill { padding:7px 14px; border-radius:100px; border:1px solid var(--border); background:var(--surface); font-size:13px; font-weight:600; cursor:pointer; transition:all 0.15s; font-family:'Manrope',sans-serif; color:var(--muted); }
+    .filter-pill:hover { border-color:rgba(232,146,26,0.3); color:var(--text); }
+    .filter-pill.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .filter-pill.active-loc { background:var(--lilac2,#7a5889); border-color:var(--lilac2,#7a5889); color:#fff; }
 
-    .review-card {
-      background: #fff;
-      border: 1px solid var(--color-border, #e5e7eb);
-      border-radius: 1rem;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: .75rem;
-      transition: box-shadow .2s;
-    }
-    .review-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+    /* СЧЁТЧИК */
+    .reviews-count { max-width:1200px; margin:20px auto 0; padding:0 24px; font-size:13px; color:var(--muted); }
+    .reviews-count strong { color:var(--text); font-weight:700; }
 
-    .review-card__header {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-    }
-    .review-card__avatar {
-      width: 2.75rem;
-      height: 2.75rem;
-      border-radius: 50%;
-      object-fit: cover;
-      background: var(--color-accent-light, #fde8ea);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--color-accent, #e63946);
-      flex-shrink: 0;
-    }
-    .review-card__meta { flex: 1; min-width: 0; }
-    .review-card__name {
-      font-weight: 700;
-      font-size: .95rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .review-card__role {
-      font-size: .8rem;
-      color: var(--color-text-muted, #6b7280);
-    }
+    /* СЕКЦИЯ */
+    .section-label { max-width:1200px; margin:28px auto 0; padding:0 24px; }
+    .section-label h2 { font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+    .section-label h2::after { content:''; flex:1; height:1px; background:var(--border); }
 
-    .review-card__stars {
-      display: flex;
-      gap: .15rem;
-      font-size: 1rem;
-    }
-    .star { color: #f59e0b; }
-    .star.empty { color: #d1d5db; }
+    /* ТЕКСТОВЫЕ КАРТОЧКИ */
+    .reviews-grid { max-width:1200px; margin:0 auto; padding:0 24px; display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; }
 
-    .review-card__text {
-      font-size: .9rem;
-      line-height: 1.65;
-      color: var(--color-text, #1f2937);
-      display: -webkit-box;
-      -webkit-line-clamp: 5;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .review-card__text.expanded { -webkit-line-clamp: unset; }
-    .review-card__expand {
-      font-size: .8rem;
-      color: var(--color-accent, #e63946);
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 0;
-      text-align: left;
-    }
+    .review-card { background:var(--surface); border-radius:14px; overflow:hidden; border:1px solid var(--border); transition:all 0.2s; display:flex; flex-direction:column; }
+    .review-card:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(60,40,10,0.1); border-color:rgba(232,146,26,0.3); }
 
-    .review-card__footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: .5rem;
-      margin-top: auto;
-      padding-top: .75rem;
-      border-top: 1px solid var(--color-border, #f3f4f6);
-    }
-    .review-card__tag {
-      font-size: .75rem;
-      padding: .2rem .6rem;
-      border-radius: 1rem;
-      background: var(--color-accent-light, #fde8ea);
-      color: var(--color-accent, #e63946);
-      font-weight: 600;
-    }
-    .review-card__date {
-      font-size: .75rem;
-      color: var(--color-text-muted, #9ca3af);
-    }
+    .review-card-accent { height:4px; }
+    .review-card-body { padding:18px 20px 20px; display:flex; flex-direction:column; gap:10px; flex:1; }
 
-    /* ── ВИДЕО ОТЗЫВЫ ── */
-    .video-reviews-slider {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
-    }
+    .review-card-header { display:flex; align-items:center; gap:12px; }
+    .review-card-avatar { width:44px; height:44px; border-radius:50%; background:rgba(232,146,26,0.12); display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800; color:var(--accent); flex-shrink:0; font-family:'Playfair Display',serif; }
+    .review-card-meta { flex:1; min-width:0; }
+    .review-card-name { font-weight:700; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--text); }
+    .review-card-role { font-size:12px; color:var(--muted); }
 
-    .video-review-card {
-      background: #fff;
-      border: 1px solid var(--color-border, #e5e7eb);
-      border-radius: 1rem;
-      overflow: hidden;
-      transition: box-shadow .2s;
-    }
-    .video-review-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); }
+    .review-card-stars { display:flex; gap:2px; font-size:14px; }
+    .star { color:#f59e0b; }
+    .star.empty { color:var(--border); }
 
-    .video-review-card__thumb {
-      position: relative;
-      aspect-ratio: 16/9;
-      background: #f3f4f6;
-      overflow: hidden;
-    }
-    .video-review-card__thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .video-review-card__play {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,.25);
-      cursor: pointer;
-    }
-    .video-review-card__play svg {
-      width: 3.5rem;
-      height: 3.5rem;
-      fill: #fff;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,.4));
-      transition: transform .2s;
-    }
-    .video-review-card__play:hover svg { transform: scale(1.1); }
+    .review-card-text { font-size:13px; line-height:1.65; color:var(--text); display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden; }
+    .review-card-text.expanded { -webkit-line-clamp:unset; }
+    .review-card-expand { font-size:12px; color:var(--accent); background:none; border:none; cursor:pointer; padding:0; font-family:'Manrope',sans-serif; font-weight:600; text-align:left; }
+    .review-card-expand:hover { opacity:0.75; }
 
-    /* iframe разворачивается когда кликнули на превью */
-    .video-review-card__embed {
-      display: none;
-      aspect-ratio: 16/9;
-    }
-    .video-review-card__embed.active { display: block; }
-    .video-review-card__embed iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+    .review-card-footer { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:12px; border-top:1px solid var(--border); }
+    .review-card-tag { font-size:11px; padding:3px 10px; border-radius:20px; background:rgba(232,146,26,0.1); color:var(--accent); font-weight:700; }
+    .review-card-date { font-size:11px; color:var(--muted); }
 
-    .video-review-card__body { padding: 1rem 1.25rem 1.25rem; }
-    .video-review-card__name { font-weight: 700; font-size: .95rem; }
-    .video-review-card__caption {
-      font-size: .85rem;
-      color: var(--color-text-muted, #6b7280);
-      margin-top: .25rem;
-    }
-    .video-review-card__footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: .75rem;
-    }
+    /* ВИДЕО КАРТОЧКИ */
+    .video-grid { max-width:1200px; margin:0 auto; padding:0 24px 0; display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:18px; }
 
-    /* Кнопка «Показать ещё» */
-    .show-more-wrap { text-align: center; margin-top: 1.75rem; }
-    .btn-show-more {
-      padding: .65rem 2rem;
-      border: 2px solid var(--color-accent, #e63946);
-      border-radius: 2rem;
-      background: transparent;
-      color: var(--color-accent, #e63946);
-      font-weight: 600;
-      font-size: .9rem;
-      cursor: pointer;
-      transition: all .2s;
-    }
-    .btn-show-more:hover {
-      background: var(--color-accent, #e63946);
-      color: #fff;
-    }
+    .video-card { background:var(--surface); border-radius:14px; overflow:hidden; border:1px solid var(--border); transition:all 0.2s; }
+    .video-card:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(60,40,10,0.1); border-color:rgba(232,146,26,0.3); }
 
-    /* Пустой результат */
-    .reviews-empty {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: var(--color-text-muted, #9ca3af);
-    }
-    .reviews-empty svg { width: 3rem; margin-bottom: 1rem; opacity: .4; }
+    .video-card-thumb { position:relative; aspect-ratio:16/9; background:#e8e0d4; overflow:hidden; cursor:pointer; }
+    .video-card-thumb img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .video-card-play { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.25); }
+    .video-card-play svg { width:56px; height:56px; fill:#fff; filter:drop-shadow(0 2px 8px rgba(0,0,0,0.4)); transition:transform 0.2s; }
+    .video-card-thumb:hover .video-card-play svg { transform:scale(1.1); }
+    .video-card-embed { display:none; aspect-ratio:16/9; }
+    .video-card-embed.active { display:block; }
+    .video-card-embed iframe { width:100%; height:100%; border:none; }
+    .video-card-body { padding:16px 18px 20px; display:flex; flex-direction:column; gap:6px; }
+    .video-card-name { font-weight:700; font-size:14px; color:var(--text); }
+    .video-card-caption { font-size:12px; color:var(--muted); }
+    .video-card-footer { display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:1px solid var(--border); margin-top:4px; }
 
-    @media (max-width: 640px) {
-      .reviews-filters { gap: .5rem; }
-      .filter-sep { display: none; }
-      .text-reviews-grid { grid-template-columns: 1fr; }
-      .video-reviews-slider { grid-template-columns: 1fr; }
+    /* КНОПКА «ЕЩЁ» */
+    .show-more-wrap { max-width:1200px; margin:20px auto 0; padding:0 24px; text-align:center; }
+    .btn-show-more { padding:9px 28px; border:1.5px solid var(--accent); border-radius:100px; background:transparent; color:var(--accent); font-family:'Manrope',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.2s; }
+    .btn-show-more:hover { background:var(--accent); color:#fff; }
+
+    /* EMPTY */
+    .empty-state { text-align:center; padding:60px 20px; color:var(--muted); grid-column:1/-1; }
+    .empty-state-icon { font-size:48px; margin-bottom:14px; opacity:0.35; display:block; }
+
+    /* FOOTER */
+    .footer { background:#fff; border-top:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:60px; }
+    .footer-left { display:flex; align-items:center; gap:12px; }
+    .footer-left img { height:36px; opacity:0.7; }
+    .footer-org { font-size:12px; font-weight:600; color:var(--muted); line-height:1.4; }
+    .footer-copy { font-size:11px; color:var(--muted); opacity:0.6; }
+
+    @media (max-width:900px) { .stats-row { grid-template-columns:1fr 1fr 1fr; } }
+    @media (max-width:600px) {
+      .stats-row { grid-template-columns:1fr; }
+      .reviews-grid { grid-template-columns:1fr; }
+      .video-grid { grid-template-columns:1fr; }
+      .footer { flex-direction:column; align-items:flex-start; padding:20px 16px; }
     }
   </style>
 </head>
 <body>
+<script src="/viktoria/header.js"></script>
 
-  <!--#include virtual="/viktoria/header.html" -->
+<nav class="breadcrumb" aria-label="Хлебные крошки">
+  <a href="/viktoria/">Главная</a>
+  <span class="breadcrumb-sep">›</span>
+  <span>Отзывы</span>
+</nav>
 
-  <main id="main-content">
-    <div class="container reviews-page">
+<div class="hero">
+  <div class="hero-eyebrow">⭐ Отзывы</div>
+  <h1>Что говорят <span>о нас</span></h1>
+  <p class="hero-sub">Отзывы родителей и учеников о кружках, мастер-классах и праздниках в ДЮЦ «Виктория».</p>
+</div>
 
-      <!-- Хлебные крошки -->
-      <nav class="breadcrumb" aria-label="Хлебные крошки">
-        <ol>
-          <li><a href="/viktoria/">Главная</a></li>
-          <li aria-current="page">Отзывы</li>
-        </ol>
-      </nav>
+<!-- СТАТИСТИКА -->
+<section class="stats-section" aria-label="Общая оценка">
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-card-value" id="stat-total">—</div>
+      <div class="stat-card-label">Отзывов</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-value">4.9</div>
+      <div class="stat-card-stars">★★★★★</div>
+      <div class="stat-card-label">Средняя оценка</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-value">4</div>
+      <div class="stat-card-label">Площадки в Москве</div>
+    </div>
+  </div>
+</section>
 
-      <h1 id="reviews-h1">Отзывы о ДЮЦ «Виктория»</h1>
-      <p class="page-intro">Читайте, что говорят родители и ученики о наших кружках, мастер-классах и праздниках.</p>
+<!-- ФИЛЬТРЫ -->
+<div class="filters-section" role="search" aria-label="Фильтрация отзывов">
 
-      <!-- ── ФИЛЬТРЫ ─────────────────────────────── -->
-      <div class="reviews-filters" role="group" aria-label="Фильтры отзывов">
+  <div class="filter-group">
+    <div class="filter-group-label">Раздел</div>
+    <div class="filter-pills" id="catPills">
+      <button class="filter-pill active" data-cat="all">Все</button>
+      <button class="filter-pill" data-cat="circle">Кружки</button>
+      <button class="filter-pill" data-cat="master_class">Мастер-классы</button>
+      <button class="filter-pill" data-cat="event">Праздники</button>
+    </div>
+  </div>
 
-        <div class="filter-group" role="group" aria-label="Категория">
-          <label>Раздел:</label>
-          <button class="filter-btn active" data-filter-cat="all">Все</button>
-          <button class="filter-btn" data-filter-cat="circle">Кружки</button>
-          <button class="filter-btn" data-filter-cat="master_class">Мастер-классы</button>
-          <button class="filter-btn" data-filter-cat="event">Праздники</button>
-        </div>
+  <div class="filter-group">
+    <div class="filter-group-label">Филиал</div>
+    <div class="filter-pills" id="locPills">
+      <button class="filter-pill active" data-loc="all">Все</button>
+      <button class="filter-pill" data-loc="gazoprovod">Газопровод</button>
+      <button class="filter-pill" data-loc="nagatinskaya">Юный техник</button>
+      <button class="filter-pill" data-loc="annino">Аннино</button>
+      <button class="filter-pill" data-loc="shcherbinka">Щербинка</button>
+    </div>
+  </div>
 
-        <div class="filter-sep" role="separator"></div>
+</div>
 
-        <div class="filter-group" role="group" aria-label="Филиал">
-          <label>Филиал:</label>
-          <button class="filter-btn active" data-filter-loc="all">Все</button>
-          <button class="filter-btn" data-filter-loc="gazoprovod">Газопровод</button>
-          <button class="filter-btn" data-filter-loc="nagatinskaya">Юный техник</button>
-          <button class="filter-btn" data-filter-loc="annino">Аннино</button>
-          <button class="filter-btn" data-filter-loc="shcherbinka">Щербинка</button>
-        </div>
+<!-- СЧЁТЧИК -->
+<div class="reviews-count" id="reviewsCount" aria-live="polite"></div>
 
-      </div>
+<!-- ТЕКСТОВЫЕ ОТЗЫВЫ -->
+<div class="section-label">
+  <h2 id="h2-text-reviews">Отзывы родителей</h2>
+</div>
+<div class="reviews-grid" id="textReviewsGrid" role="list" aria-labelledby="h2-text-reviews"></div>
+<div class="show-more-wrap" id="showMoreTextWrap" hidden>
+  <button class="btn-show-more" id="showMoreText">Показать ещё отзывы</button>
+</div>
 
-      <p class="reviews-count" id="reviews-count" aria-live="polite"></p>
+<!-- ВИДЕО ОТЗЫВЫ -->
+<div class="section-label" style="margin-top:40px">
+  <h2 id="h2-video-reviews">Видео отзывы</h2>
+</div>
+<div class="video-grid" id="videoReviewsGrid" role="list" aria-labelledby="h2-video-reviews"></div>
+<div class="show-more-wrap" id="showMoreVideoWrap" hidden>
+  <button class="btn-show-more" id="showMoreVideo">Показать ещё видео</button>
+</div>
 
-      <!-- ── ТЕКСТОВЫЕ ОТЗЫВЫ ───────────────────── -->
-      <section class="section-reviews" aria-labelledby="h2-text-reviews">
-        <h2 id="h2-text-reviews">Отзывы родителей</h2>
-        <div class="text-reviews-grid" id="text-reviews-grid">
-          <!-- JS рендерит карточки -->
-        </div>
-        <div class="show-more-wrap" id="show-more-text-wrap" hidden>
-          <button class="btn-show-more" id="show-more-text">Показать ещё отзывы</button>
-        </div>
-      </section>
+<footer class="footer">
+  <div class="footer-left">
+    <img src="/viktoria/Victoria_logo-02.png" alt="Логотип ДЮЦ «Виктория»" width="36" height="36">
+    <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br><span style="font-weight:400;opacity:0.7;">г. Москва</span></div>
+  </div>
+  <div class="footer-copy">© 2026 Детско-юношеский центр «Виктория»</div>
+</footer>
 
-      <!-- ── ВИДЕО ОТЗЫВЫ ───────────────────────── -->
-      <section class="section-reviews" aria-labelledby="h2-video-reviews">
-        <h2 id="h2-video-reviews">Видео отзывы</h2>
-        <div class="video-reviews-slider" id="video-reviews-grid">
-          <!-- JS рендерит карточки -->
-        </div>
-        <div class="show-more-wrap" id="show-more-video-wrap" hidden>
-          <button class="btn-show-more" id="show-more-video">Показать ещё видео</button>
-        </div>
-      </section>
+<script>
+// ─────────────────────────────────────────────────────────────
+// КОНСТАНТЫ
+// ─────────────────────────────────────────────────────────────
+const LIMITS = { text: 6, video: 3 };
+const STEP   = { text: 6, video: 3 };
 
-    </div><!-- /.container -->
-  </main>
+const CAT_LABELS = { circle:'Кружок', master_class:'Мастер-класс', event:'Праздник' };
+const CAT_COLORS = {
+  circle:       'linear-gradient(135deg,#e8921a,#c96d10)',
+  master_class: 'linear-gradient(135deg,#3d8a5c,#2a5f3f)',
+  event:        'linear-gradient(135deg,#7a5889,#5a3c69)',
+};
 
-  <!--#include virtual="/viktoria/footer.html" -->
+// ─────────────────────────────────────────────────────────────
+// СОСТОЯНИЕ
+// ─────────────────────────────────────────────────────────────
+let allReviews = [];
+let shown      = { text: LIMITS.text, video: LIMITS.video };
+let filters    = { cat: 'all', loc: 'all' };
 
-  <script>
-  // ═══════════════════════════════════════════════════════
-  //  reviews.js — встроен в страницу
-  //  Данные загружаются из _data/reviews/*.json (или YAML→JSON через Jekyll/SSG)
-  //  Пока используем fetch; при переезде на Netlify — статический JSON
-  // ═══════════════════════════════════════════════════════
+// ─────────────────────────────────────────────────────────────
+// УТИЛИТЫ
+// ─────────────────────────────────────────────────────────────
+function stars(rating) {
+  let s = '';
+  for (let i = 1; i <= 5; i++) s += `<span class="star${i > rating ? ' empty' : ''}">★</span>`;
+  return s;
+}
 
-  const LIMITS = { text: 6, video: 3 };          // начальный лимит показа
-  const STEP   = { text: 6, video: 3 };           // шаг «Показать ещё»
+function initials(name) {
+  return (name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+}
 
-  let allReviews  = [];
-  let shown       = { text: LIMITS.text, video: LIMITS.video };
-  let activeFilters = { cat: 'all', loc: 'all' };
+function fmtDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('ru-RU', { day:'numeric', month:'long', year:'numeric' });
+}
 
-  // ── 1. Загрузка данных ──────────────────────────────────
-  async function loadReviews() {
-    try {
-      // Jekyll/Sveltia генерирует этот JSON из _data/reviews/
-      const res = await fetch('/viktoria/reviews.json');
-      if (!res.ok) throw new Error('not found');
-      allReviews = await res.json();
-    } catch {
-      // Фолбэк — демо-данные для разработки
-      allReviews = DEMO_REVIEWS;
-    }
-    render();
-  }
+function catLabel(cat) { return CAT_LABELS[cat] || cat; }
+function catColor(cat) { return CAT_COLORS[cat] || CAT_COLORS.circle; }
 
-  // ── 2. Фильтрация ───────────────────────────────────────
-  function getFiltered() {
-    return allReviews.filter(r => {
-      if (!r.is_published) return false;
-      if (activeFilters.cat !== 'all' && r.category !== activeFilters.cat) return false;
-      if (activeFilters.loc !== 'all' && r.related_subdivision !== activeFilters.loc) return false;
-      return true;
-    });
-  }
+// ─────────────────────────────────────────────────────────────
+// ФИЛЬТРАЦИЯ
+// ─────────────────────────────────────────────────────────────
+function getFiltered() {
+  return allReviews.filter(r => {
+    if (!r.is_published) return false;
+    if (filters.cat !== 'all' && r.category !== filters.cat) return false;
+    if (filters.loc !== 'all' && r.related_subdivision !== filters.loc) return false;
+    return true;
+  });
+}
 
-  // ── 3. Рендер ───────────────────────────────────────────
-  function render() {
-    const filtered   = getFiltered();
-    const textItems  = filtered.filter(r => r.type === 'text');
-    const videoItems = filtered.filter(r => r.type === 'video');
-
-    renderText(textItems);
-    renderVideo(videoItems);
-    updateCount(filtered.length);
-  }
-
-  function stars(rating) {
-    let s = '';
-    for (let i = 1; i <= 5; i++) {
-      s += `<span class="star${i > rating ? ' empty' : ''}">★</span>`;
-    }
-    return s;
-  }
-
-  function initials(name) {
-    return (name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-  }
-
-  function catLabel(cat) {
-    const map = { circle: 'Кружок', master_class: 'Мастер-класс', event: 'Праздник' };
-    return map[cat] || cat;
-  }
-
-  function fmtDate(dateStr) {
-    if (!dateStr) return '';
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-  }
-
-  function renderText(items) {
-    const grid = document.getElementById('text-reviews-grid');
-    const btn  = document.getElementById('show-more-text-wrap');
-
-    const visible = items.slice(0, shown.text);
-
-    if (visible.length === 0) {
-      grid.innerHTML = `<div class="reviews-empty" style="grid-column:1/-1">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M8 9h8M8 13h5m-9 7V5a2 2 0 012-2h10a2 2 0 012 2v14l-4-2-4 2-4-2-2 2z"/>
-        </svg>
-        <p>Текстовых отзывов по выбранным фильтрам не найдено</p>
-      </div>`;
-      btn.hidden = true;
-      return;
-    }
-
-    grid.innerHTML = visible.map(r => `
-      <article class="review-card"
-        itemscope itemtype="https://schema.org/Review"
-        data-cat="${r.category}" data-loc="${r.related_subdivision || ''}">
-        <meta itemprop="reviewBody" content="${(r.text || '').replace(/"/g, '&quot;')}">
-
-        <div class="review-card__header">
+// ─────────────────────────────────────────────────────────────
+// РЕНДЕР ТЕКСТОВЫХ
+// ─────────────────────────────────────────────────────────────
+function renderTextCard(r) {
+  const ini = initials(r.author_name);
+  const color = catColor(r.category);
+  return `
+    <article class="review-card" role="listitem"
+      itemscope itemtype="https://schema.org/Review"
+      data-cat="${r.category}" data-loc="${r.related_subdivision || ''}">
+      <meta itemprop="reviewBody" content="${(r.text || '').replace(/"/g, '&quot;')}">
+      <div class="review-card-accent" style="background:${color}"></div>
+      <div class="review-card-body">
+        <div class="review-card-header">
           ${r.photo
-            ? `<img class="review-card__avatar" src="${r.photo}" alt="${r.author_name}" loading="lazy" width="44" height="44">`
-            : `<div class="review-card__avatar" aria-hidden="true">${initials(r.author_name)}</div>`
+            ? `<img class="review-card-avatar" src="${r.photo}" alt="${r.author_name}" loading="lazy" width="44" height="44" style="object-fit:cover">`
+            : `<div class="review-card-avatar" aria-hidden="true">${ini}</div>`
           }
-          <div class="review-card__meta">
-            <div class="review-card__name" itemprop="author">${r.author_name || 'Аноним'}</div>
-            <div class="review-card__role">${r.author_role || ''}</div>
+          <div class="review-card-meta">
+            <div class="review-card-name" itemprop="author">${r.author_name || 'Аноним'}</div>
+            <div class="review-card-role">${r.author_role || ''}</div>
           </div>
         </div>
-
-        <div class="review-card__stars" aria-label="Оценка: ${r.rating} из 5" itemprop="reviewRating"
-          itemscope itemtype="https://schema.org/Rating">
+        <div class="review-card-stars" aria-label="Оценка: ${r.rating} из 5"
+          itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
           <meta itemprop="ratingValue" content="${r.rating}">
           <meta itemprop="bestRating" content="5">
           ${stars(r.rating)}
         </div>
-
-        <p class="review-card__text" id="rt-${r.slug}">${r.text || ''}</p>
-        <button class="review-card__expand" onclick="toggleExpand('rt-${r.slug}', this)" aria-expanded="false">
-          Читать полностью
-        </button>
-
-        <div class="review-card__footer">
-          <span class="review-card__tag">${catLabel(r.category)}</span>
-          <time class="review-card__date" datetime="${r.date}">${fmtDate(r.date)}</time>
+        <p class="review-card-text" id="rt-${r.slug}">${r.text || ''}</p>
+        <button class="review-card-expand"
+          onclick="toggleExpand('rt-${r.slug}', this)"
+          aria-expanded="false">Читать полностью</button>
+        <div class="review-card-footer">
+          <span class="review-card-tag">${catLabel(r.category)}</span>
+          <time class="review-card-date" datetime="${r.date}">${fmtDate(r.date)}</time>
         </div>
-      </article>
-    `).join('');
+      </div>
+    </article>`;
+}
 
-    btn.hidden = items.length <= shown.text;
-  }
-
-  function renderVideo(items) {
-    const grid = document.getElementById('video-reviews-grid');
-    const btn  = document.getElementById('show-more-video-wrap');
-
-    const visible = items.slice(0, shown.video);
-
-    if (visible.length === 0) {
-      grid.innerHTML = `<div class="reviews-empty" style="grid-column:1/-1">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/>
-        </svg>
-        <p>Видео отзывов по выбранным фильтрам не найдено</p>
-      </div>`;
-      btn.hidden = true;
-      return;
-    }
-
-    grid.innerHTML = visible.map(r => `
-      <article class="video-review-card"
-        itemscope itemtype="https://schema.org/Review"
-        data-cat="${r.category}" data-loc="${r.related_subdivision || ''}">
-
-        <div class="video-review-card__thumb" id="thumb-${r.slug}">
-          ${r.video_preview
-            ? `<img src="${r.video_preview}" alt="Видео отзыв — ${r.author_name}" loading="lazy">`
-            : `<div style="width:100%;height:100%;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:#9ca3af">Нет превью</div>`
-          }
-          <div class="video-review-card__play" onclick="playVideo('${r.slug}', \`${r.video_embed}\`)" role="button" aria-label="Воспроизвести видео отзыв">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-          </div>
+// ─────────────────────────────────────────────────────────────
+// РЕНДЕР ВИДЕО
+// ─────────────────────────────────────────────────────────────
+function renderVideoCard(r) {
+  return `
+    <article class="video-card" role="listitem"
+      itemscope itemtype="https://schema.org/Review"
+      data-cat="${r.category}" data-loc="${r.related_subdivision || ''}">
+      <div class="video-card-thumb" id="thumb-${r.slug}"
+        onclick="playVideo('${r.slug}', \`${r.video_embed}\`)"
+        role="button" aria-label="Воспроизвести видео отзыв">
+        ${r.video_preview
+          ? `<img src="${r.video_preview}" alt="Видео отзыв — ${r.author_name}" loading="lazy">`
+          : `<div style="width:100%;height:100%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:48px">🎬</div>`
+        }
+        <div class="video-card-play">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
         </div>
-        <div class="video-review-card__embed" id="embed-${r.slug}"></div>
-
-        <div class="video-review-card__body">
-          <div class="video-review-card__name" itemprop="author">${r.author_name || ''}</div>
-          <div class="video-review-card__caption">${r.author_role || ''}</div>
-          <div class="video-review-card__footer">
-            <span class="review-card__tag">${catLabel(r.category)}</span>
-            <time class="review-card__date" datetime="${r.date}">${fmtDate(r.date)}</time>
-          </div>
+      </div>
+      <div class="video-card-embed" id="embed-${r.slug}"></div>
+      <div class="video-card-body">
+        <div class="video-card-name" itemprop="author">${r.author_name || ''}</div>
+        <div class="video-card-caption">${r.author_role || ''}</div>
+        <div class="video-card-footer">
+          <span class="review-card-tag">${catLabel(r.category)}</span>
+          <time class="review-card-date" datetime="${r.date}">${fmtDate(r.date)}</time>
         </div>
-      </article>
-    `).join('');
+      </div>
+    </article>`;
+}
 
-    btn.hidden = items.length <= shown.video;
+// ─────────────────────────────────────────────────────────────
+// РЕНДЕР
+// ─────────────────────────────────────────────────────────────
+function render() {
+  const filtered  = getFiltered();
+  const textItems = filtered.filter(r => r.type === 'text');
+  const vidItems  = filtered.filter(r => r.type === 'video');
+
+  // Счётчик
+  const total = filtered.length;
+  document.getElementById('reviewsCount').innerHTML = total
+    ? `<strong>${total}</strong> отзыв${total === 1 ? '' : total < 5 ? 'а' : 'ов'}`
+    : '';
+  document.getElementById('stat-total').textContent = allReviews.filter(r=>r.is_published).length || '—';
+
+  // Текстовые
+  const tGrid  = document.getElementById('textReviewsGrid');
+  const tMore  = document.getElementById('showMoreTextWrap');
+  const vis    = textItems.slice(0, shown.text);
+  if (vis.length === 0) {
+    tGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+      <span class="empty-state-icon">💬</span>
+      <p>Отзывов по выбранным фильтрам не найдено</p>
+    </div>`;
+    tMore.hidden = true;
+  } else {
+    tGrid.innerHTML = vis.map(renderTextCard).join('');
+    tMore.hidden = textItems.length <= shown.text;
   }
 
-  function updateCount(total) {
-    document.getElementById('reviews-count').textContent =
-      total === 0 ? '' : `Найдено отзывов: ${total}`;
+  // Видео
+  const vGrid  = document.getElementById('videoReviewsGrid');
+  const vMore  = document.getElementById('showMoreVideoWrap');
+  const visV   = vidItems.slice(0, shown.video);
+  if (visV.length === 0) {
+    vGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+      <span class="empty-state-icon">🎬</span>
+      <p>Видео отзывов по выбранным фильтрам не найдено</p>
+    </div>`;
+    vMore.hidden = true;
+  } else {
+    vGrid.innerHTML = visV.map(renderVideoCard).join('');
+    vMore.hidden = vidItems.length <= shown.video;
   }
+}
 
-  // ── 4. Интерактив ───────────────────────────────────────
-  function toggleExpand(id, btn) {
-    const el = document.getElementById(id);
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    el.classList.toggle('expanded', !expanded);
-    btn.setAttribute('aria-expanded', String(!expanded));
-    btn.textContent = expanded ? 'Читать полностью' : 'Свернуть';
+// ─────────────────────────────────────────────────────────────
+// ИНТЕРАКТИВ
+// ─────────────────────────────────────────────────────────────
+function toggleExpand(id, btn) {
+  const el = document.getElementById(id);
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  el.classList.toggle('expanded', !expanded);
+  btn.setAttribute('aria-expanded', String(!expanded));
+  btn.textContent = expanded ? 'Читать полностью' : 'Свернуть';
+}
+
+function playVideo(slug, embed) {
+  document.getElementById(`thumb-${slug}`).style.display = 'none';
+  const embedEl = document.getElementById(`embed-${slug}`);
+  embedEl.innerHTML = embed;
+  embedEl.classList.add('active');
+}
+
+// ─────────────────────────────────────────────────────────────
+// ФИЛЬТРЫ: КЛИКИ
+// ─────────────────────────────────────────────────────────────
+document.getElementById('catPills').addEventListener('click', e => {
+  const pill = e.target.closest('.filter-pill');
+  if (!pill) return;
+  document.querySelectorAll('#catPills .filter-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  filters.cat = pill.dataset.cat;
+  shown = { text: LIMITS.text, video: LIMITS.video };
+  render();
+});
+
+document.getElementById('locPills').addEventListener('click', e => {
+  const pill = e.target.closest('.filter-pill');
+  if (!pill) return;
+  document.querySelectorAll('#locPills .filter-pill').forEach(p => {
+    p.classList.remove('active', 'active-loc');
+  });
+  pill.classList.add('active');
+  if (pill.dataset.loc !== 'all') pill.classList.add('active-loc');
+  filters.loc = pill.dataset.loc;
+  shown = { text: LIMITS.text, video: LIMITS.video };
+  render();
+});
+
+document.getElementById('showMoreText').addEventListener('click', () => {
+  shown.text += STEP.text;
+  render();
+});
+document.getElementById('showMoreVideo').addEventListener('click', () => {
+  shown.video += STEP.video;
+  render();
+});
+
+// ─────────────────────────────────────────────────────────────
+// URL-ПАРАМЕТРЫ
+// ─────────────────────────────────────────────────────────────
+(function initFromURL() {
+  const p = new URLSearchParams(location.search);
+  const cat = p.get('type') || p.get('cat');
+  const loc = p.get('loc');
+  if (cat) {
+    const b = document.querySelector(`[data-cat="${cat}"]`);
+    if (b) b.click();
   }
-
-  function playVideo(slug, embed) {
-    document.getElementById(`thumb-${slug}`).style.display = 'none';
-    const embedEl = document.getElementById(`embed-${slug}`);
-    embedEl.innerHTML = embed;
-    embedEl.classList.add('active');
+  if (loc) {
+    const b = document.querySelector(`[data-loc="${loc}"]`);
+    if (b) b.click();
   }
+})();
 
-  // ── 5. Фильтры: клики ───────────────────────────────────
-  document.querySelectorAll('[data-filter-cat]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-filter-cat]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeFilters.cat = btn.dataset.filterCat;
-      shown.text  = LIMITS.text;
-      shown.video = LIMITS.video;
-      render();
-    });
-  });
+// ─────────────────────────────────────────────────────────────
+// ЗАГРУЗКА ДАННЫХ
+// ─────────────────────────────────────────────────────────────
+async function loadReviews() {
+  try {
+    const res = await fetch('/viktoria/reviews.json');
+    if (!res.ok) throw new Error('not found');
+    allReviews = await res.json();
+  } catch {
+    allReviews = DEMO_REVIEWS;
+  }
+  render();
+}
 
-  document.querySelectorAll('[data-filter-loc]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-filter-loc]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeFilters.loc = btn.dataset.filterLoc;
-      shown.text  = LIMITS.text;
-      shown.video = LIMITS.video;
-      render();
-    });
-  });
+// ─────────────────────────────────────────────────────────────
+// ДЕМО-ДАННЫЕ (удалить после наполнения CMS)
+// ─────────────────────────────────────────────────────────────
+const DEMO_REVIEWS = [
+  {
+    slug: "demo-keramika-ivanova",
+    type: "text", category: "circle",
+    related_circle: "keramika", related_subdivision: "gazoprovod",
+    author_name: "Анна Иванова", author_role: "мама ученицы", rating: 5,
+    text: "Дочь ходит на гончарное дело уже второй год. Педагог удивительный — терпеливый, вдохновляющий, умеет найти подход к каждому ребёнку. Первая работа — маленькая чашка — до сих пор стоит на почётном месте. Рекомендую всем, кто хочет, чтобы ребёнок занимался настоящим творчеством!",
+    date: "2026-02-15", is_published: true
+  },
+  {
+    slug: "demo-tancy-petrov",
+    type: "text", category: "circle",
+    related_circle: "tancy", related_subdivision: "annino",
+    author_name: "Сергей Петров", author_role: "папа ученика", rating: 5,
+    text: "Сын занимается танцами полгода. За это время стал намного пластичнее, увереннее держится на сцене. Педагог умеет мотивировать детей, занятия всегда разнообразные. Очень довольны!",
+    date: "2026-01-20", is_published: true
+  },
+  {
+    slug: "demo-prazdnik-sidorova",
+    type: "text", category: "event",
+    related_subdivision: "nagatinskaya",
+    author_name: "Мария Сидорова", author_role: "мама именинника", rating: 5,
+    text: "Заказывали день рождения для сына на 8 лет. Всё прошло замечательно: аниматоры были профессиональные, дети были в восторге всё два часа. Зал украшен красиво, угощение вкусное. Организаторам огромное спасибо!",
+    date: "2026-03-05", is_published: true
+  },
+  {
+    slug: "demo-mk-goncharstvo",
+    type: "text", category: "master_class",
+    related_subdivision: "gazoprovod",
+    author_name: "Елена Кузнецова", author_role: "участница мастер-класса", rating: 5,
+    text: "Была на мастер-классе по гончарному делу впервые в жизни. Ожидала, что будет сложно, но педагог объяснял каждый шаг очень понятно. Через два часа у меня в руках была настоящая тарелка! Безумно приятные эмоции.",
+    date: "2026-02-28", is_published: true
+  },
+  {
+    slug: "demo-robot-mironov",
+    type: "text", category: "circle",
+    related_circle: "robototekhnika", related_subdivision: "shcherbinka",
+    author_name: "Дмитрий Миронов", author_role: "папа ученика", rating: 4,
+    text: "Сыну 11 лет, занимается робототехникой. Уже собрал несколько роботов и участвовал в городском конкурсе. Занятия интересные, программа насыщенная. Единственное пожелание — хотелось бы чуть больше времени на каждую тему.",
+    date: "2026-01-10", is_published: true
+  },
+  {
+    slug: "demo-cirk-orlova",
+    type: "text", category: "circle",
+    related_circle: "cirk", related_subdivision: "annino",
+    author_name: "Ольга Орлова", author_role: "мама ученицы", rating: 5,
+    text: "Дочь занимается акробатикой год. За это время сильно выросла физически — стала гибкой, сильной, научилась стоять на руках. Педагог внимательный к каждому ребёнку, следит за техникой безопасности.",
+    date: "2025-12-18", is_published: true
+  },
+  {
+    slug: "demo-video-keramika",
+    type: "video", category: "circle",
+    related_circle: "keramika", related_subdivision: "gazoprovod",
+    author_name: "Семья Ивановых", author_role: "Кружок «Керамика»",
+    video_embed: `<iframe src="https://vk.com/video_ext.php?oid=-1&id=456239018&hash=0" width="100%" height="100%" allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>`,
+    video_preview: "/viktoria/static/images/reviews/video-preview-keramika.jpg",
+    date: "2026-02-10", is_published: true
+  },
+  {
+    slug: "demo-video-prazdnik",
+    type: "video", category: "event",
+    related_subdivision: "nagatinskaya",
+    author_name: "Семья Петровых", author_role: "День рождения в «Виктории»",
+    video_embed: `<iframe src="https://vk.com/video_ext.php?oid=-1&id=456239019&hash=0" width="100%" height="100%" allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>`,
+    video_preview: "/viktoria/static/images/reviews/video-preview-prazdnik.jpg",
+    date: "2026-01-25", is_published: true
+  }
+];
 
-  // Кнопки «Показать ещё»
-  document.getElementById('show-more-text').addEventListener('click', () => {
-    shown.text += STEP.text;
-    render();
-  });
-  document.getElementById('show-more-video').addEventListener('click', () => {
-    shown.video += STEP.video;
-    render();
-  });
-
-  // URL-параметры: /reviews?type=circle&loc=gazoprovod
-  (function initFromURL() {
-    const p = new URLSearchParams(location.search);
-    if (p.get('type')) {
-      const b = document.querySelector(`[data-filter-cat="${p.get('type')}"]`);
-      if (b) b.click();
-    }
-    if (p.get('loc')) {
-      const b = document.querySelector(`[data-filter-loc="${p.get('loc')}"]`);
-      if (b) b.click();
-    }
-  })();
-
-  // ── 6. Демо-данные (удалить после наполнения CMS) ───────
-  const DEMO_REVIEWS = [
-    {
-      slug: "demo-keramika-ivanova",
-      type: "text",
-      category: "circle",
-      related_circle: "keramika",
-      related_subdivision: "gazoprovod",
-      author_name: "Анна Иванова",
-      author_role: "мама ученицы",
-      rating: 5,
-      text: "Дочь ходит на гончарное дело уже второй год. Педагог удивительный — терпеливый, вдохновляющий, умеет найти подход к каждому ребёнку. Первая работа — маленькая чашка — до сих пор стоит на почётном месте. Рекомендую всем, кто хочет, чтобы ребёнок занимался настоящим творчеством!",
-      date: "2026-02-15",
-      is_published: true
-    },
-    {
-      slug: "demo-tancy-petrov",
-      type: "text",
-      category: "circle",
-      related_circle: "tancy",
-      related_subdivision: "annino",
-      author_name: "Сергей Петров",
-      author_role: "папа ученика",
-      rating: 5,
-      text: "Сын занимается танцами полгода. За это время стал намного пластичнее, увереннее держится на сцене. Педагог умеет мотивировать детей, занятия всегда разнообразные. Очень довольны!",
-      date: "2026-01-20",
-      is_published: true
-    },
-    {
-      slug: "demo-prazdnik-sidorova",
-      type: "text",
-      category: "event",
-      related_subdivision: "nagatinskaya",
-      author_name: "Мария Сидорова",
-      author_role: "мама именинника",
-      rating: 5,
-      text: "Заказывали день рождения для сына на 8 лет. Всё прошло замечательно: аниматоры были профессиональные, дети были в восторге всё два часа. Зал украшен красиво, угощение вкусное. Организаторам огромное спасибо!",
-      date: "2026-03-05",
-      is_published: true
-    },
-    {
-      slug: "demo-mk-goncharstvo",
-      type: "text",
-      category: "master_class",
-      related_subdivision: "gazoprovod",
-      author_name: "Елена Кузнецова",
-      author_role: "участница мастер-класса",
-      rating: 5,
-      text: "Была на мастер-классе по гончарному делу впервые в жизни. Ожидала, что будет сложно, но педагог объяснял каждый шаг очень понятно. Через два часа у меня в руках была настоящая тарелка! Безумно приятные эмоции.",
-      date: "2026-02-28",
-      is_published: true
-    },
-    {
-      slug: "demo-robot-mironov",
-      type: "text",
-      category: "circle",
-      related_circle: "robototekhnika",
-      related_subdivision: "shcherbinka",
-      author_name: "Дмитрий Миронов",
-      author_role: "папа ученика",
-      rating: 4,
-      text: "Сыну 11 лет, занимается робототехникой. Уже собрал несколько роботов и участвовал в городском конкурсе. Занятия интересные, программа насыщенная. Единственное пожелание — хотелось бы чуть больше времени на каждую тему.",
-      date: "2026-01-10",
-      is_published: true
-    },
-    {
-      slug: "demo-cirk-orlova",
-      type: "text",
-      category: "circle",
-      related_circle: "cirk",
-      related_subdivision: "annino",
-      author_name: "Ольга Орлова",
-      author_role: "мама ученицы",
-      rating: 5,
-      text: "Дочь занимается акробатикой год. За это время сильно выросла физически — стала гибкой, сильной, научилась стоять на руках. Педагог внимательный к каждому ребёнку, следит за техникой безопасности.",
-      date: "2025-12-18",
-      is_published: true
-    },
-    {
-      slug: "demo-video-keramika",
-      type: "video",
-      category: "circle",
-      related_circle: "keramika",
-      related_subdivision: "gazoprovod",
-      author_name: "Семья Ивановых",
-      author_role: "Кружок «Керамика»",
-      video_embed: `<iframe src="https://vk.com/video_ext.php?oid=-1&id=456239018&hash=0" width="100%" height="100%" allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>`,
-      video_preview: "/viktoria/static/images/reviews/video-preview-keramika.jpg",
-      date: "2026-02-10",
-      is_published: true
-    },
-    {
-      slug: "demo-video-prazdnik",
-      type: "video",
-      category: "event",
-      related_subdivision: "nagatinskaya",
-      author_name: "Семья Петровых",
-      author_role: "День рождения в «Виктории»",
-      video_embed: `<iframe src="https://vk.com/video_ext.php?oid=-1&id=456239019&hash=0" width="100%" height="100%" allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>`,
-      video_preview: "/viktoria/static/images/reviews/video-preview-prazdnik.jpg",
-      date: "2026-01-25",
-      is_published: true
-    }
-  ];
-
-  // ── Запуск ──────────────────────────────────────────────
-  loadReviews();
-  </script>
-
+// ─────────────────────────────────────────────────────────────
+// СТАРТ
+// ─────────────────────────────────────────────────────────────
+loadReviews();
+</script>
 </body>
 </html>
