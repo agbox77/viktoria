@@ -646,3 +646,316 @@ collections:
           - { name: description, label: Описание,     widget: text }
           - { name: btn_text,    label: Текст кнопки, widget: string }
           - { name: btn_url,     label: Ссылка,       widget: string }
+
+# ══════════════════════════════════════════════════════════════════
+#  ДОПОЛНЕНИЕ К admin/config.yml
+#  Добавить в раздел collections: следующий блок (коллекция 8)
+#  А поля reviews_text_block / reviews_video_block добавить
+#  в конец коллекций circles, events (см. раздел «ПОЛЯ ДЛЯ СТРАНИЦ»)
+# ══════════════════════════════════════════════════════════════════
+
+
+  # ╔══════════════════════════════════════════════════════════╗
+  # ║  8. ОТЗЫВЫ                                               ║
+  # ╚══════════════════════════════════════════════════════════╝
+  - name: reviews
+    label: Отзывы
+    label_singular: Отзыв
+    folder: _data/reviews
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} [{{type}}] {{author_name}} — {{date}}"
+    sortable_fields: [date, rating, author_name]
+    view_filters:
+      - label: "Только текстовые"
+        field: type
+        pattern: text
+      - label: "Только видео"
+        field: type
+        pattern: video
+      - label: "Опубликованные"
+        field: is_published
+        pattern: true
+      - label: "Избранные"
+        field: is_featured
+        pattern: true
+    fields:
+
+      # ── Заголовок и slug ──────────────────────────────────
+      - name: title
+        label: Заголовок отзыва (для CMS)
+        widget: string
+        hint: "Не показывается на сайте. Пример: «Отзыв о кружке Керамика — Иванова»"
+
+      # ── Тип ───────────────────────────────────────────────
+      - name: type
+        label: Тип отзыва
+        widget: select
+        options:
+          - { label: "Текстовый (текст + фото + рейтинг)", value: "text" }
+          - { label: "Видео (VK / Rutube)",                value: "video" }
+        default: "text"
+        hint: "Текстовые и видео-отзывы отображаются в разных блоках и никогда не смешиваются."
+
+      # ── Категория ─────────────────────────────────────────
+      - name: category
+        label: Раздел
+        widget: select
+        options:
+          - { label: "Кружок",       value: "circle" }
+          - { label: "Мастер-класс", value: "master_class" }
+          - { label: "Праздник",     value: "event" }
+        hint: "Определяет, в каком разделе страницы /reviews будет показан отзыв."
+
+      # ── Связи (аналог posts) ──────────────────────────────
+      - label: "Связи — где появится этот отзыв"
+        name: relations
+        widget: object
+        collapsed: false
+        hint: "Заполните нужные поля — отзыв автоматически появится на страницах кружка, педагога или филиала."
+        fields:
+
+          - name: related_circle
+            label: Кружок (slug)
+            widget: string
+            required: false
+            hint: "Пример: keramika-dlya-detej. Отзыв появится на странице этого кружка."
+
+          - name: related_master_class
+            label: Мастер-класс (slug)
+            widget: string
+            required: false
+            hint: "Пример: goncharnyj-master-klass"
+
+          - name: related_event
+            label: Праздник (slug)
+            widget: string
+            required: false
+            hint: "Пример: den-rozhdeniya"
+
+          - name: related_teacher
+            label: Педагог (slug)
+            widget: string
+            required: false
+            hint: "Пример: ivanova-anna. Отзыв появится на странице педагога."
+
+          - name: related_subdivision
+            label: Филиал
+            widget: select
+            required: false
+            options:
+              - { label: "Не привязан",  value: "" }
+              - { label: "Газопровод",   value: "gazoprovod" }
+              - { label: "Юный техник",  value: "nagatinskaya" }
+              - { label: "Аннино",       value: "annino" }
+              - { label: "Щербинка",     value: "shcherbinka" }
+
+      # ── Автор ─────────────────────────────────────────────
+      - name: author_name
+        label: Имя автора
+        widget: string
+        hint: "Пример: Анна Иванова. Можно указать только имя и первую букву фамилии."
+
+      - name: author_role
+        label: Роль автора
+        widget: string
+        required: false
+        hint: "Пример: мама ученика, участница мастер-класса, папа именинника"
+
+      - name: photo
+        label: Фото автора (опционально)
+        widget: image
+        required: false
+        media_folder: "static/images/reviews"
+        public_folder: "/static/images/reviews"
+
+      # ── Рейтинг (только для текстовых) ───────────────────
+      - name: rating
+        label: Оценка (1–5)
+        widget: number
+        value_type: int
+        min: 1
+        max: 5
+        default: 5
+        required: false
+        hint: "Только для текстовых отзывов."
+
+      # ── Контент: текстовый ────────────────────────────────
+      - name: text
+        label: Текст отзыва
+        widget: text
+        required: false
+        hint: "Только для текстовых отзывов. Рекомендуемый объём: 50–300 слов."
+
+      # ── Контент: видео ────────────────────────────────────
+      - name: video_embed
+        label: Embed-код видео (VK / Rutube)
+        widget: text
+        required: false
+        hint: |
+          Только для видео-отзывов. Вставьте <iframe>-код из VK или Rutube.
+          VK: Поделиться → Код для вставки.
+          Rutube: Поделиться → Встроить.
+
+      - name: video_preview
+        label: Превью видео (обложка)
+        widget: image
+        required: false
+        media_folder: "static/images/reviews"
+        public_folder: "/static/images/reviews"
+        hint: "Скриншот из видео. Рекомендуемый размер: 640×360 px."
+
+      # ── Управление ────────────────────────────────────────
+      - name: date
+        label: Дата отзыва
+        widget: datetime
+        date_format: DD.MM.YYYY
+        time_format: false
+        format: YYYY-MM-DD
+        hint: "Используется для сортировки."
+
+      - name: is_published
+        label: Опубликован
+        widget: boolean
+        default: true
+        hint: "Снимите галочку, чтобы скрыть отзыв без удаления."
+
+      - name: is_featured
+        label: Избранный
+        widget: boolean
+        default: false
+        hint: "Избранные отзывы могут автоматически появляться на главной странице."
+
+      - name: priority
+        label: Приоритет (порядок показа)
+        widget: number
+        value_type: int
+        default: 10
+        required: false
+        hint: "Меньше = выше. Используется при ручном режиме (manual)."
+
+
+# ══════════════════════════════════════════════════════════════════
+#  ПОЛЯ ДЛЯ СТРАНИЦ СУЩНОСТЕЙ
+#  Добавить в конец коллекций: circles, events, праздники
+#  (после последнего существующего поля, перед закрывающим тегом)
+# ══════════════════════════════════════════════════════════════════
+
+# ── Вставить в коллекцию CIRCLES (после поля seo): ───────────────
+
+      - label: "Блок: Текстовые отзывы"
+        name: reviews_text_block
+        widget: object
+        collapsed: true
+        hint: "Управление блоком отзывов родителей на странице кружка."
+        fields:
+
+          - name: mode
+            label: Режим
+            widget: select
+            options:
+              - { label: "AUTO — подбирать автоматически по связям", value: "auto" }
+              - { label: "MANUAL — выбрать конкретные отзывы",       value: "manual" }
+            default: "auto"
+            hint: "MANUAL имеет приоритет над AUTO."
+
+          - name: selected_reviews
+            label: Выбранные отзывы (slug'и через запятую)
+            widget: string
+            required: false
+            hint: "Только для режима MANUAL. Пример: keramika-otzyv-ivanova, keramika-otzyv-petrova"
+
+          - name: limit
+            label: Максимум отзывов
+            widget: number
+            value_type: int
+            default: 5
+            min: 1
+            max: 20
+
+          - name: display
+            label: Вид отображения
+            widget: select
+            options:
+              - { label: "Список / сетка", value: "list" }
+              - { label: "Слайдер",        value: "slider" }
+            default: "list"
+
+          - name: sort
+            label: Сортировка
+            widget: select
+            options:
+              - { label: "Сначала новые",   value: "date_desc" }
+              - { label: "Сначала старые",  value: "date_asc" }
+              - { label: "По рейтингу",     value: "rating" }
+            default: "date_desc"
+
+          - name: show_more
+            label: Кнопка «Показать ещё»
+            widget: boolean
+            default: true
+
+      - label: "Блок: Видео отзывы"
+        name: reviews_video_block
+        widget: object
+        collapsed: true
+        hint: "Управление блоком видео отзывов на странице кружка."
+        fields:
+
+          - name: mode
+            label: Режим
+            widget: select
+            options:
+              - { label: "AUTO — подбирать автоматически", value: "auto" }
+              - { label: "MANUAL — выбрать конкретные",   value: "manual" }
+            default: "auto"
+
+          - name: selected_reviews
+            label: Выбранные видео (slug'и через запятую)
+            widget: string
+            required: false
+            hint: "Только для режима MANUAL."
+
+          - name: limit
+            label: Максимум видео
+            widget: number
+            value_type: int
+            default: 3
+            min: 1
+            max: 10
+
+          - name: sort
+            label: Сортировка
+            widget: select
+            options:
+              - { label: "Сначала новые", value: "date_desc" }
+              - { label: "По рейтингу",   value: "rating" }
+            default: "date_desc"
+
+          - name: show_more
+            label: Кнопка «Показать ещё»
+            widget: boolean
+            default: false
+
+
+# ══════════════════════════════════════════════════════════════════
+#  СТРАНИЦА /reviews в коллекции pages (SEO)
+#  Добавить в коллекцию pages (files:) после page_press:
+# ══════════════════════════════════════════════════════════════════
+
+      - name: page_reviews
+        label: "Отзывы (/reviews)"
+        file: _data/seo/page_reviews.md
+        fields:
+          - { name: seo_title,       label: "Title",                    widget: string, hint: "50–60 символов. Пример: Отзывы родителей о кружках — ДЮЦ «Виктория»" }
+          - { name: seo_description, label: "Meta description",         widget: text,   hint: "120–160 символов." }
+          - { name: page_h1,         label: "H1 на странице",           widget: string, required: false }
+          - { name: page_intro,      label: "Вводный текст под H1",     widget: text,   required: false, hint: "1–2 предложения." }
+          - { name: og_image,        label: "OG-картинка (1200×630)",   widget: string, required: false }
+
+
+# ══════════════════════════════════════════════════════════════════
+#  СПРАВОЧНИК — новые папки (создать .gitkeep)
+#  _data/reviews/
+#  static/images/reviews/
+# ══════════════════════════════════════════════════════════════════
