@@ -58,7 +58,7 @@
     "photo": "",
     "rating": 5,
     "text": "",
-    "video_embed": "<iframe src="https://vkvideo.ru/video_ext.php?oid=-101832422&id=456239148&hash=ef4e2a52cdc9f5b1&hd=3" width="1280" height="720" allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;" frameborder="0" allowfullscreen></iframe>",
+    "video_embed": "<iframe width="720" height="405" src="https://rutube.ru/play/embed/8c7efa9e6dcaacf7d6e5b5cea1d13218/" style="border: none;" allow="clipboard-write; autoplay" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>",
     "video_preview": "/viktoria/static/images/reviews/video-preview-keramika.jpg",
     "date": "2026-01-01",
     "is_published": true,
