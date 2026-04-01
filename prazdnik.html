@@ -570,7 +570,10 @@ update();
   function renderText(items) {
     const grid = document.getElementById('prazdnik-text-reviews');
     const section = document.getElementById('prazdnik-text-section');
-    if (!items.length) { section.style.display='none'; return; }
+    if (!items.length) {
+      grid.innerHTML = '<p style="font-size:14px;color:var(--muted);padding:8px 0">Отзывы появятся здесь после добавления в CMS.</p>';
+      return;
+    }
     grid.innerHTML = items.map(function(r){
       const avatar = r.photo
         ? '<img src="'+r.photo+'" alt="'+r.author_name+'" loading="lazy" width="40" height="40" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0">'
@@ -598,7 +601,10 @@ update();
   function renderVideo(items) {
     const grid = document.getElementById('prazdnik-video-reviews');
     const section = document.getElementById('prazdnik-video-section');
-    if (!items.length) { section.style.display='none'; return; }
+    if (!items.length) {
+      section.style.display = 'none';
+      return;
+    }
     grid.innerHTML = items.map(function(r){
       const thumbId = 'vthumb-'+r.slug;
       const embedId = 'vembed-'+r.slug;
@@ -633,7 +639,9 @@ update();
     try {
       const res = await fetch('/viktoria/reviews.json');
       if (res.ok) all = await res.json();
-    } catch(e) { /* нет данных — секции скроются */ }
+    } catch(e) {
+      // reviews.json не найден — это нормально пока файл не добавлен в репо
+    }
     renderText(pick(all,'text', MODE_TEXT,  MANUAL_TEXT,  LIMIT_TEXT));
     renderVideo(pick(all,'video',MODE_VIDEO, MANUAL_VIDEO, LIMIT_VIDEO));
   }
