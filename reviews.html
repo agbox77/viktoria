@@ -403,7 +403,8 @@ function renderVideo(items) {
           : `<div class="video-review-card__thumb-placeholder" aria-hidden="true">${CAT_EMOJI[r.category] || '🎬'}</div>`
         }
         <div class="video-review-card__play"
-          onclick="playVideo('${r.slug}', \`${r.video_embed}\`)"
+          data-slug="${r.slug}"
+          data-embed="${encodeURIComponent(r.video_embed || '')}"
           role="button" tabindex="0" aria-label="Воспроизвести видео отзыв — ${r.author_name}">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 5v14l11-7z"/>
@@ -477,12 +478,29 @@ function toggleExpand(id, btn) {
   btn.textContent = expanded ? 'Читать полностью' : 'Свернуть';
 }
 
-function playVideo(slug, embed) {
-  document.getElementById(`thumb-${slug}`).style.display = 'none';
-  const embedEl = document.getElementById(`embed-${slug}`);
-  embedEl.innerHTML = embed;
-  embedEl.classList.add('active');
+function playVideo(slug, encodedEmbed) {
+  const thumb = document.getElementById('thumb-' + slug);
+  if (thumb) thumb.style.display = 'none';
+  const embedEl = document.getElementById('embed-' + slug);
+  if (embedEl) {
+    embedEl.innerHTML = decodeURIComponent(encodedEmbed);
+    embedEl.classList.add('active');
+  }
 }
+
+// Делегирование клика на кнопки воспроизведения
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('[data-slug][data-embed]');
+  if (!btn) return;
+  playVideo(btn.dataset.slug, btn.dataset.embed);
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const btn = e.target.closest('[data-slug][data-embed]');
+  if (!btn) return;
+  e.preventDefault();
+  playVideo(btn.dataset.slug, btn.dataset.embed);
+});
 
 // ─────────────────────────────────────────────────────────────
 // ФИЛЬТР ПО КАТЕГОРИИ (из карточек)
