@@ -500,5 +500,78 @@ document.addEventListener('keydown', e => {
 renderServices();
 update();
 </script>
+<!-- ══ ОТЗЫВЫ О ПРАЗДНИКАХ ══════════════════════════════════════ -->
+<section style="max-width:1100px;margin:0 auto 80px;padding:0 24px" aria-labelledby="h2-prazdnik-reviews">
+
+  <!-- Текстовые отзывы -->
+  <div style="margin-bottom:48px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+      <h2 id="h2-prazdnik-reviews" style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin:0">
+        Отзывы о праздниках
+      </h2>
+      <a href="/viktoria/reviews.html?type=event"
+         style="font-size:14px;font-weight:600;color:var(--accent);text-decoration:none">
+        Все отзывы →
+      </a>
+    </div>
+    <div id="prazdnik-text-reviews" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px"></div>
+  </div>
+
+  <!-- Видео отзывы -->
+  <div id="prazdnik-video-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+      <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin:0">
+        Видео отзывы
+      </h2>
+      <a href="/viktoria/reviews.html?type=event"
+         style="font-size:14px;font-weight:600;color:var(--accent);text-decoration:none">
+        Смотреть все →
+      </a>
+    </div>
+    <div id="prazdnik-video-reviews" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px"></div>
+  </div>
+
+</section>
+
+<script>
+(function () {
+  // ── настройки блока ──────────────────────────────────────────
+  const MODE_TEXT  = 'auto';   // 'auto' | 'manual'
+  const MODE_VIDEO = 'auto';
+  const MANUAL_TEXT  = [];     // при manual — slug'и через запятую: ['slug-1','slug-2']
+  const MANUAL_VIDEO = [];
+  const LIMIT_TEXT  = 6;
+  const LIMIT_VIDEO = 3;
+
+  // ── утилиты ──────────────────────────────────────────────────
+  function initials(n) { return (n||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+  function stars(r) {
+    let s=''; for(let i=1;i<=5;i++) s+=`<span style="color:${i<=r?'#f59e0b':'#d1d5db'}">★</span>`; return s;
+  }
+  function fmtDate(d) {
+    if (!d) return '';
+    return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});
+  }
+
+  // ── выборка ───────────────────────────────────────────────────
+  function pick(all, type, mode, manual, limit) {
+    let items = all.filter(r => r.is_published && r.type === type);
+    if (mode === 'manual' && manual.length) {
+      const map = Object.fromEntries(items.map(r=>[r.slug,r]));
+      items = manual.map(s=>map[s]).filter(Boolean);
+    } else {
+      // AUTO: category === 'event'
+      items = items.filter(r => r.category === 'event');
+    }
+    return items.sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0, limit);
+  }
+
+  // ── рендер текстовых ─────────────────────────────────────────
+  function renderText(items) {
+    const grid = document.getElementById('prazdnik-text-reviews');
+    if (!items.length) { grid.closest('div').style.display='none'; return; }
+    grid.innerHTML = items.map(r=>`
+      <article itemscope itemtype="https://schema.org/Review"
+        style
 </body>
 </html>
