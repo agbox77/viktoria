@@ -1,0 +1,344 @@
+<!--
+  ══════════════════════════════════════════════════════════════
+  СНИППЕТ: _includes/reviews_block.html
+  Встраивается в: circle.html, event.html, prazdnik.html и др.
+
+  Параметры (задаются в data-атрибутах корневого элемента):
+
+    data-context-type      — тип страницы: circle | master_class | event
+    data-context-slug      — slug текущей страницы (кружка/мк/праздника)
+    data-context-loc       — slug филиала (опционально)
+
+  Конфигурация блоков берётся из CMS-полей страницы:
+    reviews_text_block.*
+    reviews_video_block.*
+
+  Пример использования на circle.html:
+    <div id="reviews-block-root"
+         data-context-type="circle"
+         data-context-slug="{{ circle.slug }}"
+         data-context-loc="{{ circle.subdivision }}">
+      <!--#include virtual="/viktoria/_includes/reviews_block.html" -->
+    </div>
+
+  При SSG (Netlify/Jekyll) — заменить на {{ include reviews_block.html }}
+  ══════════════════════════════════════════════════════════════
+-->
+
+<style>
+  /* ── Блок отзывов на странице сущности ── */
+  .entity-reviews { margin: 3rem 0; }
+
+  .entity-reviews__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .entity-reviews__header h2 { margin: 0; }
+
+  .entity-reviews__all-link {
+    font-size: .875rem;
+    color: var(--color-accent, #e63946);
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .entity-reviews__all-link:hover { text-decoration: underline; }
+
+  /* Текстовые карточки (компактные, 3–5 в ряд) */
+  .entity-text-reviews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .entity-review-card {
+    background: var(--color-bg-card, #f9fafb);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: .875rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+  }
+  .entity-review-card__top {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+  }
+  .entity-review-card__avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--color-accent-light, #fde8ea);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--color-accent, #e63946);
+    flex-shrink: 0;
+  }
+  .entity-review-card__name { font-weight: 700; font-size: .9rem; }
+  .entity-review-card__role { font-size: .75rem; color: var(--color-text-muted, #9ca3af); }
+  .entity-review-card__stars { font-size: .875rem; }
+  .entity-review-card__text {
+    font-size: .875rem;
+    line-height: 1.6;
+    color: var(--color-text, #1f2937);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .entity-review-card__date {
+    font-size: .75rem;
+    color: var(--color-text-muted, #9ca3af);
+    margin-top: auto;
+  }
+
+  /* Видео карточки (крупные, 1–2 на экран) */
+  .entity-video-reviews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+  .entity-video-card {
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: .875rem;
+    overflow: hidden;
+    background: #fff;
+  }
+  .entity-video-card__thumb {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: #f3f4f6;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .entity-video-card__thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .entity-video-card__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.2);
+    transition: background .2s;
+  }
+  .entity-video-card__play:hover { background: rgba(0,0,0,.35); }
+  .entity-video-card__play svg { width: 3rem; fill: #fff; filter: drop-shadow(0 2px 6px rgba(0,0,0,.4)); }
+  .entity-video-card__embed { display: none; aspect-ratio: 16/9; }
+  .entity-video-card__embed.active { display: block; }
+  .entity-video-card__embed iframe { width: 100%; height: 100%; border: none; }
+  .entity-video-card__caption { padding: .85rem 1rem; font-size: .875rem; }
+  .entity-video-card__author { font-weight: 700; }
+  .entity-video-card__role { color: var(--color-text-muted, #9ca3af); font-size: .8rem; }
+
+  /* Пустой блок */
+  .entity-reviews--empty { display: none; }
+
+  @media (max-width: 640px) {
+    .entity-text-reviews { grid-template-columns: 1fr; }
+    .entity-video-reviews { grid-template-columns: 1fr; }
+  }
+</style>
+
+<!-- Блок текстовых отзывов -->
+<section class="entity-reviews" id="entity-text-reviews-section" aria-labelledby="h2-entity-text-reviews">
+  <div class="entity-reviews__header">
+    <h2 id="h2-entity-text-reviews">Отзывы родителей</h2>
+    <a href="/viktoria/reviews" class="entity-reviews__all-link" id="entity-text-all-link">
+      Все отзывы →
+    </a>
+  </div>
+  <div class="entity-text-reviews" id="entity-text-reviews-grid"></div>
+</section>
+
+<!-- Блок видео отзывов -->
+<section class="entity-reviews" id="entity-video-reviews-section" aria-labelledby="h2-entity-video-reviews">
+  <div class="entity-reviews__header">
+    <h2 id="h2-entity-video-reviews">Видео отзывы</h2>
+    <a href="/viktoria/reviews" class="entity-reviews__all-link" id="entity-video-all-link">
+      Смотреть все →
+    </a>
+  </div>
+  <div class="entity-video-reviews" id="entity-video-reviews-grid"></div>
+</section>
+
+<script>
+(function() {
+  // ── Конфиг блоков (берётся из CMS-переменных страницы) ──────
+  // На реальной странице заменить на Jekyll/Nunjucks переменные:
+  //   {% assign cfg_text  = circle.reviews_text_block %}
+  //   {% assign cfg_video = circle.reviews_video_block %}
+  // Пока читаем из data-атрибутов родительского контейнера.
+
+  const root = document.getElementById('reviews-block-root') || document.currentScript.parentElement;
+
+  const CONTEXT_TYPE = root?.dataset.contextType || 'circle';
+  const CONTEXT_SLUG = root?.dataset.contextSlug || '';
+  const CONTEXT_LOC  = root?.dataset.contextLoc  || '';
+
+  // Дефолтная конфигурация (переопределяется из CMS через data-attrs или SSG vars)
+  const CFG_TEXT = {
+    mode:   root?.dataset.textMode   || 'auto',
+    selected: (root?.dataset.textSelected || '').split(',').map(s => s.trim()).filter(Boolean),
+    limit:  parseInt(root?.dataset.textLimit  || '5'),
+    display: root?.dataset.textDisplay || 'list',
+    sort:   root?.dataset.textSort   || 'date_desc'
+  };
+  const CFG_VIDEO = {
+    mode:   root?.dataset.videoMode   || 'auto',
+    selected: (root?.dataset.videoSelected || '').split(',').map(s => s.trim()).filter(Boolean),
+    limit:  parseInt(root?.dataset.videoLimit  || '3'),
+    sort:   root?.dataset.videoSort   || 'date_desc'
+  };
+
+  // ── Утилиты ────────────────────────────────────────────────────
+  function initials(name) {
+    return (name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+  }
+  function stars(r) {
+    let s = '';
+    for (let i = 1; i <= 5; i++) s += `<span style="color:${i <= r ? '#f59e0b' : '#d1d5db'}">★</span>`;
+    return s;
+  }
+  function fmtDate(d) {
+    if (!d) return '';
+    return new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+  function sortReviews(arr, sortKey) {
+    return [...arr].sort((a, b) => {
+      if (sortKey === 'rating')    return b.rating - a.rating;
+      if (sortKey === 'date_asc')  return new Date(a.date) - new Date(b.date);
+      return new Date(b.date) - new Date(a.date); // date_desc default
+    });
+  }
+
+  // ── Выборка отзывов ────────────────────────────────────────────
+  function pickReviews(all, type, cfg) {
+    let items = all.filter(r => r.is_published && r.type === type);
+
+    if (cfg.mode === 'manual' && cfg.selected.length) {
+      // MANUAL: берём только выбранные slug'и в заданном порядке
+      const map = Object.fromEntries(items.map(r => [r.slug, r]));
+      items = cfg.selected.map(s => map[s]).filter(Boolean);
+    } else {
+      // AUTO: фильтруем по связям текущей страницы
+      items = items.filter(r => {
+        if (CONTEXT_TYPE === 'circle'       && r.related_circle       === CONTEXT_SLUG) return true;
+        if (CONTEXT_TYPE === 'master_class' && r.related_master_class === CONTEXT_SLUG) return true;
+        if (CONTEXT_TYPE === 'event'        && r.related_event        === CONTEXT_SLUG) return true;
+        return false;
+      });
+    }
+
+    items = sortReviews(items, cfg.sort);
+    return items.slice(0, cfg.limit);
+  }
+
+  // ── Рендер текстовых карточек ──────────────────────────────────
+  function renderText(items) {
+    const section = document.getElementById('entity-text-reviews-section');
+    const grid    = document.getElementById('entity-text-reviews-grid');
+    const allLink = document.getElementById('entity-text-all-link');
+
+    if (CONTEXT_SLUG) {
+      allLink.href = `/viktoria/reviews?type=${CONTEXT_TYPE}&loc=${CONTEXT_LOC}`;
+    }
+
+    if (!items.length) {
+      section.style.display = 'none';
+      return;
+    }
+
+    grid.innerHTML = items.map(r => `
+      <article class="entity-review-card"
+        itemscope itemtype="https://schema.org/Review">
+        <meta itemprop="reviewBody" content="${(r.text || '').replace(/"/g,'&quot;')}">
+        <div class="entity-review-card__top">
+          ${r.photo
+            ? `<img class="entity-review-card__avatar" src="${r.photo}" alt="${r.author_name}" loading="lazy" width="36" height="36">`
+            : `<div class="entity-review-card__avatar" aria-hidden="true">${initials(r.author_name)}</div>`}
+          <div>
+            <div class="entity-review-card__name" itemprop="author">${r.author_name || 'Аноним'}</div>
+            <div class="entity-review-card__role">${r.author_role || ''}</div>
+          </div>
+        </div>
+        <div class="entity-review-card__stars"
+          itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating"
+          aria-label="Оценка ${r.rating} из 5">
+          <meta itemprop="ratingValue" content="${r.rating}">
+          <meta itemprop="bestRating" content="5">
+          ${stars(r.rating)}
+        </div>
+        <p class="entity-review-card__text">${r.text || ''}</p>
+        <time class="entity-review-card__date" datetime="${r.date}">${fmtDate(r.date)}</time>
+      </article>
+    `).join('');
+  }
+
+  // ── Рендер видео карточек ──────────────────────────────────────
+  function renderVideo(items) {
+    const section = document.getElementById('entity-video-reviews-section');
+    const grid    = document.getElementById('entity-video-reviews-grid');
+    const allLink = document.getElementById('entity-video-all-link');
+
+    if (CONTEXT_SLUG) {
+      allLink.href = `/viktoria/reviews?type=${CONTEXT_TYPE}&loc=${CONTEXT_LOC}`;
+    }
+
+    if (!items.length) {
+      section.style.display = 'none';
+      return;
+    }
+
+    grid.innerHTML = items.map(r => `
+      <article class="entity-video-card" itemscope itemtype="https://schema.org/Review">
+        <div class="entity-video-card__thumb" id="ethumb-${r.slug}">
+          ${r.video_preview
+            ? `<img src="${r.video_preview}" alt="Видео отзыв — ${r.author_name}" loading="lazy">`
+            : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#9ca3af">Нет превью</div>`
+          }
+          <div class="entity-video-card__play" onclick="entityPlayVideo('${r.slug}', \`${r.video_embed}\`)"
+            role="button" aria-label="Воспроизвести видео">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="entity-video-card__embed" id="eembed-${r.slug}"></div>
+        <div class="entity-video-card__caption">
+          <div class="entity-video-card__author" itemprop="author">${r.author_name || ''}</div>
+          <div class="entity-video-card__role">${r.author_role || ''}</div>
+        </div>
+      </article>
+    `).join('');
+  }
+
+  // ── Воспроизведение видео ──────────────────────────────────────
+  window.entityPlayVideo = function(slug, embed) {
+    document.getElementById(`ethumb-${slug}`).style.display = 'none';
+    const el = document.getElementById(`eembed-${slug}`);
+    el.innerHTML = embed;
+    el.classList.add('active');
+  };
+
+  // ── Загрузка и запуск ──────────────────────────────────────────
+  async function init() {
+    let all = [];
+    try {
+      const res = await fetch('/viktoria/reviews.json');
+      if (res.ok) all = await res.json();
+    } catch { /* данных нет — секции скроются сами */ }
+
+    renderText(pickReviews(all, 'text',  CFG_TEXT));
+    renderVideo(pickReviews(all, 'video', CFG_VIDEO));
+  }
+
+  init();
+})();
+</script>
