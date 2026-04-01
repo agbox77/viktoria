@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Отзывы родителей и учеников — ДЮЦ «Виктория»</title>
+  <meta name="description" content="Отзывы родителей и учеников о кружках, мастер-классах и праздниках ДЮЦ «Виктория». Читайте, что говорят о нас, и оставьте свой отзыв.">
+  <link rel="canonical" href="https://agbox77.github.io/viktoria/reviews">
+  <meta property="og:title" content="Отзывы — ДЮЦ «Виктория»">
+  <meta property="og:description" content="Отзывы родителей и учеников о кружках, мастер-классах и праздниках ДЮЦ «Виктория».">
+  <meta property="og:image" content="https://agbox77.github.io/viktoria/Victoria_logo-02.png">
+  <meta property="og:url" content="https://agbox77.github.io/viktoria/reviews">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="ДЮЦ «Виктория»">
+
+  <!-- Schema.org: ItemList of Reviews -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Отзывы о ДЮЦ «Виктория»",
+    "description": "Отзывы родителей и учеников о кружках, мастер-классах и праздниках",
+    "url": "https://agbox77.github.io/viktoria/reviews"
+  }
+  </script>
+
+  <link rel="stylesheet" href="/viktoria/assets/css/style.css">
+  <style>
+    /* ── Страница отзывов ── */
+    .reviews-page { padding: 2rem 0 4rem; }
+
+    /* Фильтры */
+    .reviews-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-bottom: 2.5rem;
+      align-items: center;
+    }
+    .reviews-filters label {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--color-text-muted, #6b7280);
+      margin-right: .25rem;
+    }
+    .filter-group { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .filter-btn {
+      padding: .4rem 1rem;
+      border: 1.5px solid var(--color-border, #e5e7eb);
+      border-radius: 2rem;
+      background: transparent;
+      font-size: .875rem;
+      cursor: pointer;
+      transition: all .2s;
+      color: var(--color-text, #111);
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--color-accent, #e63946);
+      color: #fff;
+      border-color: var(--color-accent, #e63946);
+    }
+    .filter-sep {
+      width: 1px;
+      height: 2rem;
+      background: var(--color-border, #e5e7eb);
+      margin: 0 .25rem;
+    }
+
+    /* Счётчик результатов */
+    .reviews-count {
+      font-size: .875rem;
+      color: var(--color-text-muted, #6b7280);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── ТЕКСТОВЫЕ ОТЗЫВЫ ── */
+    .section-reviews { margin-bottom: 3.5rem; }
+    .section-reviews h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .text-reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .review-card {
+      background: #fff;
+      border: 1px solid var(--color-border, #e5e7eb);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      transition: box-shadow .2s;
+    }
+    .review-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+
+    .review-card__header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .review-card__avatar {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--color-accent-light, #fde8ea);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-accent, #e63946);
+      flex-shrink: 0;
+    }
+    .review-card__meta { flex: 1; min-width: 0; }
+    .review-card__name {
+      font-weight: 700;
+      font-size: .95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .review-card__role {
+      font-size: .8rem;
+      color: var(--color-text-muted, #6b7280);
+    }
+
+    .review-card__stars {
+      display: flex;
+      gap: .15rem;
+      font-size: 1rem;
+    }
+    .star { color: #f59e0b; }
+    .star.empty { color: #d1d5db; }
+
+    .review-card__text {
+      font-size: .9rem;
+      line-height: 1.65;
+      color: var(--color-text, #1f2937);
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .review-card__text.expanded { -webkit-line-clamp: unset; }
+    .review-card__expand {
+      font-size: .8rem;
+      color: var(--color-accent, #e63946);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      text-align: left;
+    }
+
+    .review-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: auto;
+      padding-top: .75rem;
+      border-top: 1px solid var(--color-border, #f3f4f6);
+    }
+    .review-card__tag {
+      font-size: .75rem;
+      padding: .2rem .6rem;
+      border-radius: 1rem;
+      background: var(--color-accent-light, #fde8ea);
+      color: var(--color-accent, #e63946);
+      font-weight: 600;
+    }
+    .review-card__date {
+      font-size: .75rem;
+      color: var(--color-text-muted, #9ca3af);
+    }
+
+    /* ── ВИДЕО ОТЗЫВЫ ── */
+    .video-reviews-slider {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .video-review-card {
+      background: #fff;
+      border: 1px solid var(--color-border, #e5e7eb);
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: box-shadow .2s;
+    }
+    .video-review-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); }
+
+    .video-review-card__thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: #f3f4f6;
+      overflow: hidden;
+    }
+    .video-review-card__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .video-review-card__play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.25);
+      cursor: pointer;
+    }
+    .video-review-card__play svg {
+      width: 3.5rem;
+      height: 3.5rem;
+      fill: #fff;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.4));
+      transition: transform .2s;
+    }
+    .video-review-card__play:hover svg { transform: scale(1.1); }
+
+    /* iframe разворачивается когда кликнули на превью */
+    .video-review-card__embed {
+      display: none;
+      aspect-ratio: 16/9;
+    }
+    .video-review-card__embed.active { display: block; }
+    .video-review-card__embed iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-review-card__body { padding: 1rem 1.25rem 1.25rem; }
+    .video-review-card__name { font-weight: 700; font-size: .95rem; }
+    .video-review-card__caption {
+      font-size: .85rem;
+      color: var(--color-text-muted, #6b7280);
+      margin-top: .25rem;
+    }
+    .video-review-card__footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: .75rem;
+    }
+
+    /* Кнопка «Показать ещё» */
+    .show-more-wrap { text-align: center; margin-top: 1.75rem; }
+    .btn-show-more {
+      padding: .65rem 2rem;
+      border: 2px solid var(--color-accent, #e63946);
+      border-radius: 2rem;
+      background: transparent;
+      color: var(--color-accent, #e63946);
+      font-weight: 600;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-show-more:hover {
+      background: var(--color-accent, #e63946);
+      color: #fff;
+    }
+
+    /* Пустой результат */
+    .reviews-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--color-text-muted, #9ca3af);
+    }
+    .reviews-empty svg { width: 3rem; margin-bottom: 1rem; opacity: .4; }
+
+    @media (max-width: 640px) {
+      .reviews-filters { gap: .5rem; }
+      .filter-sep { display: none; }
+      .text-reviews-grid { grid-template-columns: 1fr; }
+      .video-reviews-slider { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!--#include virtual="/viktoria/header.html" -->
+
+  <main id="main-content">
+    <div class="container reviews-page">
+
+      <!-- Хлебные крошки -->
+      <nav class="breadcrumb" aria-label="Хлебные крошки">
+        <ol>
+          <li><a href="/viktoria/">Главная</a></li>
+          <li aria-current="page">Отзывы</li>
+        </ol>
+      </nav>
+
+      <h1 id="reviews-h1">Отзывы о ДЮЦ «Виктория»</h1>
+      <p class="page-intro">Читайте, что говорят родители и ученики о наших кружках, мастер-классах и праздниках.</p>
+
+      <!-- ── ФИЛЬТРЫ ─────────────────────────────── -->
+      <div class="reviews-filters" role="group" aria-label="Фильтры отзывов">
+
+        <div class="filter-group" role="group" aria-label="Категория">
+          <label>Раздел:</label>
+          <button class="filter-btn active" data-filter-cat="all">Все</button>
+          <button class="filter-btn" data-filter-cat="circle">Кружки</button>
+          <button class="filter-btn" data-filter-cat="master_class">Мастер-классы</button>
+          <button class="filter-btn" data-filter-cat="event">Праздники</button>
+        </div>
+
+        <div class="filter-sep" role="separator"></div>
+
+        <div class="filter-group" role="group" aria-label="Филиал">
+          <label>Филиал:</label>
+          <button class="filter-btn active" data-filter-loc="all">Все</button>
+          <button class="filter-btn" data-filter-loc="gazoprovod">Газопровод</button>
+          <button class="filter-btn" data-filter-loc="nagatinskaya">Юный техник</button>
+          <button class="filter-btn" data-filter-loc="annino">Аннино</button>
+          <button class="filter-btn" data-filter-loc="shcherbinka">Щербинка</button>
+        </div>
+
+      </div>
+
+      <p class="reviews-count" id="reviews-count" aria-live="polite"></p>
+
+      <!-- ── ТЕКСТОВЫЕ ОТЗЫВЫ ───────────────────── -->
+      <section class="section-reviews" aria-labelledby="h2-text-reviews">
+        <h2 id="h2-text-reviews">Отзывы родителей</h2>
+        <div class="text-reviews-grid" id="text-reviews-grid">
+          <!-- JS рендерит карточки -->
+        </div>
+        <div class="show-more-wrap" id="show-more-text-wrap" hidden>
+          <button class="btn-show-more" id="show-more-text">Показать ещё отзывы</button>
+        </div>
+      </section>
+
+      <!-- ── ВИДЕО ОТЗЫВЫ ───────────────────────── -->
+      <section class="section-reviews" aria-labelledby="h2-video-reviews">
+        <h2 id="h2-video-reviews">Видео отзывы</h2>
+        <div class="video-reviews-slider" id="video-reviews-grid">
+          <!-- JS рендерит карточки -->
+        </div>
+        <div class="show-more-wrap" id="show-more-video-wrap" hidden>
+          <button class="btn-show-more" id="show-more-video">Показать ещё видео</button>
+        </div>
+      </section>
+
+    </div><!-- /.container -->
+  </main>
+
+  <!--#include virtual="/viktoria/footer.html" -->
+
+  <script>
+  // ═══════════════════════════════════════════════════════
+  //  reviews.js — встроен в страницу
+  //  Данные загружаются из _data/reviews/*.json (или YAML→JSON через Jekyll/SSG)
+  //  Пока используем fetch; при переезде на Netlify — статический JSON
+  // ═══════════════════════════════════════════════════════
+
+  const LIMITS = { text: 6, video: 3 };          // начальный лимит показа
+  const STEP   = { text: 6, video: 3 };           // шаг «Показать ещё»
+
+  let allReviews  = [];
+  let shown       = { text: LIMITS.text, video: LIMITS.video };
+  let activeFilters = { cat: 'all', loc: 'all' };
+
+  // ── 1. Загрузка данных ──────────────────────────────────
+  async function loadReviews() {
+    try {
+      // Jekyll/Sveltia генерирует этот JSON из _data/reviews/
+      const res = await fetch('/viktoria/reviews.json');
+      if (!res.ok) throw new Error('not found');
+      allReviews = await res.json();
+    } catch {
+      // Фолбэк — демо-данные для разработки
+      allReviews = DEMO_REVIEWS;
+    }
+    render();
+  }
+
+  // ── 2. Фильтрация ───────────────────────────────────────
+  function getFiltered() {
+    return allReviews.filter(r => {
+      if (!r.is_published) return false;
+      if (activeFilters.cat !== 'all' && r.category !== activeFilters.cat) return false;
+      if (activeFilters.loc !== 'all' && r.related_subdivision !== activeFilters.loc) return false;
+      return true;
+    });
+  }
+
+  // ── 3. Рендер ───────────────────────────────────────────
+  function render() {
+    const filtered   = getFiltered();
+    const textItems  = filtered.filter(r => r.type === 'text');
+    const videoItems = filtered.filter(r => r.type === 'video');
+
+    renderText(textItems);
+    renderVideo(videoItems);
+    updateCount(filtered.length);
+  }
+
+  function stars(rating) {
+    let s = '';
+    for (let i = 1; i <= 5; i++) {
+      s += `<span class="star${i > rating ? ' empty' : ''}">★</span>`;
+    }
+    return s;
+  }
+
+  function initials(name) {
+    return (name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+  }
+
+  function catLabel(cat) {
+    const map = { circle: 'Кружок', master_class: 'Мастер-класс', event: 'Праздник' };
+    return map[cat] || cat;
+  }
+
+  function fmtDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function renderText(items) {
+    const grid = document.getElementById('text-reviews-grid');
+    const btn  = document.getElementById('show-more-text-wrap');
+
+    const visible = items.slice(0, shown.text);
+
+    if (visible.length === 0) {
+      grid.innerHTML = `<div class="reviews-empty" style="grid-column:1/-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M8 9h8M8 13h5m-9 7V5a2 2 0 012-2h10a2 2 0 012 2v14l-4-2-4 2-4-2-2 2z"/>
+        </svg>
+        <p>Текстовых отзывов по выбранным фильтрам не найдено</p>
+      </div>`;
+      btn.hidden = true;
+      return;
+    }
+
+    grid.innerHTML = visible.map(r => `
+      <article class="review-card"
+        itemscope itemtype="https://schema.org/Review"
+        data-cat="${r.category}" data-loc="${r.related_subdivision || ''}">
+        <meta itemprop="reviewBody" content="${(r.text || '').replace(/"/g, '&quot;')}">
+
+        <div class="review-card__header">
+          ${r.photo
+            ? `<img class="review-card__avatar" src="${r.photo}" alt="${r.author_name}" loading="lazy" width="44" height="44">`
+            : `<div class="review-card__avatar" aria-hidden="true">${initials(r.author_name)}</div>`
+          }
+          <div class="review-card__meta">
+            <div class="review-card__name" itemprop="author">${r.author_name || 'Аноним'}</div>
+            <div class="review-card__role">${r.author_role || ''}</div>
+          </div>
+        </div>
+
+        <div class="review-card__stars" aria-label="Оценка: ${r.rating} из 5" itemprop="reviewRating"
+          itemscope itemtype="https://schema.org/Rating">
+          <meta itemprop="ratingValue" content="${r.rating}">
+          <meta itemprop="bestRating" content="5">
+          ${stars(r.rating)}
+        </div>
+
+        <p class="review-card__text" id="rt-${r.slug}">${r.text || ''}</p>
+        <button class="review-card__expand" onclick="toggleExpand('rt-${r.slug}', this)" aria-expanded="false">
+          Читать полностью
+        </button>
+
+        <div class="review-card__footer">
+          <span class="review-card__tag">${catLabel(r.category)}</span>
+          <time class="review-card__date" datetime="${r.date}">${fmtDate(r.date)}</time>
+        </div>
+      </article>
+    `).join('');
+
+    btn.hidden = items.length <= shown.text;
+  }
+
+  function renderVideo(items) {
+    const grid = document.getElementById('video-reviews-grid');
+    const btn  = document.getElementById('show-more-video-wrap');
+
+    const visible = items.slice(0, shown.video);
+
+    if (visible.length === 0) {
+      grid.innerHTML = `<div class="reviews-empty" style="grid-column:1/-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/>
+        </svg>
+        <p>Видео отзывов по выбранным фильтрам не найдено</p>
+      </div>`;
+      btn.hidden = true;
+      return;
+    }
+
+    grid.innerHTML = visible.map(r => `
+      <article class="video-review-card"
+        itemscope itemtype="https://schema.org/Review"
+        data-cat="${r.category}" data-loc="${r.related_subdivision || ''}">
+
+        <div class="video-review-card__thumb" id="thumb-${r.slug}">
+          ${r.video_preview
+            ? `<img src="${r.video_preview}" alt="Видео отзыв — ${r.author_name}" loading="lazy">`
+            : `<div style="width:100%;height:100%;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:#9ca3af">Нет превью</div>`
+          }
+          <div class="video-review-card__play" onclick="playVideo('${r.slug}', \`${r.video_embed}\`)" role="button" aria-label="Воспроизвести видео отзыв">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="video-review-card__embed" id="embed-${r.slug}"></div>
+
+        <div class="video-review-card__body">
+          <div class="video-review-card__name" itemprop="author">${r.author_name || ''}</div>
+          <div class="video-review-card__caption">${r.author_role || ''}</div>
+          <div class="video-review-card__footer">
+            <span class="review-card__tag">${catLabel(r.category)}</span>
+            <time class="review-card__date" datetime="${r.date}">${fmtDate(r.date)}</time>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    btn.hidden = items.length <= shown.video;
+  }
+
+  function updateCount(total) {
+    document.getElementById('reviews-count').textContent =
+      total === 0 ? '' : `Найдено отзывов: ${total}`;
+  }
+
+  // ── 4. Интерактив ───────────────────────────────────────
+  function toggleExpand(id, btn) {
+    const el = document.getElementById(id);
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    el.classList.toggle('expanded', !expanded);
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.textContent = expanded ? 'Читать полностью' : 'Свернуть';
+  }
+
+  function playVideo(slug, embed) {
+    document.getElementById(`thumb-${slug}`).style.display = 'none';
+    const embedEl = document.getElementById(`embed-${slug}`);
+    embedEl.innerHTML = embed;
+    embedEl.classList.add('active');
+  }
+
+  // ── 5. Фильтры: клики ───────────────────────────────────
+  document.querySelectorAll('[data-filter-cat]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-filter-cat]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilters.cat = btn.dataset.filterCat;
+      shown.text  = LIMITS.text;
+      shown.video = LIMITS.video;
+      render();
+    });
+  });
+
+  document.querySelectorAll('[data-filter-loc]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-filter-loc]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilters.loc = btn.dataset.filterLoc;
+      shown.text  = LIMITS.text;
+      shown.video = LIMITS.video;
+      render();
+    });
+  });
+
+  // Кнопки «Показать ещё»
+  document.getElementById('show-more-text').addEventListener('click', () => {
+    shown.text += STEP.text;
+    render();
+  });
+  document.getElementById('show-more-video').addEventListener('click', () => {
+    shown.video += STEP.video;
+    render();
+  });
+
+  // URL-параметры: /reviews?type=circle&loc=gazoprovod
+  (function initFromURL() {
+    const p = new URLSearchParams(location.search);
+    if (p.get('type')) {
+      const b = document.querySelector(`[data-filter-cat="${p.get('type')}"]`);
+      if (b) b.click();
+    }
+    if (p.get('loc')) {
+      const b = document.querySelector(`[data-filter-loc="${p.get('loc')}"]`);
+      if (b) b.click();
+    }
+  })();
+
+  // ── 6. Демо-данные (удалить после наполнения CMS) ───────
+  const DEMO_REVIEWS = [
+    {
+      slug: "demo-keramika-ivanova",
+      type: "text",
+      category: "circle",
+      related_circle: "keramika",
+      related_subdivision: "gazoprovod",
+      author_name: "Анна Иванова",
+      author_role: "мама ученицы",
+      rating: 5,
+      text: "Дочь ходит на гончарное дело уже второй год. Педагог удивительный — терпеливый, вдохновляющий, умеет найти подход к каждому ребёнку. Первая работа — маленькая чашка — до сих пор стоит на почётном месте. Рекомендую всем, кто хочет, чтобы ребёнок занимался настоящим творчеством!",
+      date: "2026-02-15",
+      is_published: true
+    },
+    {
+      slug: "demo-tancy-petrov",
+      type: "text",
+      category: "circle",
+      related_circle: "tancy",
+      related_subdivision: "annino",
+      author_name: "Сергей Петров",
+      author_role: "папа ученика",
+      rating: 5,
+      text: "Сын занимается танцами полгода. За это время стал намного пластичнее, увереннее держится на сцене. Педагог умеет мотивировать детей, занятия всегда разнообразные. Очень довольны!",
+      date: "2026-01-20",
+      is_published: true
+    },
+    {
+      slug: "demo-prazdnik-sidorova",
+      type: "text",
+      category: "event",
+      related_subdivision: "nagatinskaya",
+      author_name: "Мария Сидорова",
+      author_role: "мама именинника",
+      rating: 5,
+      text: "Заказывали день рождения для сына на 8 лет. Всё прошло замечательно: аниматоры были профессиональные, дети были в восторге всё два часа. Зал украшен красиво, угощение вкусное. Организаторам огромное спасибо!",
+      date: "2026-03-05",
+      is_published: true
+    },
+    {
+      slug: "demo-mk-goncharstvo",
+      type: "text",
+      category: "master_class",
+      related_subdivision: "gazoprovod",
+      author_name: "Елена Кузнецова",
+      author_role: "участница мастер-класса",
+      rating: 5,
+      text: "Была на мастер-классе по гончарному делу впервые в жизни. Ожидала, что будет сложно, но педагог объяснял каждый шаг очень понятно. Через два часа у меня в руках была настоящая тарелка! Безумно приятные эмоции.",
+      date: "2026-02-28",
+      is_published: true
+    },
+    {
+      slug: "demo-robot-mironov",
+      type: "text",
+      category: "circle",
+      related_circle: "robototekhnika",
+      related_subdivision: "shcherbinka",
+      author_name: "Дмитрий Миронов",
+      author_role: "папа ученика",
+      rating: 4,
+      text: "Сыну 11 лет, занимается робототехникой. Уже собрал несколько роботов и участвовал в городском конкурсе. Занятия интересные, программа насыщенная. Единственное пожелание — хотелось бы чуть больше времени на каждую тему.",
+      date: "2026-01-10",
+      is_published: true
+    },
+    {
+      slug: "demo-cirk-orlova",
+      type: "text",
+      category: "circle",
+      related_circle: "cirk",
+      related_subdivision: "annino",
+      author_name: "Ольга Орлова",
+      author_role: "мама ученицы",
+      rating: 5,
+      text: "Дочь занимается акробатикой год. За это время сильно выросла физически — стала гибкой, сильной, научилась стоять на руках. Педагог внимательный к каждому ребёнку, следит за техникой безопасности.",
+      date: "2025-12-18",
+      is_published: true
+    },
+    {
+      slug: "demo-video-keramika",
+      type: "video",
+      category: "circle",
+      related_circle: "keramika",
+      related_subdivision: "gazoprovod",
+      author_name: "Семья Ивановых",
+      author_role: "Кружок «Керамика»",
+      video_embed: `<iframe src="https://vk.com/video_ext.php?oid=-1&id=456239018&hash=0" width="100%" height="100%" allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>`,
+      video_preview: "/viktoria/static/images/reviews/video-preview-keramika.jpg",
+      date: "2026-02-10",
+      is_published: true
+    },
+    {
+      slug: "demo-video-prazdnik",
+      type: "video",
+      category: "event",
+      related_subdivision: "nagatinskaya",
+      author_name: "Семья Петровых",
+      author_role: "День рождения в «Виктории»",
+      video_embed: `<iframe src="https://vk.com/video_ext.php?oid=-1&id=456239019&hash=0" width="100%" height="100%" allow="autoplay; encrypted-media; fullscreen; picture-in-picture"></iframe>`,
+      video_preview: "/viktoria/static/images/reviews/video-preview-prazdnik.jpg",
+      date: "2026-01-25",
+      is_published: true
+    }
+  ];
+
+  // ── Запуск ──────────────────────────────────────────────
+  loadReviews();
+  </script>
+
+</body>
+</html>
