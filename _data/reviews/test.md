@@ -32,5 +32,5 @@ reviews_video_block:
   limit: 3
   sort: date_desc
   show_more: false
-page_reviews: reviews_block.html
+page_reviews: Отзыв
 ---
