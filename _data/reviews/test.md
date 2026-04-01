@@ -1,23 +1,23 @@
 ---
-title: TEST
+title: Отличный празник
 type: text
-category: master_class
+category: event
 relations:
   related_circle: ''
   related_master_class: ''
-  related_event: ''
+  related_event: den-rogdeniya
   related_teacher: ''
   related_subdivision: ''
-author_name: NAME
-author_role: mama
+author_name: Иван Иванович
+author_role: папа Коли
 photo: ''
 rating: 5
-text: dfdf
+text: Это был лучший праздник в моей жизни!
 video_embed: ''
 video_preview: ''
 date: 2026-04-01
 is_published: true
-is_featured: false
+is_featured: true
 priority: 10
 reviews_text_block:
   mode: auto
