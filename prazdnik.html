@@ -300,79 +300,38 @@
       </div>
     </aside>
   </div>
-<!-- ══ ОТЗЫВЫ О ПРАЗДНИКАХ ══════════════════════════════════════ -->
-<section style="max-width:1100px;margin:0 auto 80px;padding:0 24px" aria-labelledby="h2-prazdnik-reviews">
+  <!-- ══ ОТЗЫВЫ О ПРАЗДНИКАХ ══════════════════════════════════════ -->
+  <section style="max-width:1100px;margin:0 auto 80px;padding:0 24px" aria-labelledby="h2-prazdnik-reviews">
 
-  <!-- Текстовые отзывы -->
-  <div style="margin-bottom:48px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
-      <h2 id="h2-prazdnik-reviews" style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin:0">
-        Отзывы о праздниках
-      </h2>
-      <a href="/viktoria/reviews.html?type=event"
-         style="font-size:14px;font-weight:600;color:var(--accent);text-decoration:none">
-        Все отзывы →
-      </a>
+    <!-- Текстовые отзывы -->
+    <div id="prazdnik-text-section" style="margin-bottom:48px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+        <h2 id="h2-prazdnik-reviews" style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin:0">
+          Отзывы о праздниках
+        </h2>
+        <a href="/viktoria/reviews.html?type=event"
+           style="font-size:14px;font-weight:600;color:var(--accent);text-decoration:none">
+          Все отзывы →
+        </a>
+      </div>
+      <div id="prazdnik-text-reviews" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px"></div>
     </div>
-    <div id="prazdnik-text-reviews" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px"></div>
-  </div>
 
-  <!-- Видео отзывы -->
-  <div id="prazdnik-video-section">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
-      <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin:0">
-        Видео отзывы
-      </h2>
-      <a href="/viktoria/reviews.html?type=event"
-         style="font-size:14px;font-weight:600;color:var(--accent);text-decoration:none">
-        Смотреть все →
-      </a>
+    <!-- Видео отзывы -->
+    <div id="prazdnik-video-section">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+        <h2 style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin:0">
+          Видео отзывы
+        </h2>
+        <a href="/viktoria/reviews.html?type=event"
+           style="font-size:14px;font-weight:600;color:var(--accent);text-decoration:none">
+          Смотреть все →
+        </a>
+      </div>
+      <div id="prazdnik-video-reviews" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px"></div>
     </div>
-    <div id="prazdnik-video-reviews" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px"></div>
-  </div>
 
-</section>
-
-<script>
-(function () {
-  // ── настройки блока ──────────────────────────────────────────
-  const MODE_TEXT  = 'auto';   // 'auto' | 'manual'
-  const MODE_VIDEO = 'auto';
-  const MANUAL_TEXT  = [];     // при manual — slug'и через запятую: ['slug-1','slug-2']
-  const MANUAL_VIDEO = [];
-  const LIMIT_TEXT  = 6;
-  const LIMIT_VIDEO = 3;
-
-  // ── утилиты ──────────────────────────────────────────────────
-  function initials(n) { return (n||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
-  function stars(r) {
-    let s=''; for(let i=1;i<=5;i++) s+=`<span style="color:${i<=r?'#f59e0b':'#d1d5db'}">★</span>`; return s;
-  }
-  function fmtDate(d) {
-    if (!d) return '';
-    return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});
-  }
-
-  // ── выборка ───────────────────────────────────────────────────
-  function pick(all, type, mode, manual, limit) {
-    let items = all.filter(r => r.is_published && r.type === type);
-    if (mode === 'manual' && manual.length) {
-      const map = Object.fromEntries(items.map(r=>[r.slug,r]));
-      items = manual.map(s=>map[s]).filter(Boolean);
-    } else {
-      // AUTO: category === 'event'
-      items = items.filter(r => r.category === 'event');
-    }
-    return items.sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0, limit);
-  }
-
-  // ── рендер текстовых ─────────────────────────────────────────
-  function renderText(items) {
-    const grid = document.getElementById('prazdnik-text-reviews');
-    if (!items.length) { grid.closest('div').style.display='none'; return; }
-    grid.innerHTML = items.map(r=>`
-      <article itemscope itemtype="https://schema.org/Review"
-        style
+  </section>
 </main>
 
 <footer class="footer">
@@ -573,5 +532,115 @@ document.addEventListener('keydown', e => {
 renderServices();
 update();
 </script>
+
+<!-- ══ JS БЛОКА ОТЗЫВОВ ══════════════════════════════════════════ -->
+<script>
+(function () {
+  const MODE_TEXT  = 'auto';  // 'auto' | 'manual'
+  const MODE_VIDEO = 'auto';
+  const MANUAL_TEXT  = [];    // при manual: ['slug-1', 'slug-2']
+  const MANUAL_VIDEO = [];
+  const LIMIT_TEXT  = 6;
+  const LIMIT_VIDEO = 3;
+
+  function initials(n) { return (n||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+  function stars(r) {
+    let s='';
+    for (let i=1;i<=5;i++) s+='<span style="color:'+(i<=r?'#f59e0b':'#d1d5db')+'">★</span>';
+    return s;
+  }
+  function fmtDate(d) {
+    if (!d) return '';
+    return new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});
+  }
+
+  function pick(all, type, mode, manual, limit) {
+    let items = all.filter(function(r){ return r.is_published && r.type===type; });
+    if (mode==='manual' && manual.length) {
+      const map = {};
+      items.forEach(function(r){ map[r.slug]=r; });
+      items = manual.map(function(s){ return map[s]; }).filter(Boolean);
+    } else {
+      items = items.filter(function(r){ return r.category==='event'; });
+    }
+    items.sort(function(a,b){ return new Date(b.date)-new Date(a.date); });
+    return items.slice(0, limit);
+  }
+
+  function renderText(items) {
+    const grid = document.getElementById('prazdnik-text-reviews');
+    const section = document.getElementById('prazdnik-text-section');
+    if (!items.length) { section.style.display='none'; return; }
+    grid.innerHTML = items.map(function(r){
+      const avatar = r.photo
+        ? '<img src="'+r.photo+'" alt="'+r.author_name+'" loading="lazy" width="40" height="40" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0">'
+        : '<div style="width:40px;height:40px;border-radius:50%;background:rgba(232,146,26,0.12);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--accent);flex-shrink:0">'+initials(r.author_name)+'</div>';
+      return '<article itemscope itemtype="https://schema.org/Review" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px">'
+        +'<meta itemprop="reviewBody" content="'+((r.text||'').replace(/"/g,'&quot;'))+'">'
+        +'<div style="display:flex;align-items:center;gap:10px">'
+          +avatar
+          +'<div>'
+            +'<div style="font-weight:700;font-size:14px" itemprop="author">'+( r.author_name||'Аноним')+'</div>'
+            +'<div style="font-size:12px;color:var(--muted)">'+( r.author_role||'')+'</div>'
+          +'</div>'
+        +'</div>'
+        +'<div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" aria-label="Оценка '+r.rating+' из 5">'
+          +'<meta itemprop="ratingValue" content="'+r.rating+'">'
+          +'<meta itemprop="bestRating" content="5">'
+          +stars(r.rating)
+        +'</div>'
+        +'<p style="font-size:14px;line-height:1.65;color:var(--text);margin:0">'+( r.text||'')+'</p>'
+        +'<time style="font-size:12px;color:var(--muted)" datetime="'+r.date+'">'+fmtDate(r.date)+'</time>'
+      +'</article>';
+    }).join('');
+  }
+
+  function renderVideo(items) {
+    const grid = document.getElementById('prazdnik-video-reviews');
+    const section = document.getElementById('prazdnik-video-section');
+    if (!items.length) { section.style.display='none'; return; }
+    grid.innerHTML = items.map(function(r){
+      const thumbId = 'vthumb-'+r.slug;
+      const embedId = 'vembed-'+r.slug;
+      const preview = r.video_preview
+        ? '<img src="'+r.video_preview+'" alt="Видео отзыв — '+r.author_name+'" loading="lazy" style="width:100%;height:100%;object-fit:cover">'
+        : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted)">Нет превью</div>';
+      return '<article itemscope itemtype="https://schema.org/Review" style="border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--surface)">'
+        +'<div id="'+thumbId+'" style="position:relative;aspect-ratio:16/9;background:#f3f4f6;overflow:hidden">'
+          +preview
+          +'<div onclick="prazdnikPlay(\''+r.slug+'\',`'+r.video_embed+'`)" role="button" aria-label="Воспроизвести видео" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.2);cursor:pointer">'
+            +'<svg width="52" height="52" viewBox="0 0 24 24" fill="white" style="filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))"><path d="M8 5v14l11-7z"/></svg>'
+          +'</div>'
+        +'</div>'
+        +'<div id="'+embedId+'" style="display:none;aspect-ratio:16/9"></div>'
+        +'<div style="padding:14px 16px">'
+          +'<div style="font-weight:700;font-size:14px" itemprop="author">'+( r.author_name||'')+'</div>'
+          +'<div style="font-size:12px;color:var(--muted);margin-top:2px">'+( r.author_role||'')+'</div>'
+        +'</div>'
+      +'</article>';
+    }).join('');
+  }
+
+  window.prazdnikPlay = function(slug, embed) {
+    const thumb = document.getElementById('vthumb-'+slug);
+    const embedEl = document.getElementById('vembed-'+slug);
+    if (thumb) thumb.style.display = 'none';
+    if (embedEl) { embedEl.innerHTML = embed; embedEl.style.display = 'block'; }
+  };
+
+  async function init() {
+    let all = [];
+    try {
+      const res = await fetch('/viktoria/reviews.json');
+      if (res.ok) all = await res.json();
+    } catch(e) { /* нет данных — секции скроются */ }
+    renderText(pick(all,'text', MODE_TEXT,  MANUAL_TEXT,  LIMIT_TEXT));
+    renderVideo(pick(all,'video',MODE_VIDEO, MANUAL_VIDEO, LIMIT_VIDEO));
+  }
+
+  init();
+})();
+</script>
+
 </body>
 </html>
