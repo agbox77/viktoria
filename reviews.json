@@ -1,1 +1,24 @@
-
+[
+  {
+    "slug": "prazdnik-den-rozhdeniya-demo",
+    "title": "Отзыв о дне рождения",
+    "type": "text",
+    "category": "event",
+    "related_event": "den-rogdeniya",
+    "related_circle": "",
+    "related_master_class": "",
+    "related_teacher": "",
+    "related_subdivision": "",
+    "author_name": "Мария Сидорова",
+    "author_role": "мама именинника",
+    "photo": "",
+    "rating": 5,
+    "text": "Заказывали день рождения для сына на 8 лет. Аниматоры были профессиональные, дети в восторге всё два часа. Зал украшен красиво, организаторам огромное спасибо!",
+    "video_embed": "",
+    "video_preview": "",
+    "date": "2026-03-05",
+    "is_published": true,
+    "is_featured": false,
+    "priority": 10
+  }
+]
