@@ -17,817 +17,824 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/viktoria/css/style.css">
+  <script src="circles_data.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Manrope', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+    body { font-family: 'Manrope', sans-serif; background: var(--bg,#faf7f2); color: var(--text,#2a1f0e); min-height: 100vh; overflow-x: hidden; }
 
-    /* TOPBAR */
-    .topbar { background:#fff; border-bottom:1px solid var(--border); padding:0 32px; display:flex; align-items:center; justify-content:space-between; height:72px; position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(60,40,10,0.06); }
+    /* ── TOPBAR ─────────────────────────────────────── */
+    .topbar { background:#fff; border-bottom:1px solid var(--border,#e8e0d5); padding:0 32px; display:flex; align-items:center; justify-content:space-between; height:72px; position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(60,40,10,.06); }
     .topbar-logo { display:flex; align-items:center; gap:14px; text-decoration:none; }
     .topbar-logo img { height:48px; width:auto; }
     .topbar-name { display:flex; flex-direction:column; line-height:1.2; }
     .topbar-name strong { font-size:15px; font-weight:700; color:var(--text); font-family:'Playfair Display',serif; }
-    .topbar-name span { font-size:11px; color:var(--muted); font-weight:500; }
-    .topbar-badge { font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--accent); background:rgba(232,146,26,0.1); border:1px solid rgba(232,146,26,0.2); border-radius:6px; padding:4px 10px; }
+    .topbar-name span { font-size:11px; color:var(--muted,#8a7a68); font-weight:500; }
+    .topbar-badge { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent,#e8921a); background:rgba(232,146,26,.1); border:1px solid rgba(232,146,26,.2); border-radius:6px; padding:4px 10px; }
 
-    /* HERO */
-    .hero { position:relative; padding:72px 24px 56px; text-align:center; overflow:hidden; }
-    .hero::before { content:''; position:absolute; inset:0; pointer-events:none; background: radial-gradient(ellipse 90% 70% at 50% -5%,rgba(232,146,26,0.12) 0%,transparent 65%), radial-gradient(ellipse 40% 40% at 15% 80%,rgba(90,171,122,0.08) 0%,transparent 60%), radial-gradient(ellipse 35% 40% at 85% 70%,rgba(155,121,168,0.08) 0%,transparent 60%); }
-    .hero-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); background:rgba(232,146,26,0.1); border:1px solid rgba(232,146,26,0.2); border-radius:100px; padding:6px 16px; margin-bottom:24px; }
-    .hero-title { font-family:'Playfair Display',serif; font-size:clamp(38px,7vw,72px); font-weight:900; line-height:0.97; letter-spacing:-0.02em; margin-bottom:20px; color:var(--text); }
-    .hero-title span { background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .hero-sub { font-size:16px; color:var(--muted); max-width:520px; margin:0 auto 36px; line-height:1.7; }
-    .hero-chips { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-bottom:40px; }
-    .hero-chip { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:100px; font-size:12px; font-weight:600; border:1px solid var(--border); background:var(--surface); color:var(--muted); }
-    .hero-chip.orange { border-color:rgba(232,146,26,0.25); color:var(--accent); background:rgba(232,146,26,0.06); }
-    .hero-chip.green  { border-color:rgba(61,138,92,0.25); color:var(--green2); background:rgba(61,138,92,0.06); }
-    .hero-chip.lilac  { border-color:rgba(122,88,137,0.25); color:var(--lilac2); background:rgba(122,88,137,0.06); }
+    /* ── HERO ───────────────────────────────────────── */
+    .hero { position:relative; padding:72px 24px 52px; text-align:center; overflow:hidden; }
+    .hero::before { content:''; position:absolute; inset:0; pointer-events:none;
+      background: radial-gradient(ellipse 90% 70% at 50% -5%,rgba(232,146,26,.12) 0%,transparent 65%),
+                  radial-gradient(ellipse 40% 40% at 15% 80%,rgba(90,171,122,.08) 0%,transparent 60%),
+                  radial-gradient(ellipse 35% 40% at 85% 70%,rgba(155,121,168,.08) 0%,transparent 60%); }
+    .hero-eyebrow { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); background:rgba(232,146,26,.1); border:1px solid rgba(232,146,26,.2); border-radius:100px; padding:6px 16px; margin-bottom:24px; }
+    .hero-title { font-family:'Playfair Display',serif; font-size:clamp(36px,6.5vw,68px); font-weight:900; line-height:.97; letter-spacing:-.02em; margin-bottom:18px; }
+    .hero-title span { background:linear-gradient(135deg,var(--accent,#e8921a) 0%,#c8720e 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .hero-sub { font-size:16px; color:var(--muted); max-width:520px; margin:0 auto 32px; line-height:1.7; }
 
-    /* SEARCH */
-    .search-wrap { max-width:680px; margin:0 auto 12px; position:relative; }
-    .search-wrap svg.search-icon { position:absolute; left:20px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; }
-    .search-input { width:100%; padding:18px 60px 18px 56px; font-family:'Manrope',sans-serif; font-size:15px; font-weight:500; background:var(--surface); border:1px solid var(--border); border-radius:14px; color:var(--text); outline:none; transition:border-color 0.2s,box-shadow 0.2s; }
+    /* ── SEARCH ─────────────────────────────────────── */
+    .search-wrap { max-width:660px; margin:0 auto 10px; position:relative; }
+    .s-icon { position:absolute; left:20px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; }
+    .search-input { width:100%; padding:17px 52px 17px 54px; font-family:'Manrope',sans-serif; font-size:15px; font-weight:500; background:var(--surface,#fff); border:1px solid var(--border,#e8e0d5); border-radius:14px; color:var(--text); outline:none; transition:border-color .2s,box-shadow .2s; }
     .search-input::placeholder { color:var(--muted); }
-    .search-input:focus { border-color:rgba(232,146,26,0.4); box-shadow:0 0 0 4px rgba(232,146,26,0.08); }
-    .search-clear { position:absolute; right:16px; top:50%; transform:translateY(-50%); background:rgba(60,40,10,0.06); border:none; border-radius:8px; color:var(--muted); cursor:pointer; padding:6px; display:none; align-items:center; justify-content:center; transition:background 0.15s; }
-    .search-clear:hover { background:rgba(60,40,10,0.12); color:var(--text); }
-    .search-clear.visible { display:flex; }
-    .stats-row { max-width:680px; margin:0 auto 40px; display:flex; align-items:center; gap:6px; font-size:13px; color:var(--muted); }
-    .stats-count { font-weight:700; color:var(--accent); font-size:15px; }
+    .search-input:focus { border-color:rgba(232,146,26,.4); box-shadow:0 0 0 4px rgba(232,146,26,.08); }
+    .s-clear { position:absolute; right:14px; top:50%; transform:translateY(-50%); background:rgba(60,40,10,.06); border:none; border-radius:8px; color:var(--muted); cursor:pointer; padding:6px; display:none; align-items:center; transition:background .15s; }
+    .s-clear:hover { background:rgba(60,40,10,.12); }
+    .s-clear.v { display:flex; }
+    .stats-row { max-width:660px; margin:0 auto 36px; display:flex; align-items:center; gap:6px; font-size:13px; color:var(--muted); }
+    .stats-n { font-weight:700; color:var(--accent); font-size:15px; }
 
-    /* LAYOUT */
-    .layout { max-width:1280px; margin:0 auto; padding:0 24px 80px; display:grid; grid-template-columns:280px 1fr; gap:32px; align-items:start; }
+    /* ── LAYOUT ─────────────────────────────────────── */
+    .layout { max-width:1280px; margin:0 auto; padding:0 24px 80px; display:grid; grid-template-columns:268px 1fr; gap:28px; align-items:start; }
 
-    /* SIDEBAR */
+    /* ── SIDEBAR ────────────────────────────────────── */
     .sidebar { position:sticky; top:88px; }
-    .filter-panel { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
-    .filter-header { padding:20px 20px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
-    .filter-header h3 { font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
-    .filter-reset { font-size:12px; font-weight:600; color:var(--accent); background:none; border:none; cursor:pointer; padding:2px 0; opacity:0; transition:opacity 0.2s; }
-    .filter-reset.active { opacity:1; }
-    .filter-section { padding:20px; border-bottom:1px solid var(--border); }
-    .filter-section:last-child { border-bottom:none; }
-    .filter-label { font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-bottom:12px; }
+    .fp { background:var(--surface,#fff); border:1px solid var(--border,#e8e0d5); border-radius:16px; overflow:hidden; }
+    .fp-head { padding:18px 20px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+    .fp-head h3 { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+    .f-reset { font-size:12px; font-weight:600; color:var(--accent); background:none; border:none; cursor:pointer; padding:0; opacity:0; transition:opacity .2s; }
+    .f-reset.on { opacity:1; }
+    .fsec { padding:16px 20px; border-bottom:1px solid var(--border); }
+    .fsec:last-child { border-bottom:none; }
+    .flbl { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
 
-    /* AGE PILLS */
-    .age-pills { display:flex; flex-wrap:wrap; gap:8px; }
-    .age-pill { padding:7px 14px; border-radius:100px; font-size:13px; font-weight:600; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all 0.15s; font-family:'Manrope',sans-serif; }
-    .age-pill:hover { border-color:rgba(232,146,26,0.3); color:var(--text); }
-    .age-pill.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+    /* pills shared */
+    .pills { display:flex; flex-wrap:wrap; gap:6px; }
+    .pill { padding:6px 12px; border-radius:100px; font-size:12px; font-weight:600; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all .15s; font-family:'Manrope',sans-serif; white-space:nowrap; }
+    .pill.age-pill:hover  { border-color:rgba(232,146,26,.3); color:var(--text); }
+    .pill.age-pill.on     { background:var(--accent,#e8921a); border-color:var(--accent); color:#fff; }
+    .pill.price-pill:hover { border-color:rgba(61,138,92,.35); color:var(--text); }
+    .pill.price-pill.on    { background:#3d8a5c; border-color:#3d8a5c; color:#fff; }
+    .pill.sdv-pill:hover  { border-color:rgba(122,88,137,.35); color:var(--text); }
+    .pill.sdv-pill.on     { background:#7a5889; border-color:#7a5889; color:#fff; }
 
-    /* CAT LIST */
-    .cat-list { max-height:380px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:rgba(60,40,10,0.1) transparent; }
-    .cat-item { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; cursor:pointer; transition:background 0.1s; font-size:13px; font-weight:500; color:var(--muted); }
-    .cat-item:hover { background:rgba(60,40,10,0.04); color:var(--text); }
-    .cat-item.active { color:var(--accent); }
-    .cat-dot { width:6px; height:6px; border-radius:50%; background:var(--border); flex-shrink:0; transition:background 0.15s; }
-    .cat-item.active .cat-dot { background:var(--accent); }
-    .cat-count { margin-left:auto; font-size:11px; font-weight:700; color:var(--muted); opacity:0.5; }
+    /* category list — строится динамически */
+    .cat-list { max-height:360px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:rgba(60,40,10,.1) transparent; display:flex; flex-direction:column; gap:1px; }
+    .cat-btn { display:flex; align-items:center; gap:9px; padding:7px 8px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:500; color:var(--muted); background:none; border:none; font-family:'Manrope',sans-serif; text-align:left; width:100%; transition:background .1s; }
+    .cat-btn:hover { background:rgba(60,40,10,.04); color:var(--text); }
+    .cat-btn.on { color:var(--accent); background:rgba(232,146,26,.07); }
+    .cat-em { font-size:14px; width:18px; text-align:center; flex-shrink:0; }
+    .cat-lbl { flex:1; line-height:1.3; font-size:12.5px; }
+    .cat-n { font-size:11px; font-weight:700; color:var(--muted); opacity:.45; }
 
-    /* PRICE PILLS */
-    .price-pills { display:flex; gap:8px; flex-wrap:wrap; }
-    .price-pill { padding:7px 14px; border-radius:100px; font-size:13px; font-weight:600; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all 0.15s; font-family:'Manrope',sans-serif; }
-    .price-pill:hover { border-color:rgba(61,138,92,0.3); color:var(--text); }
-    .price-pill.active { background:var(--green2,#3d8a5c); border-color:var(--green2,#3d8a5c); color:#fff; }
+    /* fav */
+    .fav-btn { width:100%; display:flex; align-items:center; gap:9px; padding:9px 12px; border-radius:10px; background:var(--surface2,#f5f0e8); border:1px solid var(--border); color:var(--muted); font-family:'Manrope',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:all .2s; }
+    .fav-btn:hover { border-color:rgba(232,146,26,.25); color:var(--text); }
+    .fav-btn.on { background:rgba(232,146,26,.08); border-color:rgba(232,146,26,.3); color:var(--accent); }
+    .fav-star { font-size:15px; transition:transform .2s; }
+    .fav-btn.on .fav-star { transform:scale(1.2); }
 
-    /* SUBDIVISION PILLS */
-    .subdiv-pills { display:flex; gap:8px; flex-wrap:wrap; }
-    .subdiv-pill { padding:7px 12px; border-radius:100px; font-size:12px; font-weight:600; border:1px solid var(--border); background:transparent; color:var(--muted); cursor:pointer; transition:all 0.15s; font-family:'Manrope',sans-serif; }
-    .subdiv-pill:hover { border-color:rgba(122,88,137,0.3); color:var(--text); }
-    .subdiv-pill.active { background:var(--lilac2,#7a5889); border-color:var(--lilac2,#7a5889); color:#fff; }
+    /* ── TOOLBAR ────────────────────────────────────── */
+    .toolbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:8px; }
+    .toolbar-info { font-size:13px; color:var(--muted); }
+    .toolbar-info strong { color:var(--text); }
+    .sort-sel { padding:7px 30px 7px 12px; font-family:'Manrope',sans-serif; font-size:13px; font-weight:600; background:var(--surface,#fff); border:1px solid var(--border); border-radius:8px; color:var(--muted); cursor:pointer; outline:none; appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a7a68' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 10px center; }
 
-    /* CAT GRID — 12 категорий кнопками */
-    .cat-grid { display:flex; flex-direction:column; gap:2px; }
-    .cat-btn { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; cursor:pointer; transition:background 0.1s; font-size:13px; font-weight:500; color:var(--muted); background:none; border:none; font-family:'Manrope',sans-serif; text-align:left; width:100%; }
-    .cat-btn:hover { background:rgba(60,40,10,0.04); color:var(--text); }
-    .cat-btn.active { color:var(--accent); background:rgba(232,146,26,0.07); }
-    .cat-btn-emoji { font-size:15px; width:20px; text-align:center; flex-shrink:0; }
-    .cat-btn-label { flex:1; }
-    .cat-btn-count { font-size:11px; font-weight:700; color:var(--muted); opacity:0.5; }
-    .fav-toggle { width:100%; display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:10px; background:var(--surface2); border:1px solid var(--border); color:var(--muted); font-family:'Manrope',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s; }
-    .fav-toggle:hover { border-color:rgba(232,146,26,0.2); color:var(--text); }
-    .fav-toggle.active { background:rgba(232,146,26,0.08); border-color:rgba(232,146,26,0.3); color:var(--accent); }
-    .fav-toggle-star { font-size:16px; transition:transform 0.2s; }
-    .fav-toggle.active .fav-toggle-star { transform:scale(1.2); }
+    /* active filter tags */
+    .active-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+    .ftag { display:inline-flex; align-items:center; gap:6px; padding:5px 10px 5px 12px; border-radius:100px; font-size:12px; font-weight:600; background:rgba(232,146,26,.1); border:1px solid rgba(232,146,26,.25); color:var(--accent); }
+    .ftag-x { background:none; border:none; cursor:pointer; color:var(--accent); padding:0; display:flex; align-items:center; opacity:.65; transition:opacity .15s; line-height:1; }
+    .ftag-x:hover { opacity:1; }
 
-    /* TOOLBAR */
-    .toolbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-    .toolbar-left { font-size:13px; color:var(--muted); }
-    .toolbar-left strong { color:var(--text); font-weight:700; }
-    .sort-select { padding:8px 36px 8px 14px; font-family:'Manrope',sans-serif; font-size:13px; font-weight:600; background:var(--surface); border:1px solid var(--border); border-radius:8px; color:var(--muted); cursor:pointer; outline:none; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a7a68' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; }
+    /* ── CARDS ──────────────────────────────────────── */
+    .cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(288px,1fr)); gap:14px; }
+    .card { background:var(--surface,#fff); border:1px solid var(--border,#e8e0d5); border-radius:14px; padding:18px; position:relative; display:flex; flex-direction:column; gap:11px; transition:border-color .2s,transform .2s,box-shadow .2s; animation:cIn .25s ease both; }
+    @keyframes cIn { from{opacity:0;transform:translateY(7px)} to{opacity:1;transform:translateY(0)} }
+    .card:hover { border-color:rgba(232,146,26,.28); transform:translateY(-2px); box-shadow:0 10px 28px rgba(60,40,10,.08); }
+    .card-top { display:flex; align-items:flex-start; gap:12px; padding-right:30px; }
+    .card-icon { width:42px; height:42px; border-radius:11px; background:linear-gradient(135deg,rgba(232,146,26,.13),rgba(90,171,122,.09)); border:1px solid rgba(232,146,26,.15); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .card-hd { flex:1; min-width:0; }
+    .card-title { font-size:14px; font-weight:700; line-height:1.35; margin-bottom:3px; }
+    .card-cat { font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--accent); opacity:.85; }
+    .card-fav { position:absolute; top:14px; right:14px; background:var(--surface2,#f5f0e8); border:1px solid var(--border); border-radius:7px; padding:5px 7px; cursor:pointer; font-size:13px; color:var(--muted); transition:all .15s; line-height:1; }
+    .card-fav:hover,.card-fav.on { background:rgba(232,146,26,.1); border-color:rgba(232,146,26,.3); color:var(--accent); }
+    /* badges */
+    .badges { display:flex; flex-wrap:wrap; gap:6px; }
+    .badge { display:inline-flex; align-items:center; gap:4px; padding:4px 9px; border-radius:6px; background:var(--surface2,#f5f0e8); font-size:11px; font-weight:600; color:var(--muted); }
+    .badge.free { color:#3d8a5c; background:rgba(61,138,92,.09); }
+    .badge.paid { color:#7a5889; background:rgba(122,88,137,.09); }
+    /* location */
+    .card-loc { font-size:12px; color:var(--muted); display:flex; gap:5px; align-items:flex-start; }
+    .card-loc svg { flex-shrink:0; margin-top:1px; opacity:.4; }
+    /* teacher */
+    .card-teacher { font-size:12px; color:var(--muted); display:flex; align-items:center; gap:7px; }
+    .card-teacher::before { content:''; display:block; width:16px; height:1px; background:var(--border); flex-shrink:0; }
+    /* schedule */
+    .schedule { display:flex; flex-direction:column; gap:3px; }
+    .srow { display:flex; align-items:baseline; gap:7px; font-size:12px; }
+    .sday { font-weight:700; color:var(--text); width:22px; flex-shrink:0; }
+    .stime { color:var(--muted); }
+    /* cta */
+    .card-cta { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; padding:9px 14px; border-radius:10px; margin-top:auto; align-self:flex-start; transition:all .15s; text-decoration:none; }
+    .card-cta.real { color:var(--accent); background:rgba(232,146,26,.08); border:1px solid rgba(232,146,26,.22); }
+    .card-cta.real:hover { background:rgba(232,146,26,.15); border-color:rgba(232,146,26,.38); }
+    .card-cta.stub { color:var(--muted); background:var(--surface2,#f5f0e8); border:1px solid var(--border); cursor:default; font-style:italic; font-weight:500; font-size:12px; }
 
-    /* ACTIVE FILTER TAGS */
-    .active-filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; min-height:0; }
-    .filter-tag { display:inline-flex; align-items:center; gap:6px; padding:5px 10px 5px 12px; border-radius:100px; font-size:12px; font-weight:600; background:rgba(232,146,26,0.1); border:1px solid rgba(232,146,26,0.25); color:var(--accent); }
-    .filter-tag-remove { background:none; border:none; cursor:pointer; color:var(--accent); padding:0; display:flex; align-items:center; opacity:0.7; transition:opacity 0.15s; font-size:14px; line-height:1; }
-    .filter-tag-remove:hover { opacity:1; }
+    /* ── PAGINATION ─────────────────────────────────── */
+    .pagination { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:28px; flex-wrap:wrap; }
+    .pg-btn { min-width:36px; height:36px; padding:0 10px; border-radius:9px; border:1px solid var(--border,#e8e0d5); background:var(--surface,#fff); color:var(--muted,#8a7a68); font-family:'Manrope',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:all .15s; display:flex; align-items:center; justify-content:center; }
+    .pg-btn:hover:not(:disabled) { border-color:rgba(232,146,26,.35); color:var(--text); }
+    .pg-btn.active { background:var(--accent,#e8921a); border-color:var(--accent); color:#fff; cursor:default; }
+    .pg-btn:disabled { opacity:.35; cursor:default; }
+    .pg-ellipsis { font-size:13px; color:var(--muted); padding:0 4px; }
 
-    /* CARDS */
-    .cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; position:relative; cursor:default; display:flex; flex-direction:column; gap:12px; transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s; animation:cardIn 0.3s ease both; }
-    @keyframes cardIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
-    .card:hover { border-color:rgba(232,146,26,0.25); transform:translateY(-2px); box-shadow:0 12px 32px rgba(60,40,10,0.08); }
-    .card-top { display:flex; align-items:flex-start; gap:14px; }
-    .card-icon { width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,rgba(232,146,26,0.12),rgba(90,171,122,0.08)); border:1px solid rgba(232,146,26,0.15); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
-    .card-info { flex:1; min-width:0; }
-    .card-title { font-size:14px; font-weight:700; color:var(--text); line-height:1.4; margin-bottom:4px; }
-    .card-category { font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--accent); opacity:0.8; }
-    .card-fav { position:absolute; top:16px; right:16px; background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:6px 8px; cursor:pointer; font-size:14px; color:var(--muted); transition:all 0.15s; line-height:1; }
-    .card-fav:hover, .card-fav.active { background:rgba(232,146,26,0.1); border-color:rgba(232,146,26,0.3); color:var(--accent); }
-    .card-meta { display:flex; flex-wrap:wrap; gap:8px; }
-    .meta-pill { display:inline-flex; align-items:center; gap:5px; padding:5px 10px; border-radius:6px; background:var(--surface2); font-size:12px; font-weight:500; color:var(--muted); }
-    .card-address { font-size:13px; color:var(--muted); line-height:1.5; display:flex; gap:6px; }
-    .card-address svg { flex-shrink:0; margin-top:2px; opacity:0.4; }
-    .card-teacher { font-size:12px; color:var(--muted); display:flex; align-items:center; gap:6px; }
-    .card-teacher::before { content:''; display:block; width:20px; height:1px; background:var(--border); }
-    .card-link { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--accent); text-decoration:none; padding:10px 16px; border-radius:10px; background:rgba(232,146,26,0.08); border:1px solid rgba(232,146,26,0.2); transition:all 0.15s; margin-top:auto; align-self:flex-start; }
-    .card-link:hover { background:rgba(232,146,26,0.15); border-color:rgba(232,146,26,0.35); }
+    /* ── SKELETON ───────────────────────────────────── */
+    .skel-card { background:var(--surface,#fff); border:1px solid var(--border); border-radius:14px; padding:18px; display:flex; flex-direction:column; gap:12px; }
+    .skel { border-radius:7px; background:linear-gradient(90deg,var(--surface2,#f5f0e8) 25%,#ede8e0 50%,var(--surface2,#f5f0e8) 75%); background-size:200% 100%; animation:sh 1.4s infinite; }
+    @keyframes sh { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-    /* SKELETON */
-    .skeleton-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; display:flex; flex-direction:column; gap:14px; }
-    .skel { border-radius:8px; background:linear-gradient(90deg,var(--surface2) 25%,#ede8e0 50%,var(--surface2) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; }
-    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+    /* ── EMPTY ──────────────────────────────────────── */
+    .empty { grid-column:1/-1; text-align:center; padding:72px 20px; color:var(--muted); }
+    .empty-icon { font-size:44px; margin-bottom:14px; opacity:.4; }
+    .empty h3 { font-size:17px; font-weight:700; color:var(--text); margin-bottom:7px; }
+    .empty p { font-size:13px; line-height:1.65; }
 
-    /* EMPTY */
-    .empty { grid-column:1/-1; text-align:center; padding:80px 20px; color:var(--muted); }
-    .empty-icon { font-size:48px; margin-bottom:16px; opacity:0.4; }
-    .empty h3 { font-size:18px; font-weight:700; color:var(--text); margin-bottom:8px; }
-    .empty p { font-size:14px; line-height:1.6; }
+    /* highlight */
+    .hl { background:rgba(232,146,26,.22); border-radius:3px; padding:0 2px; }
 
-    /* HIGHLIGHT */
-    .hl { background:rgba(232,146,26,0.22); border-radius:3px; padding:0 2px; }
-
-    /* FOOTER */
-    .footer { background:#fff; border-top:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+    /* ── FOOTER ─────────────────────────────────────── */
+    .footer { background:#fff; border-top:1px solid var(--border); padding:24px 32px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
     .footer-left { display:flex; align-items:center; gap:12px; }
-    .footer-left img { height:36px; opacity:0.7; }
+    .footer-left img { height:34px; opacity:.65; }
     .footer-org { font-size:12px; font-weight:600; color:var(--muted); line-height:1.4; }
-    .footer-copy { font-size:11px; color:var(--muted); opacity:0.6; }
+    .footer-copy { font-size:11px; color:var(--muted); opacity:.55; }
 
-    /* SCROLLBAR */
     ::-webkit-scrollbar { width:4px; }
-    ::-webkit-scrollbar-thumb { background:rgba(60,40,10,0.12); border-radius:4px; }
+    ::-webkit-scrollbar-thumb { background:rgba(60,40,10,.12); border-radius:4px; }
 
-    /* MOBILE */
+    /* ── MOBILE ─────────────────────────────────────── */
     @media (max-width:768px) {
       .topbar { padding:0 16px; }
       .topbar-badge { display:none; }
-      .hero { padding:40px 16px 32px; }
-      .layout { grid-template-columns:1fr; padding:0 16px 100px; }
+      .hero { padding:40px 16px 28px; }
+      .layout { grid-template-columns:1fr; padding:0 16px 96px; }
       .sidebar { display:none; }
       .cards-grid { grid-template-columns:1fr; }
       .footer { padding:20px 16px; flex-direction:column; align-items:flex-start; }
     }
-
-    /* MOBILE FILTER BUTTON */
-    .mobile-filter-btn { display:none; position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:200; background:var(--accent); color:#fff; border:none; border-radius:100px; padding:14px 28px; font-family:'Manrope',sans-serif; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 8px 28px rgba(232,146,26,0.45); align-items:center; gap:10px; white-space:nowrap; transition:transform 0.15s,box-shadow 0.15s; }
-    .mobile-filter-btn:active { transform:translateX(-50%) scale(0.96); }
-    .mobile-filter-btn .btn-badge { background:#fff; color:var(--accent); border-radius:100px; font-size:11px; font-weight:800; padding:2px 7px; }
-    @media (max-width:768px) { .mobile-filter-btn { display:flex; } }
-
-    /* DRAWER */
-    .drawer-overlay { display:none; position:fixed; inset:0; background:rgba(30,20,10,0.5); backdrop-filter:blur(3px); z-index:300; opacity:0; transition:opacity 0.25s; }
-    .drawer-overlay.open { display:block; opacity:1; }
-    .drawer { position:fixed; bottom:0; left:0; right:0; z-index:400; background:var(--surface); border-radius:24px 24px 0 0; max-height:88vh; display:flex; flex-direction:column; transform:translateY(100%); transition:transform 0.32s cubic-bezier(0.32,0.72,0,1); box-shadow:0 -8px 48px rgba(60,40,10,0.18); }
+    /* mobile FAB */
+    .mob-fab { display:none; position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:200; background:var(--accent,#e8921a); color:#fff; border:none; border-radius:100px; padding:13px 26px; font-family:'Manrope',sans-serif; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 8px 28px rgba(232,146,26,.45); align-items:center; gap:10px; white-space:nowrap; transition:transform .15s; }
+    .mob-fab:active { transform:translateX(-50%) scale(.96); }
+    .fab-badge { background:#fff; color:var(--accent); border-radius:100px; font-size:11px; font-weight:800; padding:2px 7px; }
+    @media (max-width:768px) { .mob-fab { display:flex; } }
+    /* drawer */
+    .dov { display:none; position:fixed; inset:0; background:rgba(30,20,10,.5); backdrop-filter:blur(3px); z-index:300; opacity:0; transition:opacity .25s; }
+    .dov.open { display:block; opacity:1; }
+    .drawer { position:fixed; bottom:0; left:0; right:0; z-index:400; background:var(--surface,#fff); border-radius:24px 24px 0 0; max-height:88vh; display:flex; flex-direction:column; transform:translateY(100%); transition:transform .32s cubic-bezier(.32,.72,0,1); box-shadow:0 -8px 48px rgba(60,40,10,.18); }
     .drawer.open { transform:translateY(0); }
-    .drawer-handle { width:36px; height:4px; background:var(--border); border-radius:100px; margin:12px auto 0; flex-shrink:0; }
-    .drawer-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px 12px; border-bottom:1px solid var(--border); flex-shrink:0; }
-    .drawer-title { font-size:16px; font-weight:700; color:var(--text); }
-    .drawer-close { background:var(--surface2); border:1px solid var(--border); border-radius:8px; color:var(--muted); cursor:pointer; padding:6px 10px; font-size:13px; line-height:1; }
-    .drawer-body { overflow-y:auto; flex:1; overscroll-behavior:contain; }
-    .drawer-footer { padding:16px 20px; border-top:1px solid var(--border); display:flex; gap:10px; flex-shrink:0; }
-    .drawer-apply { flex:1; background:var(--accent); color:#fff; border:none; border-radius:12px; padding:14px; font-family:'Manrope',sans-serif; font-size:14px; font-weight:700; cursor:pointer; transition:background 0.15s; }
-    .drawer-apply:hover { background:var(--accent2); }
-    .drawer-reset-btn { background:var(--surface2); color:var(--muted); border:1px solid var(--border); border-radius:12px; padding:14px 18px; font-family:'Manrope',sans-serif; font-size:14px; font-weight:600; cursor:pointer; }
+    .d-handle { width:36px; height:4px; background:var(--border); border-radius:100px; margin:12px auto 0; flex-shrink:0; }
+    .d-hdr { display:flex; align-items:center; justify-content:space-between; padding:14px 20px 12px; border-bottom:1px solid var(--border); flex-shrink:0; }
+    .d-title { font-size:15px; font-weight:700; }
+    .d-close { background:var(--surface2,#f5f0e8); border:1px solid var(--border); border-radius:8px; color:var(--muted); cursor:pointer; padding:5px 10px; font-size:13px; line-height:1; }
+    .d-body { overflow-y:auto; flex:1; overscroll-behavior:contain; }
+    .d-foot { padding:14px 20px; border-top:1px solid var(--border); display:flex; gap:10px; flex-shrink:0; }
+    .d-apply { flex:1; background:var(--accent,#e8921a); color:#fff; border:none; border-radius:12px; padding:13px; font-family:'Manrope',sans-serif; font-size:14px; font-weight:700; cursor:pointer; }
+    .d-reset { background:var(--surface2,#f5f0e8); color:var(--muted); border:1px solid var(--border); border-radius:12px; padding:13px 16px; font-family:'Manrope',sans-serif; font-size:14px; font-weight:600; cursor:pointer; }
+
+    /* ── PAGINATION ── */
+    .pagination { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:28px; flex-wrap:wrap; }
+    .pg-btn { min-width:38px; height:38px; padding:0 10px; border-radius:9px; border:1px solid var(--border,#ede8e0); background:var(--surface,#fff); color:var(--muted,#8a7a68); font-family:'Manrope',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:all .15s; display:inline-flex; align-items:center; justify-content:center; }
+    .pg-btn:hover:not(:disabled) { border-color:rgba(232,146,26,.35); color:var(--text,#1a1208); }
+    .pg-btn.active { background:var(--accent,#e8921a); border-color:var(--accent,#e8921a); color:#fff; }
+    .pg-btn:disabled { opacity:.35; cursor:default; }
+    .pg-dots { color:var(--muted,#8a7a68); font-size:13px; padding:0 4px; line-height:38px; }
+    .pg-info { font-size:12px; color:var(--muted,#8a7a68); text-align:center; margin-top:10px; }
   </style>
 </head>
 <body>
 <script src="/viktoria/header.js"></script>
 
+<!-- HERO -->
 <div class="hero">
   <div class="hero-eyebrow">
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="5"/></svg>
+    <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
     Москва · ГБОУ ДО ДЮЦ «Виктория»
   </div>
-  <h1 class="hero-title" id="heroTitle">Кружки и <span id="heroTitleSpan">секции</span></h1>
+  <h1 class="hero-title" id="heroTitle">Кружки и <span id="heroSpan">секции</span></h1>
   <p class="hero-sub" id="heroSub">Более 300 направлений для детей и взрослых. Спорт, творчество, наука, искусство — на 4 площадках Москвы.</p>
   <div class="search-wrap">
-    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input class="search-input" id="search" type="text" placeholder="Поиск по названию, адресу, педагогу..." autocomplete="off" spellcheck="false">
-    <button class="search-clear" id="searchClear">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <svg class="s-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input class="search-input" id="search" type="text" placeholder="Поиск по названию кружка или педагогу…" autocomplete="off" spellcheck="false">
+    <button class="s-clear" id="sClear">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
   </div>
   <div class="stats-row">
-    <span id="statsCount" class="stats-count">—</span>
+    <span id="statsN" class="stats-n">—</span>
     <span>кружков найдено</span>
-    <span style="margin-left:auto" id="statsActive"></span>
+    <span style="margin-left:auto" id="statsExtra"></span>
   </div>
 </div>
 
+<!-- LAYOUT -->
 <div class="layout">
+
+  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="filter-panel">
-      <div class="filter-header">
+    <div class="fp">
+      <div class="fp-head">
         <h3>Фильтры</h3>
-        <button class="filter-reset" id="filterReset">Сбросить</button>
+        <button class="f-reset" id="fReset">Сбросить</button>
       </div>
-      <div class="filter-section">
-        <div class="filter-label">Избранное</div>
-        <button class="fav-toggle" id="favToggle">
-          <span class="fav-toggle-star">★</span>Показать избранное
-        </button>
+      <div class="fsec">
+        <div class="flbl">Избранное</div>
+        <button class="fav-btn" id="favBtn"><span class="fav-star">★</span>Показать избранное</button>
       </div>
-      <div class="filter-section">
-        <div class="filter-label">Возраст</div>
-        <div class="age-pills" id="agePills">
-          <button class="age-pill active" data-age="">Любой</button>
-          <button class="age-pill" data-age="3-6">3–6 лет</button>
-          <button class="age-pill" data-age="6-10">6–10 лет</button>
-          <button class="age-pill" data-age="10-14">10–14 лет</button>
-          <button class="age-pill" data-age="14+">14+</button>
+      <div class="fsec">
+        <div class="flbl">Возраст</div>
+        <div class="pills" id="agePills">
+          <button class="pill age-pill on" data-age="">Любой</button>
+          <button class="pill age-pill" data-age="3-6">3–6 лет</button>
+          <button class="pill age-pill" data-age="6-10">6–10 лет</button>
+          <button class="pill age-pill" data-age="10-14">10–14 лет</button>
+          <button class="pill age-pill" data-age="14+">14+</button>
+          <button class="pill age-pill" data-age="18+">18+</button>
         </div>
       </div>
-      <div class="filter-section">
-        <div class="filter-label">Стоимость</div>
-        <div class="price-pills" id="pricePills">
-          <button class="price-pill active" data-price="">Все</button>
-          <button class="price-pill" data-price="budget">Бесплатно</button>
-          <button class="price-pill" data-price="paid">Платные</button>
+      <div class="fsec">
+        <div class="flbl">Стоимость</div>
+        <div class="pills" id="pricePills">
+          <button class="pill price-pill on" data-price="">Все</button>
+          <button class="pill price-pill" data-price="budget">Бесплатно</button>
+          <button class="pill price-pill" data-price="paid">Платные</button>
         </div>
       </div>
-      <div class="filter-section">
-        <div class="filter-label">Площадка</div>
-        <div class="subdiv-pills" id="subdivPills">
-          <button class="subdiv-pill active" data-subdiv="">Все</button>
-          <button class="subdiv-pill" data-subdiv="gazoprovod">Газопровод</button>
-          <button class="subdiv-pill" data-subdiv="nagatinskaya">Нагатинская</button>
-          <button class="subdiv-pill" data-subdiv="annino">Аннино</button>
-          <button class="subdiv-pill" data-subdiv="shcherbinka">Щербинка</button>
+      <div class="fsec">
+        <div class="flbl">Площадка</div>
+        <div class="pills" id="sdvPills">
+          <button class="pill sdv-pill on" data-sdv="">Все</button>
+          <button class="pill sdv-pill" data-sdv="gazoprovod">Газопровод</button>
+          <button class="pill sdv-pill" data-sdv="nagatinskaya">Нагатинская</button>
+          <button class="pill sdv-pill" data-sdv="annino">Аннино</button>
+          <button class="pill sdv-pill" data-sdv="shcherbinka">Щербинка</button>
         </div>
       </div>
-      <div class="filter-section">
-        <div class="filter-label">Категория</div>
-        <div class="cat-grid" id="catList"></div>
+      <div class="fsec">
+        <div class="flbl">Категория</div>
+        <div class="cat-list" id="catList"></div>
       </div>
     </div>
   </aside>
 
-  <main class="content">
+  <!-- CONTENT -->
+  <main>
     <div class="toolbar">
-      <div class="toolbar-left" id="toolbarLeft"></div>
-      <select class="sort-select" id="sortSelect">
+      <div class="toolbar-info" id="toolInfo"></div>
+      <select class="sort-sel" id="sortSel">
         <option value="default">По умолчанию</option>
         <option value="alpha">По алфавиту</option>
         <option value="age">По возрасту</option>
+        <option value="free_first">Сначала бесплатные</option>
       </select>
     </div>
-    <div class="active-filters" id="activeTags"></div>
+    <div class="active-tags" id="activeTags"></div>
     <div class="cards-grid" id="list"></div>
+    <div class="pagination" id="pagination"></div>
   </main>
 </div>
 
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-left">
     <img src="/viktoria/Victoria_logo-02.png" alt="Виктория">
     <div class="footer-org">ГБОУ ДО ДЮЦ «Виктория»<br>Детско-юношеский центр</div>
   </div>
-  <div class="footer-copy">© 2025 ГБОУ ДО ДЮЦ «Виктория». Все права защищены.</div>
+  <div class="footer-copy">© 2025 ГБОУ ДО ДЮЦ «Виктория»</div>
 </footer>
 
-<button class="mobile-filter-btn" id="mobileFilterBtn">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+<!-- MOBILE FAB -->
+<button class="mob-fab" id="mobFab">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
   Фильтры
-  <span class="btn-badge" id="mobileFilterCount" style="display:none">0</span>
+  <span class="fab-badge" id="fabBadge" style="display:none">0</span>
 </button>
 
-<div class="drawer-overlay" id="drawerOverlay"></div>
-
+<!-- DRAWER (mobile) -->
+<div class="dov" id="dov"></div>
 <div class="drawer" id="drawer">
-  <div class="drawer-handle"></div>
-  <div class="drawer-header">
-    <span class="drawer-title">Фильтры</span>
-    <button class="drawer-close" id="drawerClose">✕</button>
+  <div class="d-handle"></div>
+  <div class="d-hdr">
+    <span class="d-title">Фильтры</span>
+    <button class="d-close" id="dClose">✕</button>
   </div>
-  <div class="drawer-body">
-    <div class="filter-section">
-      <div class="filter-label">Избранное</div>
-      <button class="fav-toggle" id="favToggleDrawer">
-        <span class="fav-toggle-star">★</span>Показать избранное
-      </button>
+  <div class="d-body">
+    <div class="fsec">
+      <div class="flbl">Избранное</div>
+      <button class="fav-btn" id="favBtnD"><span class="fav-star">★</span>Показать избранное</button>
     </div>
-    <div class="filter-section">
-      <div class="filter-label">Возраст</div>
-      <div class="age-pills" id="agePillsDrawer">
-        <button class="age-pill active" data-age="">Любой</button>
-        <button class="age-pill" data-age="3-6">3–6 лет</button>
-        <button class="age-pill" data-age="6-10">6–10 лет</button>
-        <button class="age-pill" data-age="10-14">10–14 лет</button>
-        <button class="age-pill" data-age="14+">14+</button>
+    <div class="fsec">
+      <div class="flbl">Возраст</div>
+      <div class="pills" id="agePillsD">
+        <button class="pill age-pill on" data-age="">Любой</button>
+        <button class="pill age-pill" data-age="3-6">3–6 лет</button>
+        <button class="pill age-pill" data-age="6-10">6–10 лет</button>
+        <button class="pill age-pill" data-age="10-14">10–14 лет</button>
+        <button class="pill age-pill" data-age="14+">14+</button>
+        <button class="pill age-pill" data-age="18+">18+</button>
       </div>
     </div>
-    <div class="filter-section">
-      <div class="filter-label">Стоимость</div>
-      <div class="price-pills" id="pricePillsDrawer">
-        <button class="price-pill active" data-price="">Все</button>
-        <button class="price-pill" data-price="budget">Бесплатно</button>
-        <button class="price-pill" data-price="paid">Платные</button>
+    <div class="fsec">
+      <div class="flbl">Стоимость</div>
+      <div class="pills" id="pricePillsD">
+        <button class="pill price-pill on" data-price="">Все</button>
+        <button class="pill price-pill" data-price="budget">Бесплатно</button>
+        <button class="pill price-pill" data-price="paid">Платные</button>
       </div>
     </div>
-    <div class="filter-section">
-      <div class="filter-label">Площадка</div>
-      <div class="subdiv-pills" id="subdivPillsDrawer">
-        <button class="subdiv-pill active" data-subdiv="">Все</button>
-        <button class="subdiv-pill" data-subdiv="gazoprovod">Газопровод</button>
-        <button class="subdiv-pill" data-subdiv="nagatinskaya">Нагатинская</button>
-        <button class="subdiv-pill" data-subdiv="annino">Аннино</button>
-        <button class="subdiv-pill" data-subdiv="shcherbinka">Щербинка</button>
+    <div class="fsec">
+      <div class="flbl">Площадка</div>
+      <div class="pills" id="sdvPillsD">
+        <button class="pill sdv-pill on" data-sdv="">Все</button>
+        <button class="pill sdv-pill" data-sdv="gazoprovod">Газопровод</button>
+        <button class="pill sdv-pill" data-sdv="nagatinskaya">Нагатинская</button>
+        <button class="pill sdv-pill" data-sdv="annino">Аннино</button>
+        <button class="pill sdv-pill" data-sdv="shcherbinka">Щербинка</button>
       </div>
     </div>
-    <div class="filter-section">
-      <div class="filter-label">Категория</div>
-      <div class="cat-grid" id="catListDrawer"></div>
+    <div class="fsec">
+      <div class="flbl">Категория</div>
+      <div class="cat-list" id="catListD"></div>
     </div>
   </div>
-  <div class="drawer-footer">
-    <button class="drawer-reset-btn" id="drawerResetBtn">Сбросить</button>
-    <button class="drawer-apply" id="drawerApplyBtn">Показать результаты</button>
+  <div class="d-foot">
+    <button class="d-reset" id="dReset">Сбросить</button>
+    <button class="d-apply" id="dApply">Показать результаты</button>
   </div>
 </div>
 
 <script>
-// ─────────────────────────────────────────────────────────────
-// СПРАВОЧНИК 12 КАТЕГОРИЙ
-// ─────────────────────────────────────────────────────────────
-const CATEGORIES = [
-  { value: 'karting',        label: 'Картинг и автоспорт',                   emoji: '🏎️' },
-  { value: 'keramika',       label: 'Керамика и гончарное дело',              emoji: '🏺' },
-  { value: 'tvorchestvo',    label: 'Художественное творчество',              emoji: '🎨' },
-  { value: 'tancy',          label: 'Танцевальные и хореография',             emoji: '💃' },
-  { value: 'robototekhnika', label: 'Робототехника и техническое творчество', emoji: '🤖' },
-  { value: 'teatr',          label: 'Театр и актёрское мастерство',           emoji: '🎭' },
-  { value: 'cirk',           label: 'Цирк, акробатика и гимнастика',          emoji: '🎪' },
-  { value: 'muzyka',         label: 'Музыкальные занятия',                    emoji: '🎵' },
-  { value: 'strelkovye',     label: 'Стрелковые и военно-патриотические',     emoji: '🎯' },
-  { value: 'sport',          label: 'Спортивные секции',                      emoji: '🏅' },
-  { value: 'shahmaty',       label: 'Шахматы',                                emoji: '♟️' },
-  { value: 'nauka',          label: 'Естественно-научные и развивающие',      emoji: '🔬' },
-];
+// ════════════════════════════════════════════════════════
+// КОНСТАНТЫ
+// ════════════════════════════════════════════════════════
+const PAGE_SIZE = 10;
 
-const SUBDIV_LABELS = {
-  gazoprovod:    'Газопровод',
-  nagatinskaya:  'Нагатинская',
-  annino:        'Аннино',
-  shcherbinka:   'Щербинка',
+// Эмодзи для категорий — ключ: точная строка из Excel (ЧЕЛОВЕКОПОНЯТНАЯ категория).
+// Если категории нет в этом словаре — используется дефолтный эмодзи 🌟.
+// Новые категории автоматически появятся в фильтре, просто добавьте эмодзи сюда.
+const CAT_EMOJI = {
+  'Картинг и автоспорт':                   '🏎️',
+  'Керамика и гончарное дело':              '🏺',
+  'Художественное творчество':              '🎨',
+  'Танцевальные кружки и хореография':      '💃',
+  'Робототехника и техническое творчество': '🤖',
+  'Театр и актерское мастерство':           '🎭',
+  'Цирк, акробатика и гимнастика':          '🎪',
+  'Музыкальные занятия':                    '🎵',
+  'Стрелковые и военно-патриотические':     '🎯',
+  'Спортивные секции':                      '🏅',
+  'Шахматы':                                '♟️',
+  'Естественно-научные и развивающие':      '🔬',
+  'Раннее развитие':                        '🌱',
 };
 
-// SEO-тексты для H1/description при выборе категории
-const CAT_SEO = {
-  karting:        { h1: 'Картинг для детей',              desc: 'Картинг и автоспорт для детей в Москве — ДЮЦ «Виктория». Запись онлайн.' },
-  keramika:       { h1: 'Керамика и гончарное дело',      desc: 'Кружки керамики и гончарного дела для детей в Москве — ДЮЦ «Виктория».' },
-  tvorchestvo:    { h1: 'Художественное творчество',      desc: 'Кружки рисования и художественного творчества для детей в Москве.' },
-  tancy:          { h1: 'Танцевальные кружки',            desc: 'Танцы и хореография для детей в Москве — бальные, современные, народные.' },
-  robototekhnika: { h1: 'Робототехника для детей',        desc: 'Кружки робототехники и технического творчества для детей в Москве.' },
-  teatr:          { h1: 'Театральные студии',             desc: 'Театральные кружки и актёрское мастерство для детей в Москве.' },
-  cirk:           { h1: 'Цирк и акробатика для детей',    desc: 'Цирковые кружки, акробатика и гимнастика для детей в Москве.' },
-  muzyka:         { h1: 'Музыкальные кружки',             desc: 'Музыкальные занятия и вокал для детей в Москве — ДЮЦ «Виктория».' },
-  strelkovye:     { h1: 'Стрелковые секции',              desc: 'Стрелковые и военно-патриотические кружки для детей в Москве.' },
-  sport:          { h1: 'Спортивные секции',              desc: 'Спортивные секции для детей в Москве — ДЮЦ «Виктория». Запись онлайн.' },
-  shahmaty:       { h1: 'Шахматы для детей',              desc: 'Кружки шахмат для детей в Москве — ДЮЦ «Виктория». Запись онлайн.' },
-  nauka:          { h1: 'Развивающие кружки',             desc: 'Естественно-научные и развивающие кружки для детей в Москве.' },
+const SUBDIV_LBL = {
+  gazoprovod: 'Газопровод', nagatinskaya: 'Нагатинская',
+  annino: 'Аннино', shcherbinka: 'Щербинка',
 };
 
-// ─────────────────────────────────────────────────────────────
-// СОСТОЯНИЕ
-// ─────────────────────────────────────────────────────────────
-let allData = [];
-let favorites = JSON.parse(localStorage.getItem('krug_fav') || '[]');
-let state = { search: '', age: '', category: '', price: '', subdivision: '', showFav: false, sort: 'default' };
+const DAY_LBL   = { mon:'Пн', tue:'Вт', wed:'Ср', thu:'Чт', fri:'Пт', sat:'Сб', sun:'Вс' };
+const DAY_ORDER = ['mon','tue','wed','thu','fri','sat','sun'];
 
-// ─────────────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════
+let allData = [];       // все видимые кружки из CIRCLES_DATA
+let filtered = [];      // после фильтрации
+let favs = [];
+let currentPage = 1;
+let st = { q:'', age:'', cat:'', price:'', sdv:'', fav:false, sort:'default' };
+
+try { favs = JSON.parse(localStorage.getItem('vikt_fav') || '[]'); } catch(e) {}
+
+// ════════════════════════════════════════════════════════
 // URL ↔ STATE
-// ─────────────────────────────────────────────────────────────
-function readURLParams() {
+// ════════════════════════════════════════════════════════
+function readURL() {
   const p = new URLSearchParams(location.search);
-  if (p.get('cat'))    state.category   = p.get('cat');
-  if (p.get('loc'))    state.subdivision = p.get('loc');
-  if (p.get('price'))  state.price       = p.get('price');
-  if (p.get('age'))    state.age         = p.get('age');
+  if (p.get('cat'))   st.cat  = p.get('cat');
+  if (p.get('loc'))   st.sdv  = p.get('loc');
+  if (p.get('price')) st.price = p.get('price');
+  if (p.get('age'))   st.age  = p.get('age');
+  if (p.get('page'))  currentPage = Math.max(1, parseInt(p.get('page')) || 1);
 }
-
 function pushURL() {
   const p = new URLSearchParams();
-  if (state.category)   p.set('cat',   state.category);
-  if (state.subdivision) p.set('loc',  state.subdivision);
-  if (state.price)      p.set('price', state.price);
-  if (state.age)        p.set('age',   state.age);
+  if (st.cat)   p.set('cat',   st.cat);
+  if (st.sdv)   p.set('loc',   st.sdv);
+  if (st.price) p.set('price', st.price);
+  if (st.age)   p.set('age',   st.age);
+  if (currentPage > 1) p.set('page', currentPage);
   const qs = p.toString();
-  const newURL = location.pathname + (qs ? '?' + qs : '');
-  history.pushState(null, '', newURL);
-  updateSEOHead();
+  history.pushState(null, '', location.pathname + (qs ? '?' + qs : ''));
+  updateSEO();
 }
-
-function updateSEOHead() {
-  const seo = state.category ? CAT_SEO[state.category] : null;
-  if (seo) {
-    document.title = seo.h1 + ' в Москве — ДЮЦ «Виктория»';
-    const dm = document.querySelector('meta[name="description"]');
-    if (dm) dm.setAttribute('content', seo.desc);
-    document.getElementById('heroTitleSpan').textContent = seo.h1;
-    document.getElementById('heroTitle').innerHTML = '<span id="heroTitleSpan">' + seo.h1 + '</span>';
-    document.getElementById('heroSub').textContent = seo.desc;
+function updateSEO() {
+  // Заголовок по выбранной категории
+  if (st.cat) {
+    document.title = st.cat + ' в Москве — ДЮЦ «Виктория»';
+    document.getElementById('heroTitle').innerHTML = '<span id="heroSpan">' + st.cat + '</span>';
+    document.getElementById('heroSub').textContent = st.cat + ' для детей и взрослых в Москве — ДЮЦ «Виктория».';
   } else {
     document.title = 'Кружки и секции для детей в Москве — ДЮЦ «Виктория»';
-    document.getElementById('heroTitle').innerHTML = 'Кружки и <span id="heroTitleSpan">секции</span>';
+    document.getElementById('heroTitle').innerHTML = 'Кружки и <span id="heroSpan">секции</span>';
     document.getElementById('heroSub').textContent = 'Более 300 направлений для детей и взрослых. Спорт, творчество, наука, искусство — на 4 площадках Москвы.';
   }
 }
 
-// ─────────────────────────────────────────────────────────────
-// ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
-// ─────────────────────────────────────────────────────────────
-function matchAge(item, filter) {
-  if (!filter) return true;
-  const from = parseInt(item.age_from) || 0;
-  const to   = parseInt(item.age_to)   || 99;
-  if (filter === '3-6')   return from <= 6  && to >= 3;
-  if (filter === '6-10')  return from <= 10 && to >= 6;
-  if (filter === '10-14') return from <= 14 && to >= 10;
-  if (filter === '14+')   return to >= 14;
+// ════════════════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════════════════
+function hl(text, q) {
+  if (!q || !text) return text || '';
+  return String(text).replace(
+    new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'),
+    '<mark class="hl">$1</mark>'
+  );
+}
+
+function matchAge(item, f) {
+  if (!f) return true;
+  if (f === '18+') return item.age_from === '18+';
+  if (item.age_from === '18+') return false;
+  const from = +item.age_from || 0, to = +item.age_to || 99;
+  if (f === '3-6')   return from <= 6  && to >= 3;
+  if (f === '6-10')  return from <= 10 && to >= 6;
+  if (f === '10-14') return from <= 14 && to >= 10;
+  if (f === '14+')   return to >= 14;
   return true;
 }
 
-function hl(text, q) {
-  if (!q || !text) return text || '';
-  const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-  return String(text).replace(re, '<mark class="hl">$1</mark>');
+function fmtSchedule(sch) {
+  if (!sch || !Object.keys(sch).length) return '';
+  return DAY_ORDER.filter(d => sch[d]).map(d =>
+    `<div class="srow"><span class="sday">${DAY_LBL[d]}</span><span class="stime">${sch[d]}</span></div>`
+  ).join('');
 }
 
-function getCatLabel(value) {
-  return CATEGORIES.find(c => c.value === value)?.label || value;
-}
-function getCatEmoji(value) {
-  return CATEGORIES.find(c => c.value === value)?.emoji || '🌟';
+function catEmoji(cat) {
+  return CAT_EMOJI[cat] || '🌟';
 }
 
-// ─────────────────────────────────────────────────────────────
-// РЕНДЕР КАРТОЧКИ
-// ─────────────────────────────────────────────────────────────
-function renderCard(item, idx) {
-  const id   = item.mos_link || item.link || '';
-  const isFav = favorites.includes(item.slug || id);
-  const q    = state.search;
-  const catLabel = getCatLabel(item.category);
-  const catEmoji = getCatEmoji(item.category);
-  const subdivLabel = SUBDIV_LABELS[item.subdivision] || item.address || '';
-  const teachers = item.teachers || item.teacher || '';
-  const ageStr = (item.age_from && item.age_to)
-    ? item.age_from + '–' + item.age_to + ' лет'
-    : (item.age || '');
-  const isFree = item.financing === 'budget';
-  const favKey = item.slug || id;
+// ════════════════════════════════════════════════════════
+// RENDER CARD
+// ════════════════════════════════════════════════════════
+function renderCard(item, delay) {
+  const q = st.q;
+  const isFav = favs.includes(item.slug);
+  const subdLbl = SUBDIV_LBL[item.subdivision] || item.subdivision || '';
+  const schedHtml = fmtSchedule(item.schedule);
 
-  return `<div class="card" style="animation-delay:${Math.min(idx*20,280)}ms">
-    <button class="card-fav ${isFav?'active':''}" onclick="toggleFav('${favKey.replace(/'/g,"\\'")}')">
+  const ageBadge = item.age_str
+    ? `<span class="badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg> ${item.age_str}</span>`
+    : '';
+
+  let priceBadge = '';
+  if (item.financing === 'budget') {
+    priceBadge = '<span class="badge free">Бесплатно</span>';
+  } else if (item.price_month) {
+    priceBadge = `<span class="badge paid">${item.price_month.toLocaleString('ru-RU')} ₽/мес</span>`;
+  } else {
+    priceBadge = '<span class="badge paid">Платный</span>';
+  }
+
+  const cta = item.mos_link
+    ? `<a class="card-cta real" href="${item.mos_link}" target="_blank" rel="noopener noreferrer">Записаться <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>`
+    : `<span class="card-cta stub">Запись скоро появится</span>`;
+
+  return `<div class="card" style="animation-delay:${delay}ms">
+    <button class="card-fav ${isFav ? 'on' : ''}" onclick="toggleFav('${item.slug.replace(/'/g, "\\'")}')">
       ${isFav ? '★' : '☆'}
     </button>
     <div class="card-top">
-      <div class="card-icon">${catEmoji}</div>
-      <div class="card-info">
-        <div class="card-title">${hl(item.title || '',q)}</div>
-        <div class="card-category">${catLabel}</div>
+      <div class="card-icon">${catEmoji(item.category)}</div>
+      <div class="card-hd">
+        <div class="card-title">${hl(item.title, q)}</div>
+        <div class="card-cat">${catLabel(item.category)}</div>
       </div>
     </div>
-    <div class="card-meta">
-      ${ageStr ? `<span class="meta-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>${ageStr}</span>` : ''}
-      ${isFree ? `<span class="meta-pill" style="color:#3d8a5c;background:rgba(61,138,92,0.08)">Бесплатно</span>` : (item.price_info ? `<span class="meta-pill">${item.price_info}</span>` : '')}
-    </div>
-    ${subdivLabel ? `<div class="card-address"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>${hl(subdivLabel,q)}</span></div>` : ''}
-    ${teachers ? `<div class="card-teacher">${hl(teachers,q)}</div>` : ''}
-    ${id ? `<a class="card-link" href="${id}" target="_blank" rel="noopener noreferrer">Записаться <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>` : ''}
+    <div class="badges">${ageBadge}${priceBadge}</div>
+    ${subdLbl ? `<div class="card-loc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>${hl(subdLbl, q)}</span></div>` : ''}
+    ${item.teacher ? `<div class="card-teacher">${hl(item.teacher, q)}</div>` : ''}
+    ${schedHtml ? `<div class="schedule">${schedHtml}</div>` : ''}
+    ${item.group != null ? `<div style="font-size:11px;color:var(--muted,#8a7a68);margin-top:-2px">Группа ${item.group}</div>` : ''}
+    ${cta}
   </div>`;
 }
 
-// ─────────────────────────────────────────────────────────────
-// РЕНДЕР СПИСКА И СТАТИСТИКИ
-// ─────────────────────────────────────────────────────────────
-function renderList(items) {
-  document.getElementById('list').innerHTML = items.length
-    ? items.map((item, i) => renderCard(item, i)).join('')
-    : `<div class="empty"><div class="empty-icon">🔍</div><h3>Ничего не найдено</h3><p>Попробуйте изменить фильтры или поисковый запрос</p></div>`;
-}
+// ════════════════════════════════════════════════════════
+// PAGINATION
+// ════════════════════════════════════════════════════════
+function renderPagination(total, page) {
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+  const el = document.getElementById('pagination');
+  if (totalPages <= 1) { el.innerHTML = ''; return; }
 
-function updateStats(count) {
-  document.getElementById('statsCount').textContent = count;
-  const parts = [];
-  if (state.category)    parts.push(getCatLabel(state.category));
-  if (state.subdivision) parts.push(SUBDIV_LABELS[state.subdivision]);
-  if (state.price === 'budget') parts.push('бесплатные');
-  if (state.price === 'paid')   parts.push('платные');
-  document.getElementById('statsActive').textContent = parts.length ? '· ' + parts.join(', ') : '';
-}
+  const pages = [];
+  // Prev
+  pages.push(`<button class="pg-btn" onclick="goPage(${page - 1})" ${page === 1 ? 'disabled' : ''}>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>`);
 
-function showSkeleton() {
-  document.getElementById('list').innerHTML = Array.from({length: 6}).map(() => `
-    <div class="skeleton-card">
-      <div style="display:flex;gap:14px;align-items:flex-start">
-        <div class="skel" style="width:44px;height:44px;border-radius:12px;flex-shrink:0"></div>
-        <div style="flex:1;display:flex;flex-direction:column;gap:8px">
-          <div class="skel" style="height:16px;width:75%"></div>
-          <div class="skel" style="height:11px;width:45%"></div>
-        </div>
-      </div>
-      <div class="skel" style="height:28px;width:110px"></div>
-      <div class="skel" style="height:38px"></div>
-      <div class="skel" style="height:36px;width:130px;border-radius:10px"></div>
-    </div>`).join('');
-}
-
-// ─────────────────────────────────────────────────────────────
-// ФИЛЬТРАЦИЯ
-// ─────────────────────────────────────────────────────────────
-function applyFilters() {
-  const q = state.search.toLowerCase().trim();
-  let filtered = allData.filter(item => {
-    if (state.category   && item.category   !== state.category)   return false;
-    if (state.subdivision && item.subdivision !== state.subdivision) return false;
-    if (state.price      && item.financing   !== state.price)     return false;
-    if (!matchAge(item, state.age))                                return false;
-    if (state.showFav) {
-      const fk = item.slug || item.mos_link || item.link || '';
-      if (!favorites.includes(fk)) return false;
+  // Page numbers with ellipsis
+  const range = [];
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || (i >= page - 2 && i <= page + 2)) {
+      range.push(i);
+    } else if (range[range.length - 1] !== '…') {
+      range.push('…');
     }
+  }
+  range.forEach(r => {
+    if (r === '…') {
+      pages.push('<span class="pg-ellipsis">…</span>');
+    } else {
+      pages.push(`<button class="pg-btn ${r === page ? 'active' : ''}" onclick="goPage(${r})">${r}</button>`);
+    }
+  });
+
+  // Next
+  pages.push(`<button class="pg-btn" onclick="goPage(${page + 1})" ${page === totalPages ? 'disabled' : ''}>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>`);
+
+  el.innerHTML = pages.join('');
+}
+
+function goPage(n) {
+  const total = filtered.length;
+  const max = Math.ceil(total / PAGE_SIZE);
+  currentPage = Math.max(1, Math.min(n, max));
+  renderCurrentPage();
+  pushURL();
+  // Scroll to top of content
+  document.querySelector('.layout main').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderCurrentPage() {
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const page = filtered.slice(start, start + PAGE_SIZE);
+
+  document.getElementById('list').innerHTML = page.length
+    ? page.map((item, i) => renderCard(item, Math.min(i * 30, 240))).join('')
+    : `<div class="empty"><div class="empty-icon">🔍</div><h3>Ничего не найдено</h3><p>Попробуйте изменить фильтры или поисковый запрос</p></div>`;
+
+  renderPagination(filtered.length, currentPage);
+
+  // toolbar info
+  const from = filtered.length ? start + 1 : 0;
+  const to = Math.min(start + PAGE_SIZE, filtered.length);
+  document.getElementById('toolInfo').innerHTML = filtered.length
+    ? `Показано <strong>${from}–${to}</strong> из <strong>${filtered.length}</strong>`
+    : '';
+}
+
+// ════════════════════════════════════════════════════════
+// FILTER + SORT
+// ════════════════════════════════════════════════════════
+function applyFilters(resetPage = true) {
+  const q = st.q.toLowerCase().trim();
+
+  filtered = allData.filter(item => {
+    if (!item.visible) return false;
+    if (st.cat   && item.category   !== st.cat)   return false;
+    if (st.sdv   && item.subdivision !== st.sdv)   return false;
+    if (st.price && item.financing   !== st.price) return false;
+    if (!matchAge(item, st.age)) return false;
+    if (st.fav && !favs.includes(item.slug)) return false;
     if (q) {
-      const hay = [item.title, item.teachers, item.teacher, SUBDIV_LABELS[item.subdivision], item.address]
+      const hay = [item.title, item.teacher, SUBDIV_LBL[item.subdivision]]
         .filter(Boolean).join(' ').toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
   });
 
-  if (state.sort === 'alpha') filtered.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'ru'));
-  else if (state.sort === 'age') filtered.sort((a, b) => (+a.age_from || 99) - (+b.age_from || 99));
+  if (st.sort === 'alpha')      filtered.sort((a, b) => (a.title || '').localeCompare(b.title || '', 'ru'));
+  else if (st.sort === 'age')   filtered.sort((a, b) => (a.age_from === '18+' ? 99 : +a.age_from || 99) - (b.age_from === '18+' ? 99 : +b.age_from || 99));
+  else if (st.sort === 'free_first') filtered.sort((a, b) => (a.financing === 'budget' ? 0 : 1) - (b.financing === 'budget' ? 0 : 1));
 
-  renderList(filtered);
-  updateStats(filtered.length);
+  if (resetPage) currentPage = 1;
+
+  renderCurrentPage();
+  updateStats();
   renderActiveTags();
-  updateResetBtn();
-  updateMobileBadge();
+  syncResetBtn();
+  syncFabBadge();
 }
 
-// ─────────────────────────────────────────────────────────────
-// АКТИВНЫЕ ТЕГИ
-// ─────────────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════
+// STATS + TAGS
+// ════════════════════════════════════════════════════════
+function updateStats() {
+  document.getElementById('statsN').textContent = filtered.length;
+  const parts = [];
+  if (st.cat)            parts.push(st.cat);
+  if (st.sdv)            parts.push(SUBDIV_LBL[st.sdv]);
+  if (st.price === 'budget') parts.push('бесплатные');
+  if (st.price === 'paid')   parts.push('платные');
+  document.getElementById('statsExtra').textContent = parts.length ? '· ' + parts.join(', ') : '';
+}
+
 function renderActiveTags() {
   const tags = [];
-  if (state.category)   tags.push({ label: getCatLabel(state.category), key: 'category' });
-  if (state.subdivision) tags.push({ label: SUBDIV_LABELS[state.subdivision], key: 'subdivision' });
-  if (state.price === 'budget') tags.push({ label: 'Бесплатно', key: 'price' });
-  if (state.price === 'paid')   tags.push({ label: 'Платные', key: 'price' });
-  if (state.age)        tags.push({ label: 'Возраст: ' + state.age, key: 'age' });
-  if (state.showFav)    tags.push({ label: '★ Избранное', key: 'fav' });
-  document.getElementById('activeTags').innerHTML = tags.map(t => `
-    <span class="filter-tag">${t.label}
-      <button class="filter-tag-remove" onclick="removeTag('${t.key}')">✕</button>
-    </span>`).join('');
+  if (st.cat)            tags.push({ lbl: st.cat,            key: 'cat' });
+  if (st.sdv)            tags.push({ lbl: SUBDIV_LBL[st.sdv], key: 'sdv' });
+  if (st.price === 'budget') tags.push({ lbl: 'Бесплатно',   key: 'price' });
+  if (st.price === 'paid')   tags.push({ lbl: 'Платные',     key: 'price' });
+  if (st.age)            tags.push({ lbl: 'Возраст: ' + st.age, key: 'age' });
+  if (st.fav)            tags.push({ lbl: '★ Избранное',     key: 'fav' });
+  document.getElementById('activeTags').innerHTML = tags.map(t =>
+    `<span class="ftag">${t.lbl}<button class="ftag-x" onclick="removeTag('${t.key}')">✕</button></span>`
+  ).join('');
 }
 
 function removeTag(key) {
-  if (key === 'age')         { state.age = '';          syncAgePills(); }
-  if (key === 'category')    { state.category = '';     syncCatBtns(); pushURL(); }
-  if (key === 'price')       { state.price = '';        syncPricePills(); }
-  if (key === 'subdivision') { state.subdivision = '';  syncSubdivPills(); pushURL(); }
-  if (key === 'fav')         { state.showFav = false;   syncFavBtn(); }
+  if (key === 'age')   { st.age = '';    syncAge(); }
+  if (key === 'cat')   { st.cat = '';    syncCats(); pushURL(); }
+  if (key === 'price') { st.price = '';  syncPrice(); }
+  if (key === 'sdv')   { st.sdv = '';    syncSdv(); pushURL(); }
+  if (key === 'fav')   { st.fav = false; syncFav(); }
   applyFilters();
 }
 
-// ─────────────────────────────────────────────────────────────
-// СИНХРОНИЗАЦИЯ UI ↔ STATE
-// ─────────────────────────────────────────────────────────────
-function syncAgePills() {
-  document.querySelectorAll('.age-pill').forEach(p => p.classList.toggle('active', p.dataset.age === state.age));
-}
-function syncPricePills() {
-  document.querySelectorAll('.price-pill').forEach(p => p.classList.toggle('active', p.dataset.price === state.price));
-}
-function syncSubdivPills() {
-  document.querySelectorAll('.subdiv-pill').forEach(p => p.classList.toggle('active', p.dataset.subdiv === state.subdivision));
-}
-function syncCatBtns() {
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === state.category));
-}
-function syncFavBtn() {
-  ['favToggle', 'favToggleDrawer'].forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.classList.toggle('active', state.showFav);
-    el.innerHTML = state.showFav
-      ? '<span class="fav-toggle-star">★</span>Только избранное'
-      : '<span class="fav-toggle-star">★</span>Показать избранное';
+// ════════════════════════════════════════════════════════
+// CATEGORY BUTTONS — строятся из данных, категории авто
+// ════════════════════════════════════════════════════════
+function buildCats(targetId) {
+  // Считаем кружки по категориям (только видимые)
+  const counts = {};
+  allData.forEach(item => {
+    if (item.category) counts[item.category] = (counts[item.category] || 0) + 1;
   });
-}
-function syncDrawerToState() {
-  syncAgePills();
-  syncPricePills();
-  syncSubdivPills();
-  syncCatBtns();
-  syncFavBtn();
+  // Сортируем по количеству
+  const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+  document.getElementById(targetId).innerHTML = sorted.map(([cat, n]) =>
+    `<button class="cat-btn ${st.cat === cat ? 'on' : ''}" data-cat="${cat}" onclick="selCat(this)">
+      <span class="cat-em">${catEmoji(cat)}</span>
+      <span class="cat-lbl">${cat}</span>
+      <span class="cat-n">${n}</span>
+    </button>`
+  ).join('');
 }
 
-function updateResetBtn() {
-  const active = !!(state.search || state.age || state.category || state.price || state.subdivision || state.showFav);
-  document.getElementById('filterReset').classList.toggle('active', active);
+function selCat(el) {
+  st.cat = st.cat === el.dataset.cat ? '' : el.dataset.cat;
+  syncCats(); pushURL(); updateSEO(); applyFilters();
 }
-function updateMobileBadge() {
-  const n = [state.age, state.category, state.price, state.subdivision, state.showFav ? 'x' : '', state.search].filter(Boolean).length;
-  const el = document.getElementById('mobileFilterCount');
+
+// ════════════════════════════════════════════════════════
+// SYNC UI ↔ STATE
+// ════════════════════════════════════════════════════════
+function syncAge()   { document.querySelectorAll('.age-pill').forEach(p => p.classList.toggle('on', p.dataset.age === st.age)); }
+function syncPrice() { document.querySelectorAll('.price-pill').forEach(p => p.classList.toggle('on', p.dataset.price === st.price)); }
+function syncSdv()   { document.querySelectorAll('.sdv-pill').forEach(p => p.classList.toggle('on', p.dataset.sdv === st.sdv)); }
+function syncCats()  { document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('on', b.dataset.cat === st.cat)); }
+function syncFav() {
+  ['favBtn', 'favBtnD'].forEach(id => {
+    const el = document.getElementById(id); if (!el) return;
+    el.classList.toggle('on', st.fav);
+    el.innerHTML = st.fav
+      ? '<span class="fav-star">★</span>Только избранное'
+      : '<span class="fav-star">★</span>Показать избранное';
+  });
+}
+function syncAll() { syncAge(); syncPrice(); syncSdv(); syncCats(); syncFav(); }
+function syncResetBtn() {
+  document.getElementById('fReset').classList.toggle('on',
+    !!(st.q || st.age || st.cat || st.price || st.sdv || st.fav));
+}
+function syncFabBadge() {
+  const n = [st.age, st.cat, st.price, st.sdv, st.fav ? 'x' : '', st.q].filter(Boolean).length;
+  const el = document.getElementById('fabBadge');
   el.textContent = n; el.style.display = n ? '' : 'none';
 }
 
 function resetFilters() {
-  state.search = ''; state.age = ''; state.category = '';
-  state.price = ''; state.subdivision = ''; state.showFav = false;
+  st.q = ''; st.age = ''; st.cat = ''; st.price = ''; st.sdv = ''; st.fav = false;
   document.getElementById('search').value = '';
-  document.getElementById('searchClear').classList.remove('visible');
-  syncAgePills(); syncPricePills(); syncSubdivPills(); syncCatBtns(); syncFavBtn();
-  pushURL();
-  applyFilters();
-  updateSEOHead();
+  document.getElementById('sClear').classList.remove('v');
+  syncAll(); pushURL(); applyFilters(); updateSEO();
 }
 
-function toggleFav(id) {
-  favorites = favorites.includes(id) ? favorites.filter(f => f !== id) : [...favorites, id];
-  localStorage.setItem('krug_fav', JSON.stringify(favorites));
-  applyFilters();
+function toggleFav(slug) {
+  favs = favs.includes(slug) ? favs.filter(f => f !== slug) : [...favs, slug];
+  try { localStorage.setItem('vikt_fav', JSON.stringify(favs)); } catch(e) {}
+  applyFilters(false); // не сбрасывать страницу при изменении избранного
 }
 
-// ─────────────────────────────────────────────────────────────
-// ПОСТРОЕНИЕ СПИСКА КАТЕГОРИЙ С СЧЁТЧИКАМИ
-// ─────────────────────────────────────────────────────────────
-function buildCatBtns(targetId) {
-  const counts = {};
-  allData.forEach(item => { if (item.category) counts[item.category] = (counts[item.category] || 0) + 1; });
-  document.getElementById(targetId).innerHTML = CATEGORIES.map(cat => `
-    <button class="cat-btn ${state.category === cat.value ? 'active' : ''}"
-      data-cat="${cat.value}" onclick="selectCategory(this)">
-      <span class="cat-btn-emoji">${cat.emoji}</span>
-      <span class="cat-btn-label">${cat.label}</span>
-      ${counts[cat.value] ? `<span class="cat-btn-count">${counts[cat.value]}</span>` : ''}
-    </button>`).join('');
-}
-
-function selectCategory(el) {
-  state.category = state.category === el.dataset.cat ? '' : el.dataset.cat;
-  syncCatBtns();
-  pushURL();
-  updateSEOHead();
-  applyFilters();
-}
-
-// ─────────────────────────────────────────────────────────────
-// ЗАГРУЗКА ДАННЫХ
-// ─────────────────────────────────────────────────────────────
-async function loadDataFromCMS() {
-  showSkeleton();
-  try {
-    const apiUrl = 'https://api.github.com/repos/agbox77/viktoria/contents/_data/circles';
-    const response = await fetch(apiUrl);
-
-    if (!response.ok) {
-      // Фолбэк на data.json
-      const fallbackRes = await fetch('./data.json');
-      const fallbackData = await fallbackRes.json();
-      allData = fallbackData;
-    } else {
-      const files = await response.json();
-      const mdFiles = files.filter(f => f.name.endsWith('.md'));
-
-      const parsed = await Promise.all(mdFiles.map(async file => {
-        const r = await fetch(file.download_url);
-        const text = await r.text();
-        const m = text.match(/^---\n([\s\S]*?)\n---/);
-        if (!m) return null;
-        const data = { slug: file.name.replace('.md', '') };
-        m[1].split('\n').forEach(line => {
-          const ci = line.indexOf(':');
-          if (ci < 1) return;
-          let k = line.slice(0, ci).trim();
-          let v = line.slice(ci + 1).trim();
-          if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1, -1);
-          data[k] = v;
-        });
-        return data;
-      }));
-      allData = parsed.filter(Boolean);
-    }
-
-    buildCatBtns('catList');
-    buildCatBtns('catListDrawer');
-    applyFilters();
-    updateMobileBadge();
-
-  } catch (err) {
-    console.error('Ошибка загрузки данных:', err);
-    document.getElementById('list').innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div><h3>Не удалось загрузить данные</h3><p>Проверьте, что папка _data/circles существует</p></div>`;
-  }
-}
-
-// ─────────────────────────────────────────────────────────────
-// СОБЫТИЯ
-// ─────────────────────────────────────────────────────────────
-document.getElementById('search').addEventListener('input', e => {
-  state.search = e.target.value;
-  document.getElementById('searchClear').classList.toggle('visible', !!e.target.value);
-  applyFilters();
-});
-document.getElementById('searchClear').addEventListener('click', () => {
-  document.getElementById('search').value = ''; state.search = '';
-  document.getElementById('searchClear').classList.remove('visible');
-  applyFilters();
-});
-
-// Возраст
-document.getElementById('agePills').addEventListener('click', e => {
-  const p = e.target.closest('.age-pill'); if (!p) return;
-  state.age = p.dataset.age; syncAgePills(); applyFilters();
-});
-document.getElementById('agePillsDrawer').addEventListener('click', e => {
-  const p = e.target.closest('.age-pill'); if (!p) return;
-  state.age = p.dataset.age; syncAgePills(); applyFilters();
-});
-
-// Цена
-document.getElementById('pricePills').addEventListener('click', e => {
-  const p = e.target.closest('.price-pill'); if (!p) return;
-  state.price = state.price === p.dataset.price ? '' : p.dataset.price;
-  syncPricePills(); pushURL(); applyFilters();
-});
-document.getElementById('pricePillsDrawer').addEventListener('click', e => {
-  const p = e.target.closest('.price-pill'); if (!p) return;
-  state.price = state.price === p.dataset.price ? '' : p.dataset.price;
-  syncPricePills(); pushURL(); applyFilters();
-});
-
-// Филиал
-document.getElementById('subdivPills').addEventListener('click', e => {
-  const p = e.target.closest('.subdiv-pill'); if (!p) return;
-  state.subdivision = state.subdivision === p.dataset.subdiv ? '' : p.dataset.subdiv;
-  syncSubdivPills(); pushURL(); applyFilters();
-});
-document.getElementById('subdivPillsDrawer').addEventListener('click', e => {
-  const p = e.target.closest('.subdiv-pill'); if (!p) return;
-  state.subdivision = state.subdivision === p.dataset.subdiv ? '' : p.dataset.subdiv;
-  syncSubdivPills(); pushURL(); applyFilters();
-});
-
-// Избранное
-document.getElementById('favToggle').addEventListener('click', () => {
-  state.showFav = !state.showFav; syncFavBtn(); applyFilters();
-});
-document.getElementById('favToggleDrawer').addEventListener('click', () => {
-  state.showFav = !state.showFav; syncFavBtn(); applyFilters();
-});
-
-document.getElementById('filterReset').addEventListener('click', resetFilters);
-document.getElementById('sortSelect').addEventListener('change', e => { state.sort = e.target.value; applyFilters(); });
-
-// Drawer
-document.getElementById('mobileFilterBtn').addEventListener('click', () => {
-  syncDrawerToState();
+// ════════════════════════════════════════════════════════
+// DRAWER
+// ════════════════════════════════════════════════════════
+function openDrawer() {
+  syncAll();
   document.getElementById('drawer').classList.add('open');
-  document.getElementById('drawerOverlay').classList.add('open');
+  document.getElementById('dov').classList.add('open');
   document.body.style.overflow = 'hidden';
-});
+}
 function closeDrawer() {
   document.getElementById('drawer').classList.remove('open');
-  document.getElementById('drawerOverlay').classList.remove('open');
+  document.getElementById('dov').classList.remove('open');
   document.body.style.overflow = '';
 }
-document.getElementById('drawerClose').addEventListener('click', closeDrawer);
-document.getElementById('drawerOverlay').addEventListener('click', closeDrawer);
-document.getElementById('drawerApplyBtn').addEventListener('click', closeDrawer);
-document.getElementById('drawerResetBtn').addEventListener('click', () => { resetFilters(); syncDrawerToState(); });
+
+// ════════════════════════════════════════════════════════
+// СОБЫТИЯ
+// ════════════════════════════════════════════════════════
+document.getElementById('search').addEventListener('input', e => {
+  st.q = e.target.value;
+  document.getElementById('sClear').classList.toggle('v', !!st.q);
+  applyFilters();
+});
+document.getElementById('sClear').addEventListener('click', () => {
+  document.getElementById('search').value = ''; st.q = '';
+  document.getElementById('sClear').classList.remove('v');
+  applyFilters();
+});
+
+['agePills', 'agePillsD'].forEach(id => {
+  document.getElementById(id).addEventListener('click', e => {
+    const p = e.target.closest('.age-pill'); if (!p) return;
+    st.age = p.dataset.age; syncAge(); applyFilters();
+  });
+});
+['pricePills', 'pricePillsD'].forEach(id => {
+  document.getElementById(id).addEventListener('click', e => {
+    const p = e.target.closest('.price-pill'); if (!p) return;
+    st.price = st.price === p.dataset.price ? '' : p.dataset.price;
+    syncPrice(); pushURL(); applyFilters();
+  });
+});
+['sdvPills', 'sdvPillsD'].forEach(id => {
+  document.getElementById(id).addEventListener('click', e => {
+    const p = e.target.closest('.sdv-pill'); if (!p) return;
+    st.sdv = st.sdv === p.dataset.sdv ? '' : p.dataset.sdv;
+    syncSdv(); pushURL(); applyFilters();
+  });
+});
+['favBtn', 'favBtnD'].forEach(id => {
+  document.getElementById(id)?.addEventListener('click', () => { st.fav = !st.fav; syncFav(); applyFilters(); });
+});
+
+document.getElementById('fReset').addEventListener('click', resetFilters);
+document.getElementById('sortSel').addEventListener('change', e => { st.sort = e.target.value; applyFilters(); });
+
+document.getElementById('mobFab').addEventListener('click', openDrawer);
+document.getElementById('dClose').addEventListener('click', closeDrawer);
+document.getElementById('dov').addEventListener('click', closeDrawer);
+document.getElementById('dApply').addEventListener('click', closeDrawer);
+document.getElementById('dReset').addEventListener('click', () => { resetFilters(); syncAll(); });
 
 let touchY = 0;
 document.getElementById('drawer').addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, { passive: true });
 document.getElementById('drawer').addEventListener('touchmove', e => { if (e.touches[0].clientY - touchY > 60) closeDrawer(); }, { passive: true });
 
-// Кнопка «назад» браузера
 window.addEventListener('popstate', () => {
-  state = { search: '', age: '', category: '', price: '', subdivision: '', showFav: false, sort: state.sort };
-  readURLParams();
-  syncAgePills(); syncPricePills(); syncSubdivPills(); syncCatBtns(); syncFavBtn();
-  updateSEOHead();
-  applyFilters();
+  st = { q: '', age: '', cat: '', price: '', sdv: '', fav: false, sort: st.sort };
+  currentPage = 1;
+  readURL(); syncAll(); updateSEO(); applyFilters(false);
 });
 
-// ─────────────────────────────────────────────────────────────
-// СТАРТ
-// ─────────────────────────────────────────────────────────────
-readURLParams();
-updateSEOHead();
-loadDataFromCMS();
+// ════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════
+function init() {
+  if (typeof CIRCLES_DATA === 'undefined' || !Array.isArray(CIRCLES_DATA)) {
+    document.getElementById('list').innerHTML = `<div class="empty">
+      <div class="empty-icon">⚠️</div>
+      <h3>Файл circles_data.js не подключён</h3>
+      <p>Сгенерируйте его командой:<br><code>python3 convert_master.py MASTER_table.xlsx</code><br>
+      и положите рядом с circles.html</p>
+    </div>`;
+    document.getElementById('statsN').textContent = '0';
+    return;
+  }
+
+  // Только видимые кружки
+  allData = CIRCLES_DATA.filter(item => item.visible !== false);
+
+  readURL();
+  updateSEO();
+  buildCats('catList');
+  buildCats('catListD');
+  syncAll();
+  applyFilters(false); // страница уже прочитана из URL
+}
+
+init();
 </script>
 </body>
 </html>
